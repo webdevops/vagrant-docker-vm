@@ -154,7 +154,7 @@ ct mysql:clear
 
 ### Services
 
-For [service description (Samba, Mail, IMAP, SSH) see README-SERVICE.md](README-SERVICE.md).
+For [service description (Samba, Mail, IMAP, SSH) see README-SERVICE.md](README-SERVICES.md).
 
 You can use docker-compose the same way as with boot2docker.
 
