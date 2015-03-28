@@ -5,13 +5,17 @@
   ignore_errors: yes
 
 - name: Create mountpoint (/mnt/data)
-  file: path=/mnt/data state=directory owner=root group=root mode=700
+  file: path=/mnt/data state=directory owner=root group=root mode=755
 
 - name: Setup mounting for SDB1
   mount: name=/mnt/data src=/dev/sdb1 fstype=ext4 opts='defaults,nodev,nosuid,noatime,nodiratime,data=writeback,barrier=0,nobh' state=present
 
 - name: Mount SDB1
   mount: name=/mnt/data src=/dev/sdb1 fstype=ext4 state=mounted
+
+#############################
+# Docker
+#############################
 
 - stat: path=/mnt/data/docker/
   register: dockerdir
@@ -34,3 +38,24 @@
   command: 'service {{ item }} start'
   with_items:
     - 'docker'
+
+#############################
+# Code
+#############################
+
+- stat: path=/mnt/data/code/
+  register: codedir
+
+- name: Create code storage
+  shell: 'mkdir /mnt/data/code'
+  args:
+    creates: '/mnt/data/code/'
+
+- name: Setup rights for code
+  file: path=/mnt/data/code state=directory owner=vagrant group=vagrant mode=777
+
+- name: Setup mounting for docker
+  mount: name=/home/vagrant/code/ src=/mnt/data/code fstype=none opts='bind' state=present
+
+- name: Mount code
+  mount: name=/home/vagrant/code/ src=/mnt/data/code fstype=none opts='bind' state=mounted
