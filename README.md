@@ -158,6 +158,12 @@ For [service description (Samba, Mail, IMAP, SSH) see README-SERVICES.md](README
 
 You can use docker-compose the same way as with boot2docker.
 
+### Development
+
+Linux and MacOS users can use shared folders and work locally.
+
+Windows users should use /home/vagrant/code/ (/mnt/data/code/) partition for your files.
+
 ## Provisioning
 
 - Repositories
