@@ -1,0 +1,36 @@
+# Disk DescriptorFile
+version=1
+encoding="UTF-8"
+CID=fffffffe
+parentCID=ffffffff
+isNativeSnapshot="no"
+createType="twoGbMaxExtentSparse"
+
+# Extent description
+RW 8304640 SPARSE "data-s001"
+RW 8304640 SPARSE "data-s002"
+RW 8304640 SPARSE "data-s003"
+RW 8304640 SPARSE "data-s004"
+RW 8304640 SPARSE "data-s005"
+RW 8304640 SPARSE "data-s006"
+RW 8304640 SPARSE "data-s007"
+RW 8304640 SPARSE "data-s008"
+RW 8304640 SPARSE "data-s009"
+RW 8304640 SPARSE "data-s010"
+RW 8304640 SPARSE "data-s011"
+RW 8304640 SPARSE "data-s012"
+RW 8304640 SPARSE "data-s013"
+RW 8304640 SPARSE "data-s014"
+RW 8304640 SPARSE "data-s015"
+RW 1259520 SPARSE "data-s016"
+
+# The Disk Data Base 
+#DDB
+
+ddb.adapterType = "lsilogic"
+ddb.geometry.cylinders = "7832"
+ddb.geometry.heads = "255"
+ddb.geometry.sectors = "63"
+ddb.longContentID = "2f4d54cf5b117cf038d84e26fffffffe"
+ddb.uuid = "60 00 C2 99 f8 3e ca 29-79 89 b7 10 0c 70 22 8c"
+ddb.virtualHWVersion = "10"
