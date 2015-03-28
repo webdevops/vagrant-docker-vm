@@ -1,0 +1,25 @@
+- name: Add repositories
+  include: repository.yml
+  tags:
+    - bootstrap
+
+#- name: Update system
+#  include: upgrade.yml
+  tags:
+    - bootstrap
+
+- name: Install packages
+  include: packages.yml
+  tags:
+    - bootstrap
+
+- name: Configure system
+  include: system.yml
+  tags:
+    - bootstrap
+
+- name: Debug stuff
+  include: debug.yml
+  tags:
+    - bootstrap
+    - maintenance

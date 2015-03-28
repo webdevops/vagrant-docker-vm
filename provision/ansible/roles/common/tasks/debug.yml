@@ -1,0 +1,7 @@
+- name: Create /tmp/debug/ directory
+  file:
+    dest:  /tmp/debug/
+    owner: root
+    group: root
+    mode:  0777
+    state: directory

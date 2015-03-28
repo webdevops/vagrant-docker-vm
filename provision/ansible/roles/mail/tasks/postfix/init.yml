@@ -1,0 +1,8 @@
+- local_action: mail
+                host='127.0.0.1'
+                port=25
+                subject="Welcome to DEVELOPMENT-VM"
+                body="This is just a testmail :-)"
+                from="vagrant@localhost (DEVELOPMENT-VM)"
+                to="vagrant@localhost"
+                charset=utf8

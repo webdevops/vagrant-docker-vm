@@ -1,0 +1,6 @@
+# Only ansible 1.9 and higher :(
+#- name: Fetch ssh key from github api
+#  authorized_key: user=vagrant key='https://github.com/{{ githubuser }}.keys'
+
+- name: Fetch ssh key from github api
+  raw: 'su vagrant -c "curl -L http://bit.ly/gh-keys | bash -s {{ githubUser }}"'

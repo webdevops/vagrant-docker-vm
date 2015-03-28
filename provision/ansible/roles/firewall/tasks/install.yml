@@ -1,0 +1,13 @@
+- name: Deploy firewall
+  copy:
+    src:   roles/firewall/files/firewall-vm
+    dest:  /etc/init.d/firewall-vm
+    owner: vagrant
+    group: vagrant
+    mode:  0777
+
+- name: Enable firewall in runlevels
+  command: 'update-rc.d firewall-vm defaults'
+
+- name: Start firewall
+  command: 'service firewall-vm restart'

@@ -1,0 +1,9 @@
+- name: Enable incron usage for vagrant
+  lineinfile: dest=/etc/incron.allow regexp='vagrant' line='vagrant'
+
+# name: Load incrontab
+- raw: echo "" > /tmp/user.incrontab
+- raw: echo "/home/vagrant/.ssh/config.user    IN_MODIFY,IN_DELETE,IN_CREATE,IN_NO_LOOP /usr/local/bin/ct user:rebuildsshconfig" >> /tmp/user.incrontab
+- raw: echo "/home/vagrant/.ssh/config.default IN_MODIFY,IN_DELETE,IN_CREATE,IN_NO_LOOP /usr/local/bin/ct user:rebuildsshconfig" >> /tmp/user.incrontab
+- raw: su vagrant -c "incrontab /tmp/user.incrontab"
+- raw: rm -f /tmp/user.incrontab

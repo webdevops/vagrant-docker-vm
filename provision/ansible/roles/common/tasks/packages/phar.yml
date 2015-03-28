@@ -1,0 +1,11 @@
+- name: phar box
+  include: phar/box.yml
+
+- name: phar composer
+  include: phar/composer.yml
+
+- name: phar phpunit
+  include: phar/phpunit.yml
+
+- name: phar phpdoc
+  include: phar/phpdoc.yml

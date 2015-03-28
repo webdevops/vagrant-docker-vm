@@ -1,0 +1,26 @@
+- name: Install postfix
+  include: postfix/install.yml
+  tags:
+    - bootstrap
+
+- name: Configure postfix
+  include: postfix/configuration.yml
+  tags:
+    - bootstrap
+    - maintenance
+
+- name: Init postfix
+  include: postfix/init.yml
+  tags:
+    - bootstrap
+
+- name: Install dovecot
+  include: dovecot/install.yml
+  tags:
+    - bootstrap
+
+- name: Configure dovecot
+  include: dovecot/configuration.yml
+  tags:
+    - bootstrap
+    - maintenance

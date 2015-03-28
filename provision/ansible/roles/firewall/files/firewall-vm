@@ -1,0 +1,120 @@
+#!/bin/bash
+### BEGIN INIT INFO
+# Provides:          firewall
+# Required-Start:    $local_fs
+# Required-Stop:     $local_fs
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# X-Interactive:     true
+# Short-Description: Start/stop firewall-vm
+### END INIT INFO
+
+IPTABLES='/sbin/iptables'
+FIREWALL_INFOMSG=1
+
+ETH0_IP=$(ifdata -pa eth0)
+ETH1_IP=$(ifdata -pa eth1)
+
+#################################################
+### Function firewall_ruleset_standard
+function firewall_ruleset_standard() {
+    ## redirect all smtp traffic to internal server
+    $IPTABLES -t nat -A OUTPUT -p tcp --dport  25 -j DNAT --to-destination 127.0.0.1:25
+    $IPTABLES -t nat -A OUTPUT -p tcp --dport 587 -j DNAT --to-destination 127.0.0.1:25
+
+    $IPTABLES -t nat -I PREROUTING 1 -p tcp --dport 25 -j DNAT --to-destination "$ETH1_IP"
+    $IPTABLES -t nat -I POSTROUTING 1 -p tcp -d "$ETH1_IP" --dport 25 -j MASQUERADE
+
+    $IPTABLES -t nat -I PREROUTING 1 -p tcp --dport 587 -j DNAT --to-destination "$ETH1_IP:25"
+    $IPTABLES -t nat -I POSTROUTING 1 -p tcp -d "$ETH1_IP" --dport 587 -j MASQUERADE
+}
+
+#################################################
+### Function firewall_ruleset_clear
+function firewall_ruleset_clear() {
+    ###################################
+    ## Clearing chains
+    ###################################
+    #$IPTABLES -F
+    $IPTABLES -t nat -F
+    #$IPTABLES -X
+
+    ###################################
+    ## Policy
+    ###################################
+    $IPTABLES -P FORWARD ACCEPT
+    $IPTABLES -P INPUT   ACCEPT
+    $IPTABLES -P OUTPUT  ACCEPT
+}
+
+function noop() {
+    return
+}
+
+#################################################
+### Function firewall_infomsg
+function firewall_infomsg() {
+    if [ "$FIREWALL_INFOMSG" -eq "1" ]; then
+        echo " * $*"
+    fi;
+}
+
+###############################################################################
+start() {
+    echo "Starting firewall: setting ruleset"
+    firewall_ruleset_clear
+    firewall_ruleset_standard
+}
+
+###############################################################################
+# ACTION: STOP
+stop() {
+    echo "Stopping firewall: flushing ruleset"
+    firewall_ruleset_clear
+}
+
+###############################################################################
+# ACTION: SHOWSTATUS
+showstatus() {
+  echo "Status"
+  $IPTABLES -L -n -v --line-numbers
+  echo ""
+  echo ""
+  echo ""
+  echo "NAT status"
+  $IPTABLES -L -n -v --line-numbers -t nat
+}
+
+###############################################################################
+# ACTION: RESTART
+restart() {
+    stop
+    start
+}
+
+
+###############################################################################
+# ACTION: SHOWOPTIONS
+showoptions() {
+  echo "Usage: $0 {start|stop|restart|showstatus}"
+  echo "start)      will restore setting if exists else force rules"
+  echo "stop)       delete all rules and set all to accept"
+  echo "rules)      force settings of new rules"
+  echo "showstatus) Shows the status"
+}
+
+case $1 in
+    start)
+        start
+        ;;
+    stop)
+        stop
+        ;;
+    restart)
+        restart
+        ;;
+    status)
+        showstatus
+        ;;
+esac
+## EOF ## EOF ## EOF ## EOF ## EOF ## EOF ## EOF ## EOF ## EOF ## EOF ## EOF ##

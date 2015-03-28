@@ -1,0 +1,16 @@
+- name: Deploy user files
+  synchronize:
+    rsync_path: "sudo rsync"
+    src: roles/user/files/profile/
+    dest: /home/vagrant/
+    delete: no
+
+- name: Register aliases
+  lineinfile:
+    dest: '{{ item.file }}'
+    regexp: 'source ~/.vagrant_aliases.sh'
+    line:   'source ~/.vagrant_aliases.sh'
+    state: present
+  with_items:
+   - { file: '/home/vagrant/.zshrc' }
+   - { file: '/home/vagrant/.bashrc' }

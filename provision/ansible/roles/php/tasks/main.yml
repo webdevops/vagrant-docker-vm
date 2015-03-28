@@ -1,0 +1,10 @@
+- name: Install php
+  include: install.yml
+  tags:
+    - bootstrap
+
+- name: Configure php
+  include: configuration.yml
+  tags:
+    - bootstrap
+    - maintenance

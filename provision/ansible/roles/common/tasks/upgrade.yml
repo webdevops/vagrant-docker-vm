@@ -1,0 +1,9 @@
+- name: Update system
+  apt: update_cache=yes
+
+- name: Upgrade system
+  apt: upgrade=dist
+
+- name: Update ruby gems
+  command: 'gem update'
+  ignore_errors: True

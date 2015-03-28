@@ -1,0 +1,18 @@
+- hosts: all
+  remote_user: vagrant
+  sudo_user: root
+  sudo: yes
+  roles:
+    - common
+    - disk
+    - ssh
+    - samba
+    - dnsmasq
+    - php
+    - docker
+    - docker-proxy
+    - mail
+    - firewall
+    - clitools
+    - user
+    - finalize

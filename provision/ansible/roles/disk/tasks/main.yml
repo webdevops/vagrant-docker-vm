@@ -1,0 +1,10 @@
+- name: Create data disk
+  include: disk-create.yml
+  when: ansible_devices.sdb.partitions.sdb1 is not defined
+  tags:
+    - bootstrap
+
+- name: Init disk mounting
+  include: disk-mounting.yml
+  tags:
+    - bootstrap

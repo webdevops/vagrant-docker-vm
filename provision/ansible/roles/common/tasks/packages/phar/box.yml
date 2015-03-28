@@ -1,0 +1,2 @@
+- name: Install box (phar)
+  raw: 'cd /usr/local/bin/ && curl -LSs http://box-project.org/installer.php | php'

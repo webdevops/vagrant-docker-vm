@@ -1,0 +1,8 @@
+- name: Install ansible libraries
+  action: apt pkg='{{ item }}' state=latest
+  with_items:
+    - ca-certificates
+    # Libraries (ansible)
+    - python-pycurl
+    - python-mysqldb
+    - python-passlib

@@ -1,0 +1,9 @@
+- name: Deploy dnsmasq configuration
+  synchronize:
+    rsync_path: "sudo rsync"
+    src: roles/dnsmasq/files/
+    dest: /etc/dnsmasq.d/
+    delete: no
+
+- name: Restart dnsmasq
+  command: service dnsmasq restart

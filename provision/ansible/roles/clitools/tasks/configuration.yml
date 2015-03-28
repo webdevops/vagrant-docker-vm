@@ -1,0 +1,22 @@
+- name: Setup automatic startup maintenance (clitools)
+  lineinfile:
+    destfile: /etc/rc.local
+    insertbefore: '^exit 0'
+    line:  '/usr/local/bin/ct system:startup > /dev/null'
+    state: present
+
+- name: Copy local configuration
+  copy:
+    src:   roles/clitools/files/clitools.ini
+    dest:  /etc/clitools.ini
+    owner: vagrant
+    group: vagrant
+    mode:  0644
+
+- name: Copy cron configuration
+  copy:
+    src:   roles/clitools/files/crontab
+    dest:  /etc/cron.d/clitools
+    owner: root
+    group: root
+    mode:  0644

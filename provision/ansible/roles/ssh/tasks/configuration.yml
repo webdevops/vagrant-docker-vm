@@ -1,0 +1,11 @@
+- name: Hardening SSH
+  lineinfile:
+    destfile: /etc/ssh/sshd_config
+    regexp:   '^PermitRootLogin'
+    line:     'PermitRootLogin without-password'
+    state:     present
+  notify:
+    - restart ssh
+
+- name: Restart ssh
+  command: service ssh restart

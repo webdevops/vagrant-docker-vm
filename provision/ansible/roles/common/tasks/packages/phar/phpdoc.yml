@@ -1,0 +1,3 @@
+- name: Install phpdoc (phar)
+  get_url: url=http://phpdoc.org/phpDocumentor.phar dest=/usr/local/bin/phpdoc mode=0755
+

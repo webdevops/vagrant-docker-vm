@@ -1,0 +1,8 @@
+- name: Add ubuntu default repository
+  include: repository/ubuntu-default.yml
+
+- name: Add ubuntu percona repository
+  include: repository/ubuntu-percona.yml
+
+- name: Update system
+  apt: update_cache=yes

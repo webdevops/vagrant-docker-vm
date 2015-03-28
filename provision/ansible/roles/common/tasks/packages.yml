@@ -1,0 +1,17 @@
+- name: Install ansible packages
+  include: packages/ansible.yml
+
+- name: Install default packages
+  include: packages/default.yml
+
+- name: Install developer packages
+  include: packages/developer.yml
+
+- name: Install npm packages
+  include: packages/npm.yml
+
+- name: Install developer packages
+  include: packages/server.yml
+
+- name: Install phar packages
+  include: packages/phar.yml

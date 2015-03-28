@@ -1,0 +1,25 @@
+- name: Deploy samba configuration
+  synchronize:
+    rsync_path: "sudo rsync"
+    src: roles/samba/files/
+    dest: /etc/samba/
+    delete: no
+
+- name: Creates code directory
+  file:
+    path: /mnt/code
+    state: directory
+    owner: vagrant
+    group: vagrant
+    mode: 0775
+
+- name: Init samba
+  raw: '{{ item }}'
+  with_items:
+    - (echo vagrant; echo vagrant) | smbpasswd -s -a vagrant
+
+- name: Init samba
+  command: '{{ item }}'
+  with_items:
+    - service nmbd restart
+    - service smbd restart

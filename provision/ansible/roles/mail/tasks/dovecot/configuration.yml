@@ -1,0 +1,19 @@
+- name: Deploy dovecot configuration
+  synchronize:
+    rsync_path: "sudo rsync"
+    src: roles/mail/files/dovecot/
+    dest: /etc/dovecot/
+    delete: no
+
+- name: Dovecot configuration
+  lineinfile:
+    dest:   /etc/dovecot/local.conf
+    regexp: '{{ item.regexp }}'
+    line:   '{{ item.line }}'
+  with_items:
+    - { regexp: '^listen', line: 'listen = {{ ansible_eth1.ipv4.address }}' }
+
+- name: Init dovecot
+  raw: '{{ item }}'
+  with_items:
+    - service dovecot restart

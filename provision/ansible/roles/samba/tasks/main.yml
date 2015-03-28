@@ -1,0 +1,10 @@
+- name: Install samba
+  include: install.yml
+  tags:
+    - bootstrap
+
+- name: Configure samba
+  include: configuration.yml
+  tags:
+    - bootstrap
+    - maintenance

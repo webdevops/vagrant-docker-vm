@@ -1,0 +1,104 @@
+[user]
+    #email = USERNAME
+    #name = REALNAME
+[mergetool]
+    keepBackup = true
+[branch]
+    autosetuprebase = remote
+    autosetupmerge = true
+[advice]
+    pushNonFastForward = false
+[alias]
+    # add aliases
+    a = add
+    ap = add -p
+
+    # commit aliases
+    c = commit --verbose
+    ca = commit -a --verbose
+    cm = commit -m
+    cam = commit -a -m
+
+    # diff aliases
+    d = diff
+    ds = diff --stat
+    dc = diff --cached
+
+    # Status
+    st = status
+
+    # Delete all deleted files
+    rma = !git ls-files --deleted -z | xargs -0 --no-run-if-empty git rm
+
+    # Pull with submodule update
+    p = !git fetch --tags && git pull --prune && git submodule update --init --recursive
+    # Update to server status and push all local commits
+    pp = !git p && git push
+
+    # git pull with changed files fails. This alias saves all changes in stash, does a pull and applies the stash again
+    sp = !git stash && git p && git stash pop
+    # git pull with changed files fails. This alias saves all changes in stash, does a pull and applies the stash again and also push changes to server
+    spp = !git stash && git p && git stash pop && git push
+
+    # security check
+    secck = fsck --no-reflog --full --strict
+
+    # One line log tree
+    lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cd) %C(bold blue)<%an>%Creset' --abbrev-commit --all
+    # List changed files of als commit
+    showme = show --pretty="format:" --name-only
+    # List all files in git index
+    ls = ls-files
+    # Stash with date
+    save = !git stash save $(date "+%F_%T")
+    # Show branches with authors
+    b-ls = for-each-ref --sort=-committerdate --format='%(committerdate) %(authorname) %(refname)' refs/remotes/origin/
+    # Show files ignored by git
+    ign = ls-files -o -i --exclude-standard
+    # Show last tag
+    lt = describe --tags --abbrev=0
+    # Delete already merged branches
+    delete-merged-branches = "!git checkout master && git branch --merged | grep -v '\\*' | xargs -n 1 git branch -d"
+    # List all defined aliases
+    aliases = "!git config -l | grep alias | cut -c 7-"
+    # Grep just indexed files
+    grep = "!git ls-files | ack-grep -i"
+    # Remove all local commits (not pushed to server) in master branch
+    rs = reset --hard origin/master
+[merge]
+    # Always show a diffstat at the end of a merge
+    stat = true
+    tool = vimdiff
+[color]
+    branch = auto
+    diff = auto
+    status = auto
+    interactive = auto
+    ui = true
+    pager = true
+[color "branch"]
+    current = yellow reverse
+    local = yellow
+    remote = green
+[color "diff"]
+    meta = yellow bold
+    frag = magenta bold
+    old = red bold
+    new = green bold
+    whitespace = red reverse
+[color "status"]
+    added = yellow
+    changed = green
+    untracked = cyan
+[core]
+    pager = less -FRSX
+    whitespace=fix,-indent-with-non-tab,trailing-space,cr-at-eol
+    editor = vim
+    filemode = true
+    ignorecase = false
+[apply]
+    whitespace = fix
+[http]
+    proxy =
+[push]
+    default = current

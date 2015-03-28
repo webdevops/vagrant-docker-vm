@@ -1,0 +1,2 @@
+- name: Fix filesystem rights
+  command: 'chown -R vagrant /usr/local/bin/'

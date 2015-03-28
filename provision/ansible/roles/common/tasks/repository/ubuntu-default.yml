@@ -1,0 +1,19 @@
+- name: Enable partner repositories
+  lineinfile:
+    dest:   /etc/apt/sources.list
+    regexp: '{{ item.regexp }}'
+    line:   '{{ item.line }}'
+  with_items:
+   - { regexp: '#?[\s]*deb http://archive.canonical.com/ubuntu trusty partner', line: 'deb http://archive.canonical.com/ubuntu trusty partner' }
+   - { regexp: '#?[\s]*deb-src http://archive.canonical.com/ubuntu trusty partner', line: 'deb-src http://archive.canonical.com/ubuntu trusty partner' }
+
+- name: Enable extra repositories
+  lineinfile:
+    dest:   /etc/apt/sources.list
+    regexp: '{{ item.regexp }}'
+    line:   '{{ item.line }}'
+  with_items:
+   - { regexp: '#?[\s]*deb http://extras.ubuntu.com/ubuntu trusty main', line: 'deb http://extras.ubuntu.com/ubuntu trusty main' }
+   - { regexp: '#?[\s]*deb-src http://extras.ubuntu.com/ubuntu trusty main', line: 'deb-src http://extras.ubuntu.com/ubuntu trusty main' }
+
+- raw: 'apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 16126D3A3E5C1192'

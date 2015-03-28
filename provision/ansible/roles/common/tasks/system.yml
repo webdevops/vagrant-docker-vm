@@ -1,0 +1,31 @@
+- name: Add tmp cleanup at reboot
+  lineinfile:
+    dest:   '/etc/default/rcS'
+    regexp: '^#?TMPTIME=0'
+    line:   'TMPTIME=0'
+
+- name: Disable blank console screensaver
+  lineinfile:
+    dest:   '/etc/default/keyboard'
+    regexp: '{{ item.regexp }}'
+    line:   '{{ item.line }}'
+  with_items:
+   - { regexp: '^GRUB_CMDLINE_LINUX_DEFAULT=', line: 'GRUB_CMDLINE_LINUX_DEFAULT="quiet consoleblank=0"' }
+
+- name: Update grub
+  command: 'update-grub'
+
+- name: Update initramfs
+  command: 'update-initramfs -k all -u'
+
+- name: Setup System Hostname
+  hostname: name=DEV-VM
+
+- name: Setup hosts
+  lineinfile:
+    dest:   '/etc/hosts'
+    regexp: 'DEVELOPMENT-VM'
+    line:   '127.0.0.1 DEVELOPMENT-VM DEV-VM'
+    owner:  root
+    group:  root
+    mode:   0644

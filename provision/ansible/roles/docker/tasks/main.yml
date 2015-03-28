@@ -1,0 +1,10 @@
+- name: Install docker
+  include: install.yml
+  tags:
+    - bootstrap
+
+- name: Configure docker
+  include: configuration.yml
+  tags:
+    - bootstrap
+    - maintenance

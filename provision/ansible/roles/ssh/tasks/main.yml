@@ -1,0 +1,5 @@
+- name: Configure ssh
+  include: configuration.yml
+  tags:
+    - bootstrap
+    - maintenance

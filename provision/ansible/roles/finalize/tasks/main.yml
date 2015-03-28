@@ -1,0 +1,11 @@
+- name: Cleanup
+  include: cleanup.yml
+  tags:
+    - bootstrap
+    - maintenance
+
+#- name: Maintain vmtools
+#  include: vmtools.yml
+#  tags:
+#    - bootstrap
+#    - maintenance

@@ -1,0 +1,10 @@
+- include_vars: /vagrant/vm.yml
+
+- name: Setup gitconfig
+  lineinfile:
+    dest:   '/home/vagrant/.gitconfig'
+    regexp: '{{ item.regexp }}'
+    line:   '{{ item.line }}'
+  with_items:
+   - { regexp: '^[\s]*#?[\s]*name = REALNAME',  line : '    name = {{ realname }}' }
+   - { regexp: '^[\s]*#?[\s]*email = USERNAME', line : '    email = {{ email }}' }

@@ -1,0 +1,4 @@
+- name: Install dnsmasq
+  action: apt pkg='{{ item }}' state=latest
+  with_items:
+    - dnsmasq

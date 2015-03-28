@@ -1,0 +1,34 @@
+- include_vars: /vagrant/vm.yml
+
+- name: Setup ssh key (from github)
+  include: github-ssh-key.yml
+  when: githubUser is defined
+  tags:
+    - bootstrap
+    - maintenance
+
+- name: Setup ssh config autobuilding
+  include: ssh-conf-autobuild.yml
+  tags:
+    - bootstrap
+    - maintenance
+
+- name: Setup ZSH
+  include: zsh.yml
+  tags:
+    - bootstrap
+
+- name: Setup profile
+  include: profile.yml
+  tags:
+    - bootstrap
+
+- name: Setup vcs (git)
+  include: vcs.yml
+  tags:
+    - bootstrap
+
+- name: Fix rights
+  include: rights.yml
+  tags:
+    - bootstrap

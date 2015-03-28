@@ -1,0 +1,15 @@
+- name: Enable automatic vmware module update
+  command: 'echo "answer AUTO_KMODS_ENABLED yes" | sudo tee -a /etc/vmware-tools/locations'
+  ignore_errors: True
+
+- name: Stop vmware tools
+  command: 'service vmware-tools stop'
+  ignore_errors: True
+
+- name: Update vmware module
+  command: '/usr/bin/vmware-config-tools.pl -d'
+  ignore_errors: True
+
+- name: Restart vmware tools
+  command: 'service vmware-tools restart'
+  ignore_errors: True

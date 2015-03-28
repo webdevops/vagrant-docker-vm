@@ -1,0 +1,7 @@
+- name: Fetch clitools (latest)
+  get_url:
+    url:   'https://www.achenar.net/clicommand/clitools.phar'
+    dest:  /usr/local/bin/ct
+    owner: 'root'
+    group: 'root'
+    mode:  0755

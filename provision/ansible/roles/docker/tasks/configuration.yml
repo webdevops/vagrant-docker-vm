@@ -1,0 +1,21 @@
+- include_vars: /vagrant/vm.yml
+
+- name: Configure docker
+  lineinfile:
+    dest: '/etc/default/docker'
+    regexp: '^#?DOCKER_OPTS\='
+    line: 'DOCKER_OPTS="-H tcp://0.0.0.0:2375 -H unix:///var/run/docker.sock --insecure-registry {{ dockerRegistry }}"'
+    state: present
+  when: dockerRegistry is defined
+
+
+- name: Configure docker
+  lineinfile:
+    dest: '/etc/default/docker'
+    regexp: '^#?DOCKER_OPTS\='
+    line: 'DOCKER_OPTS="-H tcp://0.0.0.0:2375 -H unix:///var/run/docker.sock"'
+    state: present
+  when: dockerRegistry is not defined
+
+- name: Restart docker
+  command: 'service docker restart'

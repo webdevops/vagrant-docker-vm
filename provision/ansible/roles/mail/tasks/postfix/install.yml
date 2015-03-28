@@ -1,0 +1,5 @@
+- name: Install postfix
+  action: apt pkg='{{ item }}' state=latest
+  with_items:
+    - postfix
+    - bsd-mailx
