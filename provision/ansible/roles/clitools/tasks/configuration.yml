@@ -20,3 +20,6 @@
     owner: root
     group: root
     mode:  0644
+
+- name: Run clitools system startup
+  raw: '/usr/local/bin/ct system:startup > /dev/null'
