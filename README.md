@@ -184,7 +184,7 @@ Windows users should use /home/vagrant/code/ (/mnt/data/code/) partition for you
   - analysis tools (htop, atop, iftop, mytop, iotop, pfqueue)
   - editors (nano, vim)
   - debugging tools (strace)
-  - clitoolbox (as "ct")
+  - [CliTools (as "ct")](https://github.com/mblaschke/vagrant-clitools)
 - Daemons
   - dnsmasq
   - samba
