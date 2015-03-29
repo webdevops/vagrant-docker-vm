@@ -1,1 +1,1 @@
-*/30 * * * *  root [ -x /usr/local/bin/ct ] && /usr/local/bin/ct system:crontask
+*/30 * * * *  root [ -x /usr/local/bin/ct ] && /usr/local/bin/ct system:crontask &> /dev/null
