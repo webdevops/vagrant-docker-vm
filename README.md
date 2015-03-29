@@ -200,7 +200,6 @@ Windows users should use /home/vagrant/code/ (/mnt/data/code/) partition for you
 - Vagrantfile
   - private IP-address
   - VAGRANT_VM_DATA_SIZE vmware
-  - windows/mac/linux detection
   - https://github.com/BerlinVagrant/vagrant-dns
 - move vagrant home to shared folder?
 - /etc/host provision
