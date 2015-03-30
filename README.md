@@ -1,5 +1,7 @@
 # Vagrant Docker Development-VM
 
+![Vagrant Development VM login](/documentation/VagrantVM.png)
+
 Support for:
 
 - VitualBox
