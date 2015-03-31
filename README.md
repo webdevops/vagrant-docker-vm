@@ -166,6 +166,11 @@ Linux and MacOS users can use shared folders and work locally.
 
 Windows users should use /home/vagrant/code/ (/mnt/data/code/) partition for your files.
 
+# Root privilege requirements for NFS
+
+Under Linux and MacOS you will be asked for root rights (sudo).
+If you don't want to enter your password every time [take a look at the vagrant manual for NFS usage](https://docs.vagrantup.com/v2/synced-folders/nfs.html)
+
 ## Provisioning
 
 - Repositories
