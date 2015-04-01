@@ -33,7 +33,7 @@ cd devvm
 vim vm.yml
 
 # Setup Docker environment (only linux and mac, only once)
-source ~/provision/docker-init.sh
+source provision/docker-init.sh
 
 # Start vm
 vagrant up
