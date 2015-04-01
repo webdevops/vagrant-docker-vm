@@ -8,3 +8,9 @@
   include: disk-mounting.yml
   tags:
     - bootstrap
+
+- name: Disk maintenance
+  include: maintenance.yml
+  tags:
+    - bootstrap
+    - maintenance
