@@ -18,7 +18,7 @@ Server                | IP or Hostname of VM (192.168.56.2)
 Port                  | 22
 Username              | vagrant
 Password              | vagrant
-SSH Key               | Automatically deployed from github (see vm.yml)
+SSH Key               | Automatically deployed from github, if account name is set (see vm.yml)
 
 ## Samba (SMB, CIFS)
 

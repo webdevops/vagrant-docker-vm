@@ -182,7 +182,7 @@ If you don't want to enter your password every time [take a look at the vagrant 
   - development tools (colordiff, jq, ack-grep, sloccount)
   - vcs tools (git, git flow, svn, tig)
   - filesystem tools (fuse with sshfs)
-  - server tools (ldaputils, swaks,
+  - server tools (ldaputils, swaks)
   - compiler suite (gcc, sass)
   - packaging tools (unrar, unace, 7zip, bzip2)
   - npm (with grunt, gulp and other tools)
@@ -197,7 +197,7 @@ If you don't want to enter your password every time [take a look at the vagrant 
   - samba
   - zram
   - haveged
-  - postfix and dovecot (user: vagrant, password: vagrant)
+  - postfix and dovecot (user: vagrant, password: vagrant, [more informations in README-SERVICES.md](README-SERVICES.md).)
 
 
 ## TODO

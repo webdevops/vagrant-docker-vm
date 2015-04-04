@@ -5,7 +5,7 @@ email:    'user@example.com'
 realname: 'FULL NAME'
 
 ## automatic ssh key fetching from github
-githubUser: 'mblaschke'
+githubUser: 'example'
 
 ## Insecure registry for Docker
 #dockerRegistry: ''
