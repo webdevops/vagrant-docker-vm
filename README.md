@@ -26,7 +26,7 @@ Following the "keep it stupid simple" this box provides all tools with a simple 
 
 ```bash
 # Clone git repository
-git clone --recursive https://github.com/mblaschke/vagrant devvm
+git clone --recursive https://github.com/mblaschke/vagrant-development.git devvm
 cd devvm
 
 # Customize the vm.yml with your favorite editor
