@@ -1,0 +1,3 @@
+[submodule "disks"]
+	path = disks
+	url = https://github.com/mblaschke/vagrant-vm-disk.git
