@@ -16,7 +16,7 @@
     - { regexp: '^header_checks',            line: 'header_checks = regexp:/etc/postfix/additional_headers' }
     - { regexp: '^recipient_canonical_maps', line: 'recipient_canonical_maps = regexp:/etc/postfix/recipient_canonical_maps' }
     - { regexp: '^home_mailbox',             line: 'home_mailbox = .mail/' }
-    - { regexp: '^mynetworks',               line: 'mynetworks = 127.0.0.0/8 168.100.189.0/28 [::1]/128 [fe80::]/10 [2001:240:587::]/64 172.16.0.0/12 {{ ansible_eth1.ipv4.network }}/24  [{{ ansible_eth1.ipv6.address }}]/{{ ansible_eth1.ipv6.prefix }}' }
+    - { regexp: '^mynetworks',               line: 'mynetworks = 127.0.0.0/8 168.100.189.0/28 [::1]/128 [fe80::]/10 [2001:240:587::]/64 172.16.0.0/12 {{ ansible_eth1.ipv4.address }} {{ ansible_eth1.ipv4.network }}/24' }
 
 - name: Enable additional_headers
   lineinfile: dest=/etc/postfix/main.cf regexp='header_checks' line='header_checks = regexp:/etc/postfix/additional_headers'
