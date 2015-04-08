@@ -20,6 +20,20 @@ local postfix daemon and can be accessed by IMAP (dovecot).
 
 Following the "keep it stupid simple" this box provides all tools with a simple "vagrant up"
 
+## Requirements
+
+Type                  | Minimum                 | Recommendation
+--------------------- | ----------------------- | --------------------
+CPU                   | 2                       | 4 physical Cores (or more)
+RAM                   | 8 GB                    | 16 GB (or more)
+Disk                  | 60 GB free              | 80 GB free
+<br>                  |                         |
+RAM of VM             | 1.5 GB                  | 2 GB or more
+
+If you want to develop in a fast way make sure to get the recommended values.
+
+This VM doesn't need 16 GB RAM, but you still need your browser, IDE, mail client and other tools..
+
 ## Installation
 
 ### First startup
