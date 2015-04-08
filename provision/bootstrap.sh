@@ -40,7 +40,7 @@ cp -a "$SCRIPT_DIR/ansible/inventory" "/tmp/$$.inventory"
 chmod -x -- "/tmp/$$.inventory"
 
 # run ansible
-ansible-playbook -v "$SCRIPT_DIR/ansible/playbook.yml" --inventory="/tmp/$$.inventory" --extra-vars="$ANSIBLE_EXTRA_VARS" --tags="bootstrap"
+ansible-playbook "$SCRIPT_DIR/ansible/playbook.yml" --inventory="/tmp/$$.inventory" --extra-vars="$ANSIBLE_EXTRA_VARS" --tags="bootstrap"
 
 # remove inventory file
 rm -f -- "/tmp/$$.inventory"
