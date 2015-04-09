@@ -15,7 +15,7 @@ development tools inside my box which are up2date.
 Only services (apache, nginx, mysql and other) are used inside docker containers.
 Working files are stored inside the vm-box (the old way) or outside (the modern way) with shares.
 
-Also this VM should be a sandbox so eg. no email should be send to other servers - they are cached by a
+Also this VM should be a sandbox so eg. no email should be send to other servers - they are catched by a
 local postfix daemon and can be accessed by IMAP (dovecot).
 
 Following the "keep it stupid simple" this box provides all tools with a simple "vagrant up"
