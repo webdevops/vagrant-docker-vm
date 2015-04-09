@@ -30,7 +30,7 @@ fi
 ########################
 
 echo " ***************************************************************************** "
-echo " *** Starting provision with ansible "
+echo " *** Starting provision with ansible (will take some time...)"
 echo " ***************************************************************************** "
 
 ANSIBLE_EXTRA_VARS=""
