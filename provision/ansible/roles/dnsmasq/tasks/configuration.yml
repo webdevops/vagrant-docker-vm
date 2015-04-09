@@ -1,9 +1,10 @@
 - name: Deploy dnsmasq configuration
-  synchronize:
-    rsync_path: "sudo rsync"
-    src: roles/dnsmasq/files/
-    dest: /etc/dnsmasq.d/
-    delete: no
+  template:
+    src:   roles/dnsmasq/templates/development.j2
+    dest:  /etc/dnsmasq.d/development
+    owner: vagrant
+    group: root
+    mode:  0644
 
 - name: Restart dnsmasq
   command: service dnsmasq restart
