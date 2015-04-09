@@ -1,0 +1,4 @@
+- name: Install ntp (chrony)
+  include: install.yml
+  tags:
+    - bootstrap

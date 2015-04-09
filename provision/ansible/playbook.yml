@@ -12,6 +12,7 @@
     - docker
     - docker-proxy
     - mail
+    - ntp
     - firewall
     - clitools
     - user
