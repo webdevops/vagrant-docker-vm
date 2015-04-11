@@ -1,10 +1,40 @@
-- name: Deploy dnsmasq configuration
+- name: Deploy dnsmasq configuration (development)
   template:
     src:   roles/dnsmasq/templates/development.j2
     dest:  /etc/dnsmasq.d/development
     owner: vagrant
     group: root
     mode:  0644
+
+- name: Deploy dnsmasq configuration (docker)
+  template:
+    src:   roles/dnsmasq/templates/docker.j2
+    dest:  /etc/dnsmasq.d/docker
+    owner: vagrant
+    group: root
+    mode:  0644
+
+- name: Create /opt/docker/dns/ directory
+  file:
+    dest:  /opt/docker/dns/
+    owner: vagrant
+    group: vagrant
+    mode:  0777
+    state: directory
+
+- name: Deploy dnsmasq docker configuration
+  synchronize:
+    rsync_path: "sudo rsync"
+    src: roles/dnsmasq/files/docker-dns/
+    dest: /opt/docker/dns/
+    delete: no
+
+- name: Deploy dnsmasq docker cron configuration
+  synchronize:
+    rsync_path: "sudo rsync"
+    src: roles/dnsmasq/files/cron/
+    dest: /etc/cron.d/
+    delete: no
 
 - name: Restart dnsmasq
   command: service dnsmasq restart
