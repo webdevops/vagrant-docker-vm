@@ -1,41 +1,10 @@
-- name: Install apache2
-  action: apt pkg='{{ item }}' state=latest
-  with_items:
-    - apache2-mpm-worker
-    - libapache2-mod-macro
-    - apache2-utils
+- name: Install apache2 (docker-proxy)
+  include: install.yml
+  tags:
+    - bootstrap
 
-- name: Enable apache modules
-  command: 'a2enmod {{ item }}'
-  with_items:
-   - actions
-   - alias
-   - auth_basic
-   - authn_file
-   - authz_host
-   - authz_user
-   - autoindex
-   - deflate
-   - dir
-   - env
-   - expires
-   - filter
-   - headers
-   - macro
-   - mime
-   - negotiation
-   - setenvif
-   - vhost_alias
-   # Reverse proxy
-   - proxy
-   - proxy_http
-
-- name: Deploy apache configuration
-  synchronize:
-    rsync_path: "sudo rsync"
-    src: roles/docker-proxy/files/
-    dest: /etc/apache2/
-    delete: no
-
-- name: Restart apache2
-  command: service apache2 restart
+- name: Configure apache2 (docker-proxy)
+  include: configuration.yml
+  tags:
+    - bootstrap
+    - maintenance

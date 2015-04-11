@@ -1,0 +1,34 @@
+- name: Enable apache modules
+  command: 'a2enmod {{ item }}'
+  with_items:
+   - actions
+   - alias
+   - auth_basic
+   - authn_file
+   - authz_host
+   - authz_user
+   - autoindex
+   - deflate
+   - dir
+   - env
+   - expires
+   - filter
+   - headers
+   - macro
+   - mime
+   - negotiation
+   - setenvif
+   - vhost_alias
+   # Reverse proxy
+   - proxy
+   - proxy_http
+
+- name: Deploy apache configuration
+  synchronize:
+    rsync_path: "sudo rsync"
+    src: roles/docker-proxy/files/
+    dest: /etc/apache2/
+    delete: no
+
+- name: Restart apache2
+  command: service apache2 restart
