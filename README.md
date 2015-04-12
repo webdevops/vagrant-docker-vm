@@ -56,6 +56,22 @@ vagrant up
 vagrant ssh
 ```
 
+Put this snipped in your .ssh/config:
+
+    Host vm vagrant 192.168.56.2
+        Hostname 192.168.56.2
+        User     vagrant
+        ForwardAgent  yes
+        Compression   off
+        StrictHostKeyChecking no
+        UserKnownHostsFile=/dev/null
+
+Now you can (if ssh key is loaded, otherwise use password 'vagrant' and ssh-copy-id)
+
+    ssh vm
+
+
+
 ### VM control
 
 ```bash
