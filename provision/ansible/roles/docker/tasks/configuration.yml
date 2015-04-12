@@ -8,7 +8,6 @@
     state: present
   when: dockerRegistry is defined
 
-
 - name: Configure docker
   lineinfile:
     dest: '/etc/default/docker'
@@ -19,3 +18,28 @@
 
 - name: Restart docker
   command: 'service docker restart'
+
+- name: Create /opt/docker/bin/ directory
+  file:
+    dest:  /opt/docker/bin/
+    owner: vagrant
+    group: vagrant
+    mode:  0777
+    state: directory
+
+- name: Deploy docker bin files
+  synchronize:
+    rsync_path: "sudo rsync"
+    src: roles/docker/files/bin/
+    dest: /opt/docker/bin/
+    delete: no
+
+- name: Fix rights
+  file:
+    path: '{{ item.path }}'
+    state: '{{ item.state }}'
+    owner: vagrant
+    group: vagrant
+    mode: '{{ item.mode }}'
+  with_items:
+   - { path: '/opt/docker/bin/compose-wrapper.sh', state : 'file', mode: '777' }
