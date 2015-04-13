@@ -12,6 +12,7 @@ fi
 
 if [ -z "`which $READLINK`" ]; then
     echo '$READLINK not installed'
+    exit 1
 fi
 
 ###################
