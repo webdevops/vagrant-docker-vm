@@ -10,9 +10,6 @@ VAGRANTFILE_API_VERSION = 2
 # Name of VM instance
 VAGRANT_VM_NAME          = 'DEV-VM'
 
-# Provider
-VAGRANT_DEFAULT_PROVIDER = 'vmware_fusion'
-
 # Show vm gui (terminal window)
 VAGRANT_VM_GUI           = false
 
