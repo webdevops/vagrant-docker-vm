@@ -11,7 +11,9 @@ if [ "$unamestr" == 'FreeBSD' -o "$unamestr" == 'Darwin'  ]; then
 fi
 
 if [ -z "`which $READLINK`" ]; then
-    echo '$READLINK not installed'
+    echo "[ERROR] $READLINK not installed"
+    echo "        make sure coreutils are installed"
+    echo "        MacOS: brew install coreutils"
     exit 1
 fi
 
