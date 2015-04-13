@@ -1,5 +1,23 @@
 #!/usr/bin/env bash
 
+###################
+# Find readlink
+###################
+
+READLINK='readlink'
+unamestr=`uname`
+if [ "$unamestr" == 'FreeBSD' -o "$unamestr" == 'Darwin'  ]; then
+  READLINK='greadlink'
+fi
+
+if [ -z "`which $READLINK`" ]; then
+    echo '$READLINK not installed'
+fi
+
+###################
+# Upsearch
+###################
+
 upsearch () {
   slashes=${PWD//[^\/]/}
   directory="$PWD"
@@ -7,9 +25,14 @@ upsearch () {
   do
     test -e "$directory/$1" && echo "$directory/" && return
     directory="$directory/.."
-    directory="$(readlink -f "$directory")"
+    directory="$($READLINK -f "$directory")"
   done
 }
+
+###################
+# Main
+###################
+
 
 CUR_DIR="$(pwd)"
 
