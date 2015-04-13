@@ -62,7 +62,7 @@ Put this snipped in your .ssh/config:
         Hostname 192.168.56.2
         User     vagrant
         ForwardAgent  yes
-        Compression   off
+        Compression   no
         StrictHostKeyChecking no
         UserKnownHostsFile=/dev/null
 
