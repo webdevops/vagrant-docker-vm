@@ -4,3 +4,31 @@
     - apache2-mpm-worker
     - libapache2-mod-macro
     - apache2-utils
+
+- name: Enable apache modules
+  command: 'a2enmod {{ item }}'
+  with_items:
+   - actions
+   - alias
+   - auth_basic
+   - authn_file
+   - authz_host
+   - authz_user
+   - autoindex
+   - deflate
+   - dir
+   - env
+   - expires
+   - filter
+   - headers
+   - macro
+   - mime
+   - negotiation
+   - setenvif
+   - vhost_alias
+   # Reverse proxy
+   - proxy
+   - proxy_http
+
+- name: Restart apache2
+  command: service apache2 restart
