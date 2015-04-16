@@ -62,6 +62,7 @@ alias iotop='sudo iotop'
 alias iftop='sudo iftop'
 alias service='sudo service'
 alias strace='sudo strace'
+alias netstat='sudo netstat'
 
 # Git related
 alias gs='git status'
