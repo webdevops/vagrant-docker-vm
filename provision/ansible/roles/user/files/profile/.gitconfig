@@ -96,6 +96,7 @@
     editor = vim
     filemode = true
     ignorecase = false
+    excludesfile = /home/vagrant/.gitignore_global
 [apply]
     whitespace = fix
 [http]
