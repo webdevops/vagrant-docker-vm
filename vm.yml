@@ -3,6 +3,7 @@
 ## Email and Realname for git-configuration
 email:    'user@example.com'
 realname: 'FULL NAME'
+shell:    '/bin/zsh'
 
 ## automatic ssh key fetching from github
 githubUser: 'example'

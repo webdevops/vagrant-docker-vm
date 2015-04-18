@@ -13,10 +13,11 @@
     - bootstrap
     - maintenance
 
-- name: Setup ZSH
-  include: zsh.yml
+- name: Setup shell
+  include: shell.yml
   tags:
     - bootstrap
+    - maintenance
 
 - name: Setup profile
   include: profile.yml
