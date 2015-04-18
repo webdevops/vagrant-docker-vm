@@ -1,5 +1,4 @@
 # Docker
-alias dcc='/opt/docker/bin/compose-wrapper.sh'
 alias dexec='docker exec -it'
 alias docker-clean='docker rmi -f $(docker images | grep "<none>" | awk "{print \$3}")'
 alias dcshell='ct docker:shell'

@@ -34,6 +34,12 @@
     dest: /opt/docker/bin/
     delete: no
 
+
+- name: Install docker-compose
+  shell: "curl -L https://github.com/docker/compose/releases/download/1.2.0/docker-compose-`uname -s`-`uname -m` > /opt/docker/bin/docker-compose.1.2.0"
+  args:
+    creates: '/opt/docker/bin/docker-compose.1.2.0'
+
 - name: Fix rights
   file:
     path: '{{ item.path }}'
@@ -42,4 +48,19 @@
     group: vagrant
     mode: '{{ item.mode }}'
   with_items:
+   - { path: '/opt/docker/bin/docker-compose.1.2.0', state : 'file', mode: '777' }
    - { path: '/opt/docker/bin/compose-wrapper.sh', state : 'file', mode: '777' }
+
+- name: Add symlinks
+  file:
+    src:  '{{ item.src }}'
+    dest: '{{ item.dest }}'
+    state: 'link'
+    owner: vagrant
+    group: vagrant
+    mode: '777'
+    force: yes
+  with_items:
+   - { src: '/opt/docker/bin/docker-compose.1.2.0', dest: '/usr/local/bin/docker-compose' }
+   - { src: '/opt/docker/bin/compose-wrapper.sh',   dest: '/usr/local/bin/dcc' }
+
