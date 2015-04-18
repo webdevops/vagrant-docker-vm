@@ -18,6 +18,8 @@
     - strace
     - closure-compiler
     - g++
+    # Network
+    - tshark
     # Dev stuff
     - libsqlite3-dev
     - php5-dev
