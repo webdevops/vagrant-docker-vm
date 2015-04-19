@@ -46,6 +46,7 @@ DOCKER_PATH=$(upsearch docker-compose.yml)
 if [ -n "$DOCKER_PATH" ]; then
     cd "$DOCKER_PATH"
     docker-compose $@
+    exit $?
 else
     echo "No docker-compose.yml found"
     cd "$CUR_DIR"
