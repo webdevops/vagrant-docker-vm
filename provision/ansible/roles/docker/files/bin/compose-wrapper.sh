@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+EXIT_CODE=0
+
 ###################
 # Find readlink
 ###################
@@ -45,12 +47,12 @@ CUR_DIR="$(pwd)"
 DOCKER_PATH=$(upsearch docker-compose.yml)
 if [ -n "$DOCKER_PATH" ]; then
     cd "$DOCKER_PATH"
-    docker-compose $@
-    exit $?
+    exec docker-compose $@
+    EXIT_CODE="$?"
 else
     echo "No docker-compose.yml found"
-    cd "$CUR_DIR"
-    exit 1
+    EXIT_CODE=1
 fi
-
+# switch back to old dir
 cd "$CUR_DIR"
+exit "$EXIT_CODE"
