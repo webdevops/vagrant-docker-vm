@@ -3,17 +3,20 @@
 - name: Setup ssh key (from github)
   include: github-ssh-key.yml
   when: githubUser is defined
-  tags:
-    - bootstrap
-    - maintenance
 
 - name: Fetch zshrc
   command: 'wget {{ item.remote }} -O {{ item.path }}'
   with_items:
    - { remote: 'http://git.grml.org/f/grml-etc-core/etc/zsh/zshrc', path: '/home/vagrant/.zshrc' }
-   - { remote: 'http://git.grml.org/f/grml-etc-core/etc/skel/.zshrc', path: '/home/vagrant/.zshrc.local' }
   args:
     creates: '/home/vagrant/.zshrc'
+
+- name: Fetch zshrc
+  command: 'wget {{ item.remote }} -O {{ item.path }}'
+  with_items:
+   - { remote: 'http://git.grml.org/f/grml-etc-core/etc/skel/.zshrc', path: '/home/vagrant/.zshrc.local' }
+  args:
+    creates: '/home/vagrant/.zshrc.local'
 
 - name: Set zshrc file perms
   file:
@@ -24,6 +27,7 @@
   with_items:
    - { path: '/home/vagrant/.zshrc' }
    - { path: '/home/vagrant/.zshrc.local' }
+  ignore_errors: True
 
 - name: Switch to zsh
   command: 'chsh -s "{{ shell }}" vagrant'
