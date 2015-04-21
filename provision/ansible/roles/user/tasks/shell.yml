@@ -11,7 +11,7 @@
   args:
     creates: '/home/vagrant/.zshrc'
 
-- name: Fetch zshrc
+- name: Fetch zshrc.local
   command: 'wget {{ item.remote }} -O {{ item.path }}'
   with_items:
    - { remote: 'http://git.grml.org/f/grml-etc-core/etc/skel/.zshrc', path: '/home/vagrant/.zshrc.local' }
