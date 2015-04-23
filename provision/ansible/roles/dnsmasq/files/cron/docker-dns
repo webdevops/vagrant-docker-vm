@@ -1,1 +1,3 @@
+# Update docker dns entries
 */10 * * * *  root [ -f /opt/docker/dns/update.sh ] && bash /opt/docker/dns/update.sh  &> /dev/null
+
