@@ -2,6 +2,9 @@
 alias dexec='docker exec -it'
 alias docker-clean='docker rmi -f $(docker images | grep "<none>" | awk "{print \$3}")'
 alias dcshell='ct docker:shell'
+alias dcli='ct docker:cli'
+alias dcsql='ct docker:mysql'
+alias dcmysql='ct docker:mysql'
 
 # show server headers
 alias wgets='wget --spider --server-response'
