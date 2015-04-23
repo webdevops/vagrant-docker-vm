@@ -1,5 +1,7 @@
 # Vagrant Docker Development-VM
 
+![License MIT](https://img.shields.io/badge/license-MIT-blue.svg?style=flat)
+
 ![Vagrant Development VM login](/documentation/VagrantVM.png)
 
 Support for:
