@@ -20,6 +20,9 @@
     - g++
     # Network
     - tshark
+    - tcpflow
+    - tcpdump
+    - ngrep
     # Dev stuff
     - libsqlite3-dev
     - php5-dev
