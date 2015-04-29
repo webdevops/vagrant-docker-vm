@@ -26,6 +26,7 @@
    - negotiation
    - setenvif
    - vhost_alias
+   - ssl
    # Reverse proxy
    - proxy
    - proxy_http

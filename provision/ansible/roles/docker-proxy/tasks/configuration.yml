@@ -6,4 +6,4 @@
     delete: no
 
 - name: Reload apache2
-  command: service apache2 reload
+  command: service apache2 restart
