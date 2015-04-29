@@ -2,6 +2,13 @@
 
 # Services
 
+## HTTP/Web
+
+Setting               | Value
+--------------------- | -------------
+Hostname              | *.vm
+Port                  | 80 or 443 (ssl with ssl-proxy, no cert check)
+
 ## SSH
 
 ```bash
