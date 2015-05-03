@@ -20,7 +20,7 @@ Working files are stored inside the vm-box (the old way) or outside (the modern 
 Also this VM should be a sandbox so eg. no email should be send to other servers - they are catched by a
 local postfix daemon and can be accessed by IMAP (dovecot).
 
-Following the "keep it stupid simple" this box provides all tools with a simple "vagrant up"
+Following the "keep it simple, stupid" this box provides all tools with a simple "vagrant up"
 
 ## Requirements
 
