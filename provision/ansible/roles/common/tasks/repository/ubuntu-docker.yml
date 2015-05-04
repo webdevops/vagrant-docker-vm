@@ -1,0 +1,2 @@
+- name: Add docker repository
+  apt_repository: repo='ppa:docker-maint/testing'

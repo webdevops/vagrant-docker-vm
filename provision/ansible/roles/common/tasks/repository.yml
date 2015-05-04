@@ -4,5 +4,8 @@
 - name: Add ubuntu percona repository
   include: repository/ubuntu-percona.yml
 
+- name: Add ubuntu docker repository
+  include: repository/ubuntu-docker.yml
+
 - name: Update system
   apt: update_cache=yes
