@@ -10,3 +10,6 @@ githubUser: 'example'
 
 ## Insecure registry for Docker
 #dockerRegistry: ''
+
+## Password for growl server
+#growlPassword: ''

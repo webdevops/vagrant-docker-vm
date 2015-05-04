@@ -1,3 +1,5 @@
+- include_vars: /vagrant/vm.yml
+
 - name: Setup automatic startup maintenance (clitools)
   lineinfile:
     destfile: /etc/rc.local
@@ -20,6 +22,13 @@
     owner: root
     group: root
     mode:  0644
+
+- name: Setup growl password
+  lineinfile:
+    dest:   /etc/clitools.ini
+    regexp: '; password = growlpassword'
+    line:   'password = "{{ growlPassword }}"'
+  when: growlPassword is defined
 
 - name: Run clitools system startup
   raw: '/usr/local/bin/ct system:startup > /dev/null'
