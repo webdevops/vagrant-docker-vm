@@ -17,3 +17,8 @@
 
 #- name: Add docker user
 #  user: name=docker comment="Docker" uid=999 group=docker
+
+- name: Install docker
+  action: apt pkg='{{ item }}' state=latest
+  with_items:
+    - lxc-docker
