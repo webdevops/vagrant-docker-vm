@@ -27,4 +27,4 @@
    - { regexp: '^net.ipv4.tcp_fin_timeout',       line: 'net.ipv4.tcp_fin_timeout = 10' }
 
 - name: Apply sysctl settings
-  command: 'sysctl -p'
+  command: 'sysctl -p --ignore'
