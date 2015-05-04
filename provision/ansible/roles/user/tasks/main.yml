@@ -29,6 +29,12 @@
   tags:
     - bootstrap
 
+- name: Install and configure rupa/z
+  include: rupa-z.yml
+  tags:
+    - bootstrap
+    - maintenance
+
 - name: Fix rights
   include: rights.yml
   tags:
