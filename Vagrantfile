@@ -131,12 +131,14 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         v.cpus   = VAGRANT_VM_CPUS
         v.optimize_power_consumption = false
 
-        unless `prlctl list --info #{VAGRANT_VM_NAME} | grep hdd1`
-            v.customize ['set', :id,
-                '--device-add', 'hdd',
-                '--size', VAGRANT_VM_DATA_SIZE * 1024
+        v.customize(
+            "post-import", [
+                "set", :id,
+                 "--device-add", "hdd",
+                 "--image", "#{VAGRANT_ROOT}/disks/parallels-disk",
+                 "--type", "expand"
             ]
-        end
+        )
 
         v.customize "pre-boot", [
           "set", :id,
