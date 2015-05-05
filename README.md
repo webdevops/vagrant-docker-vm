@@ -8,7 +8,7 @@ Support for:
 
 - VitualBox
 - VMware (preferred)
-- Parallels
+- Parallels (preferred)
 
 ## Why Vagrant and not Boot2Docker?
 
