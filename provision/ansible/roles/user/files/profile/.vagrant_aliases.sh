@@ -6,6 +6,9 @@ alias dcli='ct docker:cli'
 alias dcsql='ct docker:mysql'
 alias dcmysql='ct docker:mysql'
 
+# ls
+alias l='ls -la'
+
 # show server headers
 alias wgets='wget --spider --server-response'
 
