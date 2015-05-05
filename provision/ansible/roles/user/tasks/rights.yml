@@ -1,5 +1,7 @@
 - name: Fix filesystem rights (/usr/local/bin)
   command: 'chown -R vagrant:vagrant /usr/local/bin/'
+  ignore_errors: True
 
 - name: Fix filesystem rights (/home/vagrant)
   command: 'chown -R vagrant:vagrant /home/vagrant/.config/'
+  ignore_errors: True
