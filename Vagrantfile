@@ -130,6 +130,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         v.memory = VAGRANT_VM_MEMORY
         v.cpus   = VAGRANT_VM_CPUS
         v.optimize_power_consumption = false
+        v.update_guest_tools = true
 
         v.customize(
             "post-import", [
