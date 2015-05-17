@@ -5,7 +5,6 @@
   when: githubUser is defined
   tags:
     - bootstrap
-    - maintenance
 
 - name: Setup ssh config autobuilding
   include: ssh-conf-autobuild.yml
