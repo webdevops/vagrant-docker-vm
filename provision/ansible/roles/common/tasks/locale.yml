@@ -1,0 +1,9 @@
+- name: Setup default locale settings configuration
+  lineinfile:
+    dest:   /etc/default/locale
+    regexp: '{{ item.regexp }}'
+    line:   '{{ item.line }}'
+  with_items:
+    - { regexp: '^LANG=',     line: 'LANG=en_US.UTF-8"' }
+    - { regexp: '^LANGUAGE=', line: 'LANGUAGE="en_US:"' }
+    - { regexp: '^LC_ALL=',   line: 'LC_ALL=en_US.UTF-8' }

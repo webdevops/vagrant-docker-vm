@@ -29,3 +29,8 @@
   tags:
     - bootstrap
     - maintenance
+
+- name: Configure locale settings
+  include: locale.yml
+  tags:
+    - bootstrap
