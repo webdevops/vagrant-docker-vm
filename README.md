@@ -15,6 +15,9 @@ Support for:
 I wanted a customizable development box (with possiblity to use it as sandbox) and i also wanted my favorite
 development tools inside my box which are up2date.
 
+Also [Vagrant provides a sharing/connection service](http://docs.vagrantup.com/v2/share/) that will make
+your Vagrant box public accessible (eg if you want to show a customer the current result).
+
 Only services (apache, nginx, mysql and other) are used inside docker containers.
 Working files are stored inside the vm-box (the old way) or outside (the modern way) with shares.
 
