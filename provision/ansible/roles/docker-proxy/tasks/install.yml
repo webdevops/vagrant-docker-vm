@@ -30,6 +30,7 @@
    # Reverse proxy
    - proxy
    - proxy_http
+   - rewrite
 
 - name: Restart apache2
   command: service apache2 restart
