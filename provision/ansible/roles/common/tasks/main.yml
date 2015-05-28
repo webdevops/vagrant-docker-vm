@@ -28,7 +28,6 @@
   include: sysctl.yml
   tags:
     - bootstrap
-    - maintenance
 
 - name: Configure locale settings
   include: locale.yml

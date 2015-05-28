@@ -34,7 +34,6 @@
     dest: /opt/docker/bin/
     delete: no
 
-
 - name: Install docker-compose
   shell: "curl -L https://github.com/docker/compose/releases/download/1.2.0/docker-compose-`uname -s`-`uname -m` > /opt/docker/bin/docker-compose.1.2.0"
   args:

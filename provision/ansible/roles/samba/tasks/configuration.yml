@@ -19,7 +19,7 @@
     - (echo vagrant; echo vagrant) | smbpasswd -s -a vagrant
 
 - name: Init samba
-  command: '{{ item }}'
+  command: 'service {{ item }} restart'
   with_items:
-    - service nmbd restart
-    - service smbd restart
+    - nmbd
+    - smbd

@@ -10,13 +10,11 @@
   include: ssh-conf-autobuild.yml
   tags:
     - bootstrap
-    - maintenance
 
 - name: Setup shell
   include: shell.yml
   tags:
     - bootstrap
-    - maintenance
 
 - name: Setup profile
   include: profile.yml
@@ -32,9 +30,9 @@
   include: rupa-z.yml
   tags:
     - bootstrap
-    - maintenance
 
 - name: Fix rights
   include: rights.yml
   tags:
     - bootstrap
+    - maintenance

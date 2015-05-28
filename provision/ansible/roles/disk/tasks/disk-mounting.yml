@@ -1,3 +1,4 @@
+
 - name: Stop services
   command: 'service {{ item }} stop'
   with_items:
@@ -35,6 +36,4 @@
   mount: name=/var/lib/docker/ src=/mnt/data/docker fstype=none opts='bind' state=mounted
 
 - name: Start services
-  command: 'service {{ item }} start'
-  with_items:
-    - 'docker'
+  command: 'service docker restart'
