@@ -38,6 +38,7 @@ Following the "keep it simple, stupid" this box provides all tools with a simple
 - [Requirements](/documentation/REQUIREMENTS.md)
 - [Installation](/documentation/INSTALL.md)
 - [Usage](/documentation/USAGE.md)
+- [Updating - Keep your box up2ate](/documentation/UPDATE.md)
 - [Services](/documentation/SERVICES.md)
 - [Using Docker](/documentation/DOCKER.md)
 - [Using CliTools](/documentation/CLITOOLS.md)
