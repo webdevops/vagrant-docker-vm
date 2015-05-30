@@ -52,6 +52,8 @@ Thanks for support, ideas and issues ...
 - [Achim Fritz](https://twitter.com/achimfritz73)
 - Rainer Zeh
 
+Did I forget anyone? Send me a tweet or create pull request!
+
 ## TODO
 - Reverse Proxy
   - distributed perverse proxy configuration via shared folders for easy and fast deployment
