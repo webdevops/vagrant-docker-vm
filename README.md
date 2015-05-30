@@ -46,8 +46,7 @@ Following the "keep it simple, stupid" this box provides all tools with a simple
 
 ## Credits
 
-Thanks for support, ideas and issues to ...
-
+Thanks for support, ideas and issues ...
 - [Ingo Pfennigstorf](https://twitter.com/krautsock)
 - [Florian Tatzel](https://twitter.com/PanadeEdu)
 - [Achim Fritz](https://twitter.com/achimfritz73)
