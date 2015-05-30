@@ -44,6 +44,15 @@ Following the "keep it simple, stupid" this box provides all tools with a simple
 - [Using CliTools](/documentation/CLITOOLS.md)
 - [About Provisioning](/documentation/PROVISION.md)
 
+## Credits
+
+Thanks for support, ideas and issues to ...
+
+- [Ingo Pfennigstorf](https://twitter.com/krautsock)
+- [Florian Tatzel](https://twitter.com/PanadeEdu)
+- [Achim Fritz](https://twitter.com/achimfritz73)
+- Rainer Zeh
+
 ## TODO
 - Reverse Proxy
   - distributed perverse proxy configuration via shared folders for easy and fast deployment
