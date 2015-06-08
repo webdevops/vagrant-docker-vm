@@ -6,10 +6,11 @@ realname: 'FULL NAME'
 shell:    '/bin/zsh'
 
 ## automatic ssh key fetching from github
-githubUser: 'example'
+#githubUser: 'example'
 
 ## Insecure registry for Docker
 #dockerRegistry: ''
 
 ## Password for growl server
 #growlPassword: ''
+
