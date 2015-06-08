@@ -48,6 +48,7 @@
     # Languages
     - ruby
     - ruby-dev
+    - ruby-compass
     # VCS
     - subversion
     - git
