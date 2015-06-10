@@ -1,8 +1,13 @@
 - include_vars: /vagrant/vm.yml
 
-- name: Setup ssh key (from github)
+- name: Setup ssh key (from github, authorized keys)
   include: github-ssh-key.yml
   when: githubUser is defined
+  tags:
+    - bootstrap
+
+- name: Generate ssh key
+  include: ssh-key.yml
   tags:
     - bootstrap
 
