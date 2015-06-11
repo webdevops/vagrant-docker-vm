@@ -30,5 +30,19 @@
     line:   'password = "{{ growlPassword }}"'
   when: growlPassword is defined
 
+# Not working correclty because of issue:
+#    https://github.com/ansible/ansible-modules-core/issues/1500
+#
+#- name: Setup growl support
+#  ini_file:
+#    dest:    '/etc/clitools.ini'
+#    section: '{{ item.section }}'
+#    option:  '{{ item.option }}'
+#    value:   '{{ item.value }}'
+#  with_items:
+#    - { section: 'growl', option: 'password', value: '{{ growlPassword }}' }
+#    - { section: 'syscheck',  option: 'wall', value: '0' }
+#  when: growlPassword is defined
+
 - name: Run clitools system startup
   raw: '/usr/local/bin/ct system:startup > /dev/null'
