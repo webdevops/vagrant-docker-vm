@@ -43,14 +43,16 @@ Following the "keep it simple, stupid" this box provides all tools with a simple
 - [Using Docker](/documentation/DOCKER.md)
 - [Using CliTools](/documentation/CLITOOLS.md)
 - [About Provisioning](/documentation/PROVISION.md)
+- [Troubleshooting](/documentation/TROUBLESHOOTING.md)
 
 ## Credits
 
 Thanks for support, ideas and issues ...
-- [Ingo Pfennigstorf](https://twitter.com/krautsock)
-- [Florian Tatzel](https://twitter.com/PanadeEdu)
+- [Ingo Pfennigstorf](https://github.com/ipf)
+- [Florian Tatzel](https://github.com/PanadeEdu)
 - [Achim Fritz](https://twitter.com/achimfritz73)
-- Rainer Zeh
+- [Rainer Zeh](https://twitter.com/rzeh)
+- [Philipp Kitzberger](https://github.com/Kitzberger)
 
 Did I forget anyone? Send me a tweet or create pull request!
 
