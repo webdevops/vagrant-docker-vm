@@ -10,7 +10,7 @@ debug_log_dir = "/tmp/debug/"
 
 [syscheck]
 enabled = 1
-{% if growlPassword is defined %}
+{% if growlPassword %}
 wall = 0
 growl = 1
 {% else %}
