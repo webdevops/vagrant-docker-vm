@@ -5,5 +5,13 @@
     dest: /etc/apache2/
     delete: no
 
+- name: Deploy apache configuration (template)
+  template:
+    src:   roles/docker-proxy/templates/20-macro-docker-proxy.conf
+    dest:  /etc/apache2/conf-vm/20-macro-docker-proxy.conf
+    owner: vagrant
+    group: root
+    mode:  0644
+
 - name: Reload apache2
   command: service apache2 restart

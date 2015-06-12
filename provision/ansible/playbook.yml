@@ -2,6 +2,9 @@
   remote_user: vagrant
   sudo_user: root
   sudo: yes
+  vars_files:
+    - /vagrant/provision/ansible/default.yml
+    - /vagrant/vm.yml
   roles:
     - common
     - disk
