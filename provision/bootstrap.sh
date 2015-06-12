@@ -10,6 +10,8 @@ export PYTHONUNBUFFERED=1
 
 SCRIPT_DIR=$(dirname $(readlink -f "$0"))
 
+export ANSIBLE_CONFIG="${SCRIPT_DIR}/ansible/ansible.cfg"
+
 ########################
 # Pre provision provisioning
 ########################
