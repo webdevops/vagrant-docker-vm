@@ -30,3 +30,15 @@ Hint: This handling is needed if you want to use docker-compose from your host s
 # Windows specific
 
 If you're working under Windows you can put your files under `/home/vagrant/projects/`
+
+You can access these Files via Samba.
+
+1. Map a new Network Drive
+2. Select Drive Letter
+3. Enter: \\192.168.56.2
+4. Browse and select the directory **projects**
+
+Use the following Credentials:
+
+Username: \vagrant
+Password: vagrant
