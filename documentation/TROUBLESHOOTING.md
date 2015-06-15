@@ -17,19 +17,19 @@ vagrant up --provision
 vagrant provision
 ```
 
-### Windows 10 and VMWare
+### Windows 10 (Tech Preview) and VMWare
 
 It can happen that the **Virtual Network Adapters** (in this case host only adapter)
-break **on every shutdown** or **disconnect** vom Network.
+break **on every shutdown** or **disconnect** from Network.
 
 Windows 10 has **currently issues with Virtual Networks** on different VM Softwares.
-With VMWare a Workaround can be reseeting the Network Adapters right before
+With VMWare a Workaround can be resetting the Network Adapters right before
 starting the VM.
 
 1. Shut Down the VM (if not down already)
 2. Open VMWare
 3. Open in Menu: **Edit > Virtual Network Editor...**
-4. Request Admin Rights in this Window (if not already started with them)
+4. Request Admin Rights in this window (if not already started with them)
 5. Click: **Restore Defaults**
 
 This will reset all virtual Network Adapters.
