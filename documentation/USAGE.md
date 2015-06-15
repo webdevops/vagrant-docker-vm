@@ -35,7 +35,7 @@ You can access these Files via Samba.
 
 1. Map a new Network Drive
 2. Select Drive Letter
-3. Enter: \\192.168.56.2
+3. Enter: \\\192.168.56.2
 4. Browse and select the directory **projects**
 
 Use the following Credentials:
