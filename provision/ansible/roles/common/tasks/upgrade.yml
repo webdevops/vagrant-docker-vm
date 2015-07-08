@@ -7,3 +7,4 @@
 - name: Update ruby gems
   command: 'gem update'
   ignore_errors: True
+  when: PROVISION.packages == "full"

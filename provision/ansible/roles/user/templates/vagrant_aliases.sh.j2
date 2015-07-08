@@ -1,3 +1,4 @@
+{% if PROVISION.clitools %}
 #######################################
 # CliTools aliases
 
@@ -28,6 +29,14 @@ alias dcmysql='ct docker:mysql'
 # General shortcuts (with up-dir tree searching)
 alias composer='ct php:composer'
 alias make='ct make'
+{% endif %}
+
+
+#######################################
+# Docker aliases
+
+# Cleanup old unused images (safe remove)
+alias docker-clean='docker rmi -f $(docker images | grep "<none>" | awk "{print \$3}")'
 
 #######################################
 # General aliases

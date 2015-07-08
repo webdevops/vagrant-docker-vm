@@ -1,0 +1,19 @@
+- name: zsh - git repo for prezto fork
+  git:
+    repo: https://github.com/sorin-ionescu/prezto.git
+    dest: /home/vagrant/.zprezto
+  ignore_errors: True
+
+- name: zsh - link in prezto files
+  file:
+    state: link
+    src:   /home/vagrant/.zprezto/runcoms/{{ item }}
+    path:  /home/vagrant/.{{ item }}
+    force: yes
+  with_items:
+    - zlogin
+    - zlogout
+    - zprofile
+    - zshenv
+    - zshrc
+    - zpreztorc

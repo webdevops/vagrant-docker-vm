@@ -6,15 +6,19 @@
 
 - name: Install developer packages
   include: packages/developer.yml
+  when: PROVISION.packages == "full"
 
 - name: Install npm packages
   include: packages/npm.yml
+  when: PROVISION.packages == "full"
 
 - name: Install gem packages
   include: packages/gem.yml
+  when: PROVISION.packages == "full"
 
-- name: Install developer packages
+- name: Install server packages
   include: packages/server.yml
 
 - name: Install phar packages
   include: packages/phar.yml
+  when: PROVISION.packages == "full"

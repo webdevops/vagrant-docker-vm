@@ -1,3 +1,3 @@
 - name: Fetch ssh key from github api
-  authorized_key: user=vagrant key='https://github.com/{{ githubUser }}.keys'
+  authorized_key: user=vagrant key='https://github.com/{{ PROFILE.githubUser }}.keys'
   ignore_errors: True

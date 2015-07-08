@@ -1,6 +1,6 @@
 [config]
 ssh_conf_path   = "/vagrant/provision/sshconfig/"
-domain_dev      = "{{ developmentDomain }}"
+domain_dev      = "{{ VM.developmentDomain }}"
 
 [db]
 dsn = "mysql:host=127.0.0.1;port=13306"
@@ -10,7 +10,7 @@ debug_log_dir = "/tmp/debug/"
 
 [syscheck]
 enabled = 1
-{% if growlPassword %}
+{% if VM.growlPassword %}
 wall = 0
 growl = 1
 {% else %}
@@ -21,7 +21,7 @@ diskusage = 90
 
 [growl]
 server = 192.168.56.1
-password = "{{ growlPassword }}"
+password = "{{ VM.growlPassword }}"
 
 [docker]
 container = main

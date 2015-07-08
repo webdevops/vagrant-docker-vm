@@ -5,6 +5,14 @@
     dest: /home/vagrant/
     delete: no
 
+- name: Deploy additional aliases
+  template:
+    src:   roles/user/templates/vagrant_aliases.sh.j2
+    dest:  /home/vagrant/.vagrant_aliases.sh
+    owner: vagrant
+    group: vagrant
+    mode:  0774
+
 - name: Fix rights
   file:
     path: '{{ item.path }}'

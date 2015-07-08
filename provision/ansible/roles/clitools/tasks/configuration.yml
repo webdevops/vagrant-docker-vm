@@ -21,5 +21,13 @@
     group: root
     mode:  0644
 
+- name: Copy bash.completition
+  copy:
+    src:   roles/clitools/files/clitools.completition
+    dest:  /etc/bash_completion.d/clitools
+    owner: root
+    group: root
+    mode:  0644
+
 - name: Run clitools system startup
   raw: '/usr/local/bin/ct system:startup > /dev/null'

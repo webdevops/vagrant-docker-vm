@@ -1,9 +1,9 @@
 - name: Deploy apache configuration
   synchronize:
     rsync_path: "sudo rsync"
-    src: roles/docker-proxy/files/
-    dest: /etc/apache2/
-    delete: no
+    src:        roles/docker-proxy/files/
+    dest:       /etc/apache2/
+    delete:     no
 
 - name: Deploy apache configuration (template)
   template:

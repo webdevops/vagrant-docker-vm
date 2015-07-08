@@ -5,14 +5,21 @@
     - jq
     - sloccount
     - pydf
+    - ack-grep
+    - tig
+    # Status tools
+    - htop
+    - atop
+    - iftop
+    - mytop
+    - iotop
+    - pfqueue
     # System
     - fuse
     - sshfs
     - xvfb
     # ldap
     - ldap-utils
-    # cron stuff
-    - incron
     # Compiling/Debugging
     - build-essential
     - strace
@@ -23,6 +30,11 @@
     - tcpflow
     - tcpdump
     - ngrep
+    - swaks
+    - ethtool
+    - netcat-openbsd
+    - mailutils
+    - mysql-client
     # Dev stuff
     - libsqlite3-dev
     - php5-dev
@@ -53,3 +65,8 @@
     - subversion
     - git
     - git-flow
+    # Conversion tools
+    - poppler-utils
+    - graphicsmagick
+    - imagemagick
+    - wkhtmltopdf
