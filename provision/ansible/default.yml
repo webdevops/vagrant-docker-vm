@@ -1,4 +1,37 @@
 ---
+###################
+# User/Profile info
+###################
+PROFILE:
+  ## git informations
+  email:    ''
+  realname: ''
 
-developmentDomain: 'vm'
-growlPassword: ''
+  ## default shell
+  shell:    '/bin/zsh'
+
+  ## zsh shell layout [prezto,grml]
+  zshShell: 'grml'
+
+  ## automatic ssh key fetching from github
+  #githubUser: 'example'
+
+###################
+# Provisioning features
+###################
+PROVISION:
+  packages:    'full' # full or minimal
+  samba:       1      # Samba server
+  ntp:         1      # Time synchronization
+  mail:        1      # Mail sandbox
+  php:         1      # Local PHP
+  docker:      1      # Docker server
+  dockerProxy: 1      # Docker reverse proxy for containers (apache)
+  clitools:    1      # CliTools
+
+###################
+# VM SETTINGS
+###################
+VM:
+  developmentDomain: 'vm'
+  growlPassword:     ''

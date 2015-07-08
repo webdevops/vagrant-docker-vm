@@ -1,16 +1,54 @@
 ---
+# ++++++++++++++++++++++++++++++++++++++++++++++++#
+#       Vagrant Provisioning Configuration        #
+# ++++++++++++++++++++++++++++++++++++++++++++++++#
+#
+#  Defaults can be found in
+#       provision/ansible/default.yml
+#
+# ++++++++++++++++++++++++++++++++++++++++++++++++
 
-## Email and Realname for git-configuration
-email:    'user@example.com'
-realname: 'FULL NAME'
-shell:    '/bin/zsh'
+###################
+# User/Profile info
+###################
+PROFILE:
+  ## git informations
+  email:    'user@example.com'
+  realname: 'FULL NAME'
 
-## automatic ssh key fetching from github
-#githubUser: 'example'
+  ## default shell
+  shell:    '/bin/zsh'
 
-## Insecure registry for Docker
-#dockerRegistry: ''
+  ## zsh shell layout [prezto,grml]
+  zshShell: 'grml'
 
-## Password for growl server
-#growlPassword: ''
+  ## automatic ssh key fetching from github
+  #githubUser: 'example'
+
+
+###################
+# Provisioning features
+###################
+PROVISION:
+  packages:    'full' # full or minimal
+  samba:       1      # Samba server
+  ntp:         1      # Time synchronization
+  mail:        1      # Mail sandbox
+  php:         1      # Local PHP
+  docker:      1      # Docker server
+  dockerProxy: 1      # Docker reverse proxy for containers (apache)
+  clitools:    1      # CliTools
+
+###################
+# VM SETTINGS
+###################
+VM:
+  ## Development domain (automatic redirect of *.vm for internal use)
+  developmentDomain: 'vm'
+
+  ## Insecure registry for Docker
+  #dockerRegistry: ''
+
+  ## Password for growl server
+  growlPassword: ''
 
