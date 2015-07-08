@@ -35,3 +35,20 @@ starting the VM.
 This will reset all virtual Network Adapters.
 If you now start Vagrant with **vagrant up**, the required Adapters will be
 recreated.
+
+
+## General errors
+
+### Disk usage is high or disk is full
+
+You can safely run `docker-clean` to remove old and unused images.
+
+
+
+## Docker errors
+
+### Error response from daemon: client and server don't have same version (client : 1.19, server: 1.18)
+
+Your docker client has been updated, just rerun provisioning to update the Docker server.
+
+
