@@ -137,7 +137,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
                 "set", :id,
                  "--device-add", "hdd",
                  "--image", "#{VAGRANT_ROOT}/disks/parallels-disk",
-                 "--type", "expand"
+                 "--type", "expand",
+                 "--size", VAGRANT_VM_DATA_SIZE * 1024,
             ]
         )
 
