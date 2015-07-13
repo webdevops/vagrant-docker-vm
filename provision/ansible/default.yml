@@ -10,11 +10,12 @@ PROFILE:
   ## default shell
   shell:    '/bin/zsh'
 
-  ## zsh shell layout [prezto,grml]
+  ## zsh shell layout [grml,prezto,ohmyzsh]
   zshShell: 'grml'
 
   ## automatic ssh key fetching from github
   #githubUser: 'example'
+
 
 ###################
 # Provisioning features
@@ -29,9 +30,18 @@ PROVISION:
   dockerProxy: 1      # Docker reverse proxy for containers (apache)
   clitools:    1      # CliTools
 
+  ## Filesystem of data disk [ext3,ext4,xfs,btrfs]
+  dataFS: 'ext4'
+
 ###################
 # VM SETTINGS
 ###################
 VM:
+  ## Development domain (automatic redirect of *.vm for internal use)
   developmentDomain: 'vm'
-  growlPassword:     ''
+
+  ## Insecure registry for Docker
+  #dockerRegistry: ''
+
+  ## Password for growl server
+  growlPassword: ''

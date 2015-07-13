@@ -39,6 +39,9 @@ PROVISION:
   dockerProxy: 1      # Docker reverse proxy for containers (apache)
   clitools:    1      # CliTools
 
+  ## Filesystem of data disk [ext3,ext4,xfs,btrfs]
+  dataFS: 'ext4'
+
 ###################
 # VM SETTINGS
 ###################

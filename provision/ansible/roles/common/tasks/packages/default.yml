@@ -39,6 +39,15 @@
     - sudo
     - cstream
 
+- name: Install default filesystem packages
+  apt:
+    pkg:   '{{ item }}'
+    state: latest
+  with_items:
+    - e2fsprogs
+    - xfsprogs
+    - btrfs-tools
+
 - name: Install default other packages
   apt:
     pkg:   '{{ item }}'

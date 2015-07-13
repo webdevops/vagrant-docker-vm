@@ -4,13 +4,24 @@
 #############################
 
 - name: Unmount code
-  mount: name=/home/vagrant/code/ src=/mnt/data/code fstype=none opts='bind' state=unmounted
+  mount:
+    name:   /home/vagrant/code/
+    src:    /mnt/data/code
+    fstype: none
+    opts:   'bind'
+    state:  unmounted
 
 - name: Remove mount for code
-  mount: name=/home/vagrant/code/ src=/mnt/data/code fstype=none opts='bind' state=absent
+  mount:
+    name:   /home/vagrant/code/
+    src:    /mnt/data/code
+    fstype: none
+    opts:   'bind'
+    state:  absent
 
 - name: stat /mnt/data/code
-  stat: path=/mnt/data/code
+  stat:
+    path: /mnt/data/code
   register: old_code_stat
 
 - name: Move /mnt/data/code to /mnt/data/projects
@@ -21,7 +32,8 @@
 # Projects
 #############################
 
-- stat: path=/mnt/data/projects/
+- stat:
+    path: /mnt/data/projects/
   register: codedir
 
 - name: Create code storage
@@ -30,10 +42,25 @@
     creates: '/mnt/data/projects/'
 
 - name: Setup rights for code
-  file: path=/mnt/data/projects state=directory owner=vagrant group=vagrant mode=777
+  file:
+    path:  /mnt/data/projects
+    state: directory
+    owner: vagrant
+    group: vagrant
+    mode:  777
 
 - name: Setup mounting for docker
-  mount: name=/home/vagrant/projects/ src=/mnt/data/projects fstype=none opts='bind' state=present
+  mount:
+    name:   /home/vagrant/projects/
+    src:    /mnt/data/projects
+    fstype: none
+    opts:   'bind'
+    state:  present
 
 - name: Mount code
-  mount: name=/home/vagrant/projects/ src=/mnt/data/projects fstype=none opts='bind' state=mounted
+  mount:
+    name:   /home/vagrant/projects/
+    src:    /mnt/data/projects
+    fstype: none
+    opts:   'bind'
+    state:  mounted
