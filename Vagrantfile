@@ -173,11 +173,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     if OS.windows?
         ## Windows
-        config.vm.synced_folder "./home", "/mnt/home/"
+        # configure shared folders here
     elsif OS.mac?
         ## Linux/Unix/MacOS
         config.vm.synced_folder "#{ENV['HOME']}", "#{ENV['HOME']}", :nfs => { :mount_options => [ "dmode=775", "fmode=774" ] }
-        config.vm.synced_folder "./home",         "/mnt/home/",     :nfs => { :mount_options => [ "dmode=775", "fmode=774" ] }
     end
 
     #################

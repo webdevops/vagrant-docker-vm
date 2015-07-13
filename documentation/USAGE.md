@@ -2,6 +2,13 @@
 
 # Usage
 
+## Custom files/config
+
+Put your custom files for your home directory `/home/vagrant` into  `customization/home`.
+Files for `/etc` customization must be in `customization/etc`.
+
+After provisioning all files will be synchronized to their destination folders.
+
 ## Access to VM
 
 You can get access to this VM with [SSH (ssh, rsync, scp) or with SMB (Samba)](SERVICES.md).

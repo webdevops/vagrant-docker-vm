@@ -1,5 +1,7 @@
 /.vagrant/
 /.idea/
-!.gitkeep
 /disks/*
 /home/*
+/customization/etc/*
+/customization/home/*
+!.gitkeep
