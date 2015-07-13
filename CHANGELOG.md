@@ -5,6 +5,8 @@ Vagrant Development VM Changelog
 ------------------
 * Modular provisioning
 * Increased data disk size to 160 GB
+* Improved provisioning feedback (splitted big ansible tasks into smaller ones)
+* Smaller improvements
 
 1.0.0 - 2015-06-17
 ------------------
