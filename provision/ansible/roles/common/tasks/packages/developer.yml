@@ -1,31 +1,45 @@
-- name: Install developer packages
+- name: Install developer tool packages
   action: apt pkg='{{ item }}' state=latest
   with_items:
-    # Tools
     - jq
     - sloccount
     - pydf
     - ack-grep
     - tig
-    # Status tools
+
+- name: Install developer status packages
+  action: apt pkg='{{ item }}' state=latest
+  with_items:
     - htop
     - atop
     - iftop
     - mytop
     - iotop
     - pfqueue
-    # System
+
+- name: Install developer system packages
+  action: apt pkg='{{ item }}' state=latest
+  with_items:
     - fuse
     - sshfs
     - xvfb
-    # ldap
+
+- name: Install developer ldap packages
+  action: apt pkg='{{ item }}' state=latest
+  with_items:
     - ldap-utils
-    # Compiling/Debugging
+
+- name: Install developer compiling packages
+  action: apt pkg='{{ item }}' state=latest
+  with_items:
     - build-essential
     - strace
     - closure-compiler
     - g++
-    # Network
+
+- name: Install developer network packages
+  action: apt pkg='{{ item }}' state=latest
+  with_items:
     - tshark
     - tcpflow
     - tcpdump
@@ -35,7 +49,10 @@
     - netcat-openbsd
     - mailutils
     - mysql-client
-    # Dev stuff
+
+- name: Install developer library packages
+  action: apt pkg='{{ item }}' state=latest
+  with_items:
     - libsqlite3-dev
     - php5-dev
     - libcurl3-gnutls-dev
@@ -45,7 +62,32 @@
     - libjpeg8-dev
     - libpango1.0-dev
     - libgif-dev
-    # Other stuff
+
+- name: Install developer language packages
+  action: apt pkg='{{ item }}' state=latest
+  with_items:
+    - ruby
+    - ruby-dev
+    - ruby-compass
+
+- name: Install developer vcs packages
+  action: apt pkg='{{ item }}' state=latest
+  with_items:
+    - subversion
+    - git
+    - git-flow
+
+- name: Install developer conversion tool packages
+  action: apt pkg='{{ item }}' state=latest
+  with_items:
+    - poppler-utils
+    - graphicsmagick
+    - imagemagick
+    - wkhtmltopdf
+
+- name: Install developer other packages
+  action: apt pkg='{{ item }}' state=latest
+  with_items:
     - tnef
     - dos2unix
     - octave
@@ -57,16 +99,3 @@
     - unace
     - colordiff
     - graphviz
-    # Languages
-    - ruby
-    - ruby-dev
-    - ruby-compass
-    # VCS
-    - subversion
-    - git
-    - git-flow
-    # Conversion tools
-    - poppler-utils
-    - graphicsmagick
-    - imagemagick
-    - wkhtmltopdf

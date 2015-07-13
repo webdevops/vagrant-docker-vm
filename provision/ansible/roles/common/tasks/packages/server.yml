@@ -1,6 +1,5 @@
-- name: Install developer packages
+- name: Install server packages
   action: apt pkg='{{ item }}' state=latest
   with_items:
-    # Server stuff
     - zram-config
     - haveged

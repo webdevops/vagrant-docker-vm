@@ -1,10 +1,12 @@
-- name: Install default packages
+- name: Install default provisioning packages
   action: apt pkg='{{ item }}' state=latest
   with_items:
-    # Provisioning
     - parted
     - curl
-    # Tools
+
+- name: Install default tool packages
+  action: apt pkg='{{ item }}' state=latest
+  with_items:
     - zsh
     - moreutils
     - byobu
@@ -13,13 +15,23 @@
     - telnet
     - vim
     - tmux
-    # Compression
+
+- name: Install default compression packages
+  action: apt pkg='{{ item }}' state=latest
+  with_items:
     - zip
     - unzip
     - bzip2
-    # Development
+    - p7zip-full
+
+- name: Install default development packages
+  action: apt pkg='{{ item }}' state=latest
+  with_items:
     - git
     - sudo
     - cstream
-    # cron stuff
+
+- name: Install default other packages
+  action: apt pkg='{{ item }}' state=latest
+  with_items:
     - incron

@@ -1,2 +1,3 @@
 - name: Install phpunit (phar)
   get_url: url=https://phar.phpunit.de/phpunit.phar dest=/usr/local/bin/phpunit mode=0755
+  ignore_errors: True

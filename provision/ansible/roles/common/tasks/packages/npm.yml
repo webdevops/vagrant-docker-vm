@@ -1,29 +1,36 @@
-- name: Install developer packages
+- name: Install nodejs
   action: apt pkg='{{ item }}' state=latest
   when: ansible_distribution == 'Ubuntu'
   with_items:
-    # Tools
-    - jq
-    # nodejs
     - nodejs
     - nodejs-legacy
     - node-less
+
+- name: Install npm
+  action: apt pkg='{{ item }}' state=latest
+  when: ansible_distribution == 'Ubuntu'
+  with_items:
     - npm
 
 #- name: Update npm packages
 #  command: 'npm update -g'
 
-- name: Install npm packages
+- name: Install npm tools packages
   npm: name='{{ item }}' global=yes state=latest production=yes
   with_items:
-   # Tools
    - growl
    - bower
    - phantomjs
    - typescript
    - jshint
    - jslint
-   # Grunt
+
+- name: Install grunt
+  npm: name='{{ item }}' global=yes state=latest production=yes
+  with_items:
    - grunt
-   # Gulp
+
+- name: Install gulp
+  npm: name='{{ item }}' global=yes state=latest production=yes
+  with_items:
    - gulp
