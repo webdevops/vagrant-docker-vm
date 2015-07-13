@@ -19,7 +19,7 @@ PROFILE:
   ## default shell
   shell:    '/bin/zsh'
 
-  ## zsh shell layout [prezto,grml]
+  ## zsh shell layout [grml,prezto,ohmyzsh]
   zshShell: 'grml'
 
   ## automatic ssh key fetching from github

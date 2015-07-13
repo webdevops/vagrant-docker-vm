@@ -25,6 +25,11 @@
   tags:
     - bootstrap
 
+- include: shell/zsh-ohmyzsh.yml
+  when: PROFILE.zshShell is defined and PROFILE.zshShell == 'ohmyzsh'
+  tags:
+    - bootstrap
+
 - name: Setup shell
   include: shell.yml
   tags:
