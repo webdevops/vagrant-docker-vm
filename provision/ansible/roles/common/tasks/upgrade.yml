@@ -1,8 +1,10 @@
 - name: Update system
-  apt: update_cache=yes
+  apt:
+    update_cache: yes
 
 - name: Upgrade system
-  apt: upgrade=dist
+  apt:
+    upgrade: dist
 
 - name: Update ruby gems
   command: 'gem update'

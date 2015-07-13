@@ -1,5 +1,7 @@
 - name: Install nodejs
-  action: apt pkg='{{ item }}' state=latest
+  apt:
+    pkg:   '{{ item }}'
+    state: latest
   when: ansible_distribution == 'Ubuntu'
   with_items:
     - nodejs
@@ -7,7 +9,9 @@
     - node-less
 
 - name: Install npm
-  action: apt pkg='{{ item }}' state=latest
+  apt:
+    pkg:   '{{ item }}'
+    state: latest
   when: ansible_distribution == 'Ubuntu'
   with_items:
     - npm
@@ -16,7 +20,11 @@
 #  command: 'npm update -g'
 
 - name: Install npm tools packages
-  npm: name='{{ item }}' global=yes state=latest production=yes
+  npm:
+    name:   '{{ item }}'
+    global: yes
+    state:  latest
+    production: yes
   with_items:
    - growl
    - bower
@@ -26,11 +34,19 @@
    - jslint
 
 - name: Install grunt
-  npm: name='{{ item }}' global=yes state=latest production=yes
+  npm:
+    name:   '{{ item }}'
+    global: yes
+    state:  latest
+    production: yes
   with_items:
    - grunt
 
 - name: Install gulp
-  npm: name='{{ item }}' global=yes state=latest production=yes
+  npm:
+    name:   '{{ item }}'
+    global: yes
+    state:  latest
+    production: yes
   with_items:
    - gulp

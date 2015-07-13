@@ -1,11 +1,15 @@
 - name: Install default provisioning packages
-  action: apt pkg='{{ item }}' state=latest
+  apt:
+    pkg:   '{{ item }}'
+    state: latest
   with_items:
     - parted
     - curl
 
 - name: Install default tool packages
-  action: apt pkg='{{ item }}' state=latest
+  apt:
+    pkg:   '{{ item }}'
+    state: latest
   with_items:
     - zsh
     - moreutils
@@ -17,7 +21,9 @@
     - tmux
 
 - name: Install default compression packages
-  action: apt pkg='{{ item }}' state=latest
+  apt:
+    pkg:   '{{ item }}'
+    state: latest
   with_items:
     - zip
     - unzip
@@ -25,13 +31,17 @@
     - p7zip-full
 
 - name: Install default development packages
-  action: apt pkg='{{ item }}' state=latest
+  apt:
+    pkg:   '{{ item }}'
+    state: latest
   with_items:
     - git
     - sudo
     - cstream
 
 - name: Install default other packages
-  action: apt pkg='{{ item }}' state=latest
+  apt:
+    pkg:   '{{ item }}'
+    state: latest
   with_items:
     - incron

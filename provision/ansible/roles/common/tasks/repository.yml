@@ -8,4 +8,5 @@
   include: repository/ubuntu-docker.yml
 
 - name: Update system
-  apt: update_cache=yes
+  apt:
+    update_cache: yes

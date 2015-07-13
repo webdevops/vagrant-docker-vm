@@ -1,5 +1,7 @@
 - name: Install developer tool packages
-  action: apt pkg='{{ item }}' state=latest
+  apt:
+    pkg:   '{{ item }}'
+    state: latest
   with_items:
     - jq
     - sloccount
@@ -8,7 +10,9 @@
     - tig
 
 - name: Install developer status packages
-  action: apt pkg='{{ item }}' state=latest
+  apt:
+    pkg:   '{{ item }}'
+    state: latest
   with_items:
     - htop
     - atop
@@ -18,19 +22,25 @@
     - pfqueue
 
 - name: Install developer system packages
-  action: apt pkg='{{ item }}' state=latest
+  apt:
+    pkg:   '{{ item }}'
+    state: latest
   with_items:
     - fuse
     - sshfs
     - xvfb
 
 - name: Install developer ldap packages
-  action: apt pkg='{{ item }}' state=latest
+  apt:
+    pkg:   '{{ item }}'
+    state: latest
   with_items:
     - ldap-utils
 
 - name: Install developer compiling packages
-  action: apt pkg='{{ item }}' state=latest
+  apt:
+    pkg:   '{{ item }}'
+    state: latest
   with_items:
     - build-essential
     - strace
@@ -38,7 +48,9 @@
     - g++
 
 - name: Install developer network packages
-  action: apt pkg='{{ item }}' state=latest
+  apt:
+    pkg:   '{{ item }}'
+    state: latest
   with_items:
     - tshark
     - tcpflow
@@ -51,7 +63,9 @@
     - mysql-client
 
 - name: Install developer library packages
-  action: apt pkg='{{ item }}' state=latest
+  apt:
+    pkg:   '{{ item }}'
+    state: latest
   with_items:
     - libsqlite3-dev
     - php5-dev
@@ -64,21 +78,27 @@
     - libgif-dev
 
 - name: Install developer language packages
-  action: apt pkg='{{ item }}' state=latest
+  apt:
+    pkg:   '{{ item }}'
+    state: latest
   with_items:
     - ruby
     - ruby-dev
     - ruby-compass
 
 - name: Install developer vcs packages
-  action: apt pkg='{{ item }}' state=latest
+  apt:
+    pkg:   '{{ item }}'
+    state: latest
   with_items:
     - subversion
     - git
     - git-flow
 
 - name: Install developer conversion tool packages
-  action: apt pkg='{{ item }}' state=latest
+  apt:
+    pkg:   '{{ item }}'
+    state: latest
   with_items:
     - poppler-utils
     - graphicsmagick
@@ -86,7 +106,9 @@
     - wkhtmltopdf
 
 - name: Install developer other packages
-  action: apt pkg='{{ item }}' state=latest
+  apt:
+    pkg:   '{{ item }}'
+    state: latest
   with_items:
     - tnef
     - dos2unix

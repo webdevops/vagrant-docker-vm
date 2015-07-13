@@ -20,7 +20,10 @@
     - { regexp: '^message_size_limit',       line: 'message_size_limit = 102400000' }
 
 - name: Enable additional_headers
-  lineinfile: dest=/etc/postfix/main.cf regexp='header_checks' line='header_checks = regexp:/etc/postfix/additional_headers'
+  lineinfile:
+    dest:    /etc/postfix/main.cf
+    regexp: 'header_checks'
+    line:   'header_checks = regexp:/etc/postfix/additional_headers'
 
 - name: Init postfix
   command: '{{ item }}'

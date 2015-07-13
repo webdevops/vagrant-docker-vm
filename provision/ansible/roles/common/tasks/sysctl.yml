@@ -1,5 +1,8 @@
 - name: Sysctl settings
-  lineinfile: dest=/etc/sysctl.conf regexp='{{ item.regexp }}' line='{{ item.line }}'
+  lineinfile:
+    dest:   /etc/sysctl.conf
+    regexp: '{{ item.regexp }}'
+    line:   '{{ item.line }}'
   with_items:
   # Send buffer sizes
    - { regexp: '^net.core.rmem_max',              line: 'net.core.rmem_max = 104857600' }
