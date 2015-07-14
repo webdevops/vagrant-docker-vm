@@ -34,7 +34,7 @@ VM: /Users/foo/
 
 Hint: This handling is needed if you want to use docker-compose from your host system.
 
-# Windows specific
+### Windows specific
 
 If you're working under Windows you can put your files under `/home/vagrant/projects/`
 
@@ -49,3 +49,22 @@ Use the following Credentials:
 
 Username: \vagrant
 Password: vagrant
+
+
+## Destroy & Recreate
+
+### VirtualBox
+
+With `vagrant destroy` you will destroy the VM and also the data disk so you can immediately
+recreate the box with `vagrant up`.
+
+### VMware & Parallels
+
+If you're using VMware or Parallels your disk will be stored inside the `disk/` directory.
+
+After `vagrant destroy` you need to destroy these disk if you want a clean reinstallation:
+
+VMware: Change to `disks/` directory and reset the VMware disk data files with git: `git checkout data*`
+
+Parallels: Just remove the directory `disks/parallels-disk/`.
+
