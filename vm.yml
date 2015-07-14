@@ -52,6 +52,10 @@ VM:
   ## Insecure registry for Docker
   #dockerRegistry: ''
 
+  ## Additional docker opts
+  ##  -> if you use btrfs you can set: -s btrfs
+  dockerOpts: ''
+
   ## Password for growl server
   growlPassword: ''
 

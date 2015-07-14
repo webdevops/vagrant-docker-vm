@@ -2,7 +2,7 @@
   lineinfile:
     dest: '/etc/default/docker'
     regexp: '^#?DOCKER_OPTS\='
-    line: 'DOCKER_OPTS="-H tcp://0.0.0.0:2375 -H unix:///var/run/docker.sock --insecure-registry {{ VM.dockerRegistry }}"'
+    line: 'DOCKER_OPTS="-H tcp://0.0.0.0:2375 -H unix:///var/run/docker.sock --insecure-registry {{ VM.dockerRegistry }} {{ VM.dockerOpts }}"'
     state: present
   when: VM.dockerRegistry is defined
 
@@ -10,7 +10,7 @@
   lineinfile:
     dest: '/etc/default/docker'
     regexp: '^#?DOCKER_OPTS\='
-    line: 'DOCKER_OPTS="-H tcp://0.0.0.0:2375 -H unix:///var/run/docker.sock"'
+    line: 'DOCKER_OPTS="-H tcp://0.0.0.0:2375 -H unix:///var/run/docker.sock {{ VM.dockerOpts }}"'
     state: present
   when: VM.dockerRegistry is not defined
 
