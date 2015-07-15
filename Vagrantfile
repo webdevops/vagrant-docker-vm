@@ -23,6 +23,16 @@ VAGRANT_VM_IP_INTERNAL   = '192.168.56.2'
 # Port forwarding
 VAGRANT_VM_FORWARD_IP    = '127.0.0.1'
 
+###################
+# Vagrant image
+###################
+
+## Prebuilt image
+#VAGRANT_IMAGE            = 'mblaschke/ubuntu-docker'
+
+## BoxCutter plain Ubuntu image
+VAGRANT_IMAGE            = 'box-cutter/ubuntu1404-docker"'
+
 ###############################################################################
 ## --- Do not edit below ---
 ###############################################################################
@@ -63,8 +73,7 @@ DiskVmData = File.join(VAGRANT_ROOT, '/disks/vm-data.vdi')
 ###############################################################################
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
-    # config.vm.box = "phusion/ubuntu-14.04-amd64"
-    config.vm.box = "box-cutter/ubuntu1404-docker"
+    config.vm.box = VAGRANT_IMAGE
     config.vm.box_check_update = true
 
     #################
