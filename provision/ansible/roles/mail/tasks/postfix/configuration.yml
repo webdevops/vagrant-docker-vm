@@ -25,6 +25,11 @@
     regexp: 'header_checks'
     line:   'header_checks = regexp:/etc/postfix/additional_headers'
 
+- name: Create /etc/mailname
+  raw: 'hostname > /etc/mailname'
+  args:
+    creates: '/etc/mailname'
+
 - name: Init postfix
   command: '{{ item }}'
   with_items:
