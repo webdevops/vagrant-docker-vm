@@ -43,7 +43,7 @@ PROVISION:
   dataFS: 'ext4'
 
 ###################
-# VM SETTINGS
+# VM settings
 ###################
 VM:
   ## Development domain (automatic redirect of *.vm for internal use)
@@ -59,3 +59,13 @@ VM:
   ## Password for growl server
   growlPassword: ''
 
+###################
+# Clitools settings
+###################
+CLITOOLS:
+  db:
+    dsn:      'mysql:host=127.0.0.1;port=13306'
+    username: 'root'
+    password: 'dev'
+  docker:
+    boilerplate: 'https://github.com/mblaschke/php-docker-boilerplate.git'

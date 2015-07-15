@@ -110,15 +110,4 @@ alias gc='git commit'
 alias ga='git add'
 alias gd='git diff'
 
-#######################################
-# ZSH completition workaround
-
-if [ "$SHELL" = '/bin/zsh' ]; then
-    autoload -U +X compinit && compinit
-    autoload -U +X bashcompinit && bashcompinit
-
-    for FILE in /etc/bash_completion.d/; do
-        source $FILE;
-    done;
-fi
 

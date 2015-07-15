@@ -1,0 +1,14 @@
+#compdef ct
+_ct() {
+    local -a commands
+    IFS=$'\n'
+    commands=(${(f)"$(ct list --raw | sed 's/:/\\:/g' | awk -F" " '{print $1}')"})
+ 
+    if (( CURRENT == 2 )); then
+        _describe -t commands 'commands' commands
+    fi
+ 
+    return 0
+}
+ 
+_ct

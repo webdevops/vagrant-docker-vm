@@ -21,10 +21,29 @@
     group: root
     mode:  0644
 
+- name: Create /tmp/debug/ directory
+  file:
+    dest:  '{{ item }}'
+    owner: root
+    group: root
+    mode:  0777
+    state: directory
+  with_items:
+    - /etc/bash_completion.d/
+    - /etc/zsh_completion.d/
+
 - name: Copy bash.completition
   copy:
-    src:   roles/clitools/files/clitools.completition
+    src:   roles/clitools/files/bash.clitools.completition
     dest:  /etc/bash_completion.d/clitools
+    owner: root
+    group: root
+    mode:  0644
+
+- name: Copy zsh.completition
+  copy:
+    src:   roles/clitools/files/zsh.clitools.completition
+    dest:  /etc/zsh_completion.d/clitools
     owner: root
     group: root
     mode:  0644
