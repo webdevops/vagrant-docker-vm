@@ -1,7 +1,12 @@
-- name: Fix filesystem rights (/usr/local/bin)
-  command: 'chown -R vagrant:vagrant /usr/local/bin/'
-  ignore_errors: True
-
-- name: Fix filesystem rights (/home/vagrant)
-  command: 'chown -R vagrant:vagrant /home/vagrant/.config/'
-  ignore_errors: True
+- name: Fix filesystem rights
+  file:
+    path:    '{{ item.path }}'
+    state:   directory
+    mode:    0775
+    owner:   'vagrant'
+    group:   'vagrant'
+    recurse: '{{ item.recurse }}'
+  with_items:
+   - { path: '/home/vagrant/.config/', recurse: 'yes' }
+   - { path: '/usr/local/bin/',        recurse: 'yes' }
+   - { path: '/var/www/',              recurse: 'no' }

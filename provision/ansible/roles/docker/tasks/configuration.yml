@@ -1,20 +1,18 @@
-- include_vars: /vagrant/vm.yml
+- name: Configure docker
+  lineinfile:
+    dest: '/etc/default/docker'
+    regexp: '^#?DOCKER_OPTS\='
+    line: 'DOCKER_OPTS="-H tcp://0.0.0.0:2375 -H unix:///var/run/docker.sock --insecure-registry {{ VM.dockerRegistry }} {{ VM.dockerOpts }}"'
+    state: present
+  when: VM.dockerRegistry is defined
 
 - name: Configure docker
   lineinfile:
     dest: '/etc/default/docker'
     regexp: '^#?DOCKER_OPTS\='
-    line: 'DOCKER_OPTS="-H tcp://0.0.0.0:2375 -H unix:///var/run/docker.sock --insecure-registry {{ dockerRegistry }}"'
+    line: 'DOCKER_OPTS="-H tcp://0.0.0.0:2375 -H unix:///var/run/docker.sock {{ VM.dockerOpts }}"'
     state: present
-  when: dockerRegistry is defined
-
-- name: Configure docker
-  lineinfile:
-    dest: '/etc/default/docker'
-    regexp: '^#?DOCKER_OPTS\='
-    line: 'DOCKER_OPTS="-H tcp://0.0.0.0:2375 -H unix:///var/run/docker.sock"'
-    state: present
-  when: dockerRegistry is not defined
+  when: VM.dockerRegistry is not defined
 
 - name: Restart docker
   command: 'service docker restart'
@@ -63,3 +61,16 @@
    - { src: '/opt/docker/bin/docker-compose.1.2.0', dest: '/usr/local/bin/docker-compose' }
    - { src: '/opt/docker/bin/compose-wrapper.sh',   dest: '/usr/local/bin/dcc' }
 
+#############################
+# Apparmor profile
+#############################
+
+- name: Fix AppArmor profile
+  lineinfile:
+    dest:        '/etc/apparmor.d/docker'
+    insertafter: '[\s]*capability'
+    line:        '  ptrace peer=docker-default,'
+    state:       present
+
+- name: Reload AppArmor
+  command: 'service apparmor reload'

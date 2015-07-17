@@ -1,5 +1,8 @@
 - name: Remove old ntp packages
-  action: apt pkg='{{ item }}' state=absent purge=yes
+  apt:
+    pkg:   '{{ item }}'
+    state: absent
+    purge: yes
   with_items:
     - ntp
     - openntpd
@@ -9,6 +12,8 @@
   ignore_errors: yes
 
 - name: Install chrony
-  action: apt pkg='{{ item }}' state=latest
+  apt:
+    pkg:   '{{ item }}'
+    state: latest
   with_items:
     - chrony

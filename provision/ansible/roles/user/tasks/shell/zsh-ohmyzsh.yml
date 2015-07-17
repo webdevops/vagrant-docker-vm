@@ -1,0 +1,10 @@
+- name: zsh - git repo for oh-my-zsh fork
+  git:
+    repo: https://github.com/robbyrussell/oh-my-zsh.git
+    dest: /home/vagrant/.oh-my-zsh
+  ignore_errors: True
+
+- name: Creating new /home/vagrant/.zshrc
+  action: 'shell cp /home/vagrant/.oh-my-zsh/templates/zshrc.zsh-template /home/vagrant/.zshrc'
+  args:
+    creates: '/home/vagrant/.zshrc'

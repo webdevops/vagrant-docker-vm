@@ -17,11 +17,21 @@ VAGRANT_VM_GUI           = false
 VAGRANT_VM_CPUS          = 4
 VAGRANT_VM_CPU_EXEC_CAP  = 100
 VAGRANT_VM_MEMORY        = 1512
-VAGRANT_VM_DATA_SIZE     = 60
+VAGRANT_VM_DATA_SIZE     = 160
 VAGRANT_VM_IP_INTERNAL   = '192.168.56.2'
 
 # Port forwarding
 VAGRANT_VM_FORWARD_IP    = '127.0.0.1'
+
+###################
+# Vagrant image
+###################
+
+## Prebuilt image (testing - feel free to test, too)
+#VAGRANT_IMAGE = 'webdevops/ubuntu-docker'
+
+## BoxCutter plain Ubuntu image
+VAGRANT_IMAGE = 'box-cutter/ubuntu1404-docker"'
 
 ###############################################################################
 ## --- Do not edit below ---
@@ -63,8 +73,7 @@ DiskVmData = File.join(VAGRANT_ROOT, '/disks/vm-data.vdi')
 ###############################################################################
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
-    # config.vm.box = "phusion/ubuntu-14.04-amd64"
-    config.vm.box = "box-cutter/ubuntu1404-docker"
+    config.vm.box = VAGRANT_IMAGE
     config.vm.box_check_update = true
 
     #################
@@ -137,7 +146,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
                 "set", :id,
                  "--device-add", "hdd",
                  "--image", "#{VAGRANT_ROOT}/disks/parallels-disk",
-                 "--type", "expand"
+                 "--type", "expand",
+                 "--size", VAGRANT_VM_DATA_SIZE * 1024,
             ]
         )
 
@@ -172,11 +182,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     if OS.windows?
         ## Windows
-        config.vm.synced_folder "./home", "/mnt/home/"
+        # configure shared folders here
     elsif OS.mac?
         ## Linux/Unix/MacOS
         config.vm.synced_folder "#{ENV['HOME']}", "#{ENV['HOME']}", :nfs => { :mount_options => [ "dmode=775", "fmode=774" ] }
-        config.vm.synced_folder "./home",         "/mnt/home/",     :nfs => { :mount_options => [ "dmode=775", "fmode=774" ] }
     end
 
     #################

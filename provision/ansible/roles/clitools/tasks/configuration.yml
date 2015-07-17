@@ -1,5 +1,3 @@
-- include_vars: /vagrant/vm.yml
-
 - name: Setup automatic startup maintenance (clitools)
   lineinfile:
     destfile: /etc/rc.local
@@ -7,12 +5,12 @@
     line:  '/usr/local/bin/ct system:startup > /dev/null'
     state: present
 
-- name: Copy local configuration
-  copy:
-    src:   roles/clitools/files/clitools.ini
+- name: Deploy local configuration
+  template:
+    src:   roles/clitools/templates/clitools.ini.j2
     dest:  /etc/clitools.ini
     owner: vagrant
-    group: vagrant
+    group: root
     mode:  0644
 
 - name: Copy cron configuration
@@ -23,12 +21,32 @@
     group: root
     mode:  0644
 
-- name: Setup growl password
-  lineinfile:
-    dest:   /etc/clitools.ini
-    regexp: '; password = growlpassword'
-    line:   'password = "{{ growlPassword }}"'
-  when: growlPassword is defined
+- name: Create /tmp/debug/ directory
+  file:
+    dest:  '{{ item }}'
+    owner: root
+    group: root
+    mode:  0777
+    state: directory
+  with_items:
+    - /etc/bash_completion.d/
+    - /etc/zsh_completion.d/
+
+- name: Copy bash.completition
+  copy:
+    src:   roles/clitools/files/bash.clitools.completition
+    dest:  /etc/bash_completion.d/clitools
+    owner: root
+    group: root
+    mode:  0644
+
+- name: Copy zsh.completition
+  copy:
+    src:   roles/clitools/files/zsh.clitools.completition
+    dest:  /etc/zsh_completion.d/clitools
+    owner: root
+    group: root
+    mode:  0644
 
 - name: Run clitools system startup
   raw: '/usr/local/bin/ct system:startup > /dev/null'

@@ -1,5 +1,8 @@
 - name: Enable incron usage for vagrant
-  lineinfile: dest=/etc/incron.allow regexp='vagrant' line='vagrant'
+  lineinfile:
+    dest:   /etc/incron.allow
+    regexp: 'vagrant'
+    line:   'vagrant'
 
 # name: Load incrontab
 - raw: echo "" > /tmp/user.incrontab

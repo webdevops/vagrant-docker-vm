@@ -1,25 +1,40 @@
+;++++++++++++++++++++++++++++++++++++++
+; CliTools configuration
+;++++++++++++++++++++++++++++++++++++++
+; Defaults:
+;  https://github.com/mblaschke/clitools/blob/develop/src/config.ini
+;
+;++++++++++++++++++++++++++++++++++++++
+
 [config]
 ssh_conf_path   = "/vagrant/provision/sshconfig/"
+domain_dev      = "{{ VM.developmentDomain }}"
 
 [db]
-dsn = "mysql:host=127.0.0.1;port=13306"
-username = "root"
-password = "dev"
+dsn = "{{ CLITOOLS.db.dsn }}"
+username = "{{ CLITOOLS.db.username }}"
+password = "{{ CLITOOLS.db.password }}"
 debug_log_dir = "/tmp/debug/"
 
 [syscheck]
 enabled = 1
-wall = 1
+{% if VM.growlPassword %}
+wall = 0
 growl = 1
+{% else %}
+wall = 1
+growl = 0
+{% endif %}
 diskusage = 90
 
 [growl]
 server = 192.168.56.1
-; password = growlpassword
+password = "{{ VM.growlPassword }}"
 
 [docker]
-container = main
-interface = docker0
+container   = main
+interface   = docker0
+boilerplate = "{{ CLITOOLS.docker.boilerplate }}"
 
 climethod = docker-exec
 ; climethod = dockercompose-run

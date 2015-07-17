@@ -5,3 +5,21 @@
     owner: 'root'
     group: 'root'
     mode:  0755
+
+- name: Install clitools additional packages
+  action: apt pkg='{{ item }}' state=latest
+  with_items:
+    # Tools
+    - git
+    - wget
+    - multitail
+    - sudo
+    - moreutils
+    # Network
+    - tshark
+    - tcpflow
+    - tcpdump
+    - ngrep
+    # Debug
+    - strace
+    - lsof

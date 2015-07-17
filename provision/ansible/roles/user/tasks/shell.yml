@@ -1,24 +1,8 @@
-- include_vars: /vagrant/vm.yml
+- name: Set shell
+  command: 'chsh -s "{{ PROFILE.shell }}" vagrant'
+  when: PROFILE.shell is defined
 
-- name: Setup ssh key (from github)
-  include: github-ssh-key.yml
-  when: githubUser is defined
-
-- name: Fetch zshrc
-  command: 'wget {{ item.remote }} -O {{ item.path }}'
-  with_items:
-   - { remote: 'http://git.grml.org/f/grml-etc-core/etc/zsh/zshrc', path: '/home/vagrant/.zshrc' }
-  args:
-    creates: '/home/vagrant/.zshrc'
-
-- name: Fetch zshrc.local
-  command: 'wget {{ item.remote }} -O {{ item.path }}'
-  with_items:
-   - { remote: 'http://git.grml.org/f/grml-etc-core/etc/skel/.zshrc', path: '/home/vagrant/.zshrc.local' }
-  args:
-    creates: '/home/vagrant/.zshrc.local'
-
-- name: Set zshrc file perms
+- name: Set bash/zsh file perms
   file:
     path: '{{ item.path }}'
     owner: vagrant
@@ -27,8 +11,5 @@
   with_items:
    - { path: '/home/vagrant/.zshrc' }
    - { path: '/home/vagrant/.zshrc.local' }
+   - { path: '/home/vagrant/.bashrc' }
   ignore_errors: True
-
-- name: Switch to zsh
-  command: 'chsh -s "{{ shell }}" vagrant'
-  when: shell is defined

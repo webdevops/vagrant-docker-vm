@@ -1,4 +1,3 @@
-
 - name: Stop services
   command: 'service {{ item }} stop'
   with_items:
@@ -6,13 +5,23 @@
   ignore_errors: yes
 
 - name: Create mountpoint (/mnt/data)
-  file: path=/mnt/data state=directory owner=root group=root mode=755
+  file:
+    path:  /mnt/data
+    state: directory
+    owner: root
+    group: root
+    mode:  755
 
 - name: Setup mounting for SDB1
-  mount: name=/mnt/data src=/dev/sdb1 fstype=ext4 opts='defaults,nodev,nosuid,noatime,nodiratime,data=writeback,barrier=0,nobh' state=present
+  mount:
+    name:  /mnt/data
+    src:   /dev/sdb1
+    fstype: '{{ PROVISION.dataFS }}'
+    opts:   'defaults,nodev,nosuid,noatime,nodiratime,data=writeback,barrier=0,nobh'
+    state:  present
 
 - name: Mount SDB1
-  mount: name=/mnt/data src=/dev/sdb1 fstype=ext4 state=mounted
+  mount: name=/mnt/data src=/dev/sdb1 fstype='{{ PROVISION.dataFS }}' state=mounted
 
 #############################
 # Docker
@@ -27,13 +36,28 @@
     creates: '/mnt/data/docker/'
 
 - name: Setup rights for docker
-  file: path=/mnt/data/docker state=directory owner=root group=root mode=700
+  file:
+    path:  /mnt/data/docker
+    state: directory
+    owner: root
+    group: root
+    mode:  700
 
 - name: Setup mounting for docker
-  mount: name=/var/lib/docker/ src=/mnt/data/docker fstype=none opts='bind' state=present
+  mount:
+    name:   /var/lib/docker/
+    src:    /mnt/data/docker
+    fstype: none
+    opts:   'bind'
+    state:  present
 
 - name: Mount docker
-  mount: name=/var/lib/docker/ src=/mnt/data/docker fstype=none opts='bind' state=mounted
+  mount:
+    name:   /var/lib/docker/
+    src:    /mnt/data/docker
+    fstype: none
+    opts:   'bind'
+    state:  mounted
 
 - name: Start services
   command: 'service docker restart'

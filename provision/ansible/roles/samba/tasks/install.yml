@@ -1,4 +1,6 @@
 - name: Install samba
-  action: apt pkg='{{ item }}' state=latest
+  apt:
+    pkg:   '{{ item }}'
+    state: latest
   with_items:
     - samba

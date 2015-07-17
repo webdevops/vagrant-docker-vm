@@ -2,18 +2,22 @@
   remote_user: vagrant
   sudo_user: root
   sudo: yes
+  vars_files:
+    - /vagrant/provision/ansible/default.yml
+    - /vagrant/vm.yml
   roles:
     - common
     - disk
     - ssh
-    - samba
+    - { role: samba,        when: PROVISION.samba }
     - dnsmasq
-    - php
-    - docker
-    - docker-proxy
-    - mail
-    - ntp
+    - { role: php,          when: PROVISION.php }
+    - { role: docker,       when: PROVISION.docker }
+    - { role: docker-proxy, when: PROVISION.dockerProxy }
+    - { role: mail,         when: PROVISION.mail }
+    - { role: ntp,          when: PROVISION.ntp }
     - firewall
-    - clitools
+    - { role: clitools,     when: PROVISION.clitools }
     - user
+    - customization
     - finalize

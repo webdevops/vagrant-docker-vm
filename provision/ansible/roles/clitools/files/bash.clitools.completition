@@ -1,0 +1,27 @@
+## add me to /etc/bash_completion.d/
+## cp FILE /etc/bash_completion.d/ 
+## reload completion
+## exec bash
+
+_available_commands()
+{
+    ct list --raw | awk '{print $1}'
+}
+
+
+
+_clitools()
+{
+    local cur
+    cur="${COMP_WORDS[COMP_CWORD]}"
+    prev=${COMP_WORDS[COMP_CWORD-1]}
+
+
+    if [ $COMP_CWORD -eq 1 ]
+    then
+        COMPREPLY=( $( compgen -W '$(_available_commands)' -- $cur) )
+    fi
+}
+
+
+complete -F _clitools ct

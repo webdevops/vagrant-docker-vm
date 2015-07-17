@@ -1,0 +1,51 @@
+---
+###################
+# User/Profile info
+###################
+PROFILE:
+  ## git informations
+  email:    ''
+  realname: ''
+
+  ## default shell
+  shell:    '/bin/zsh'
+
+  ## zsh shell layout [grml,prezto,ohmyzsh]
+  zshShell: 'grml'
+
+  ## automatic ssh key fetching from github
+  #githubUser: 'example'
+
+
+###################
+# Provisioning features
+###################
+PROVISION:
+  packages:    'full' # full or minimal
+  samba:       1      # Samba server
+  ntp:         1      # Time synchronization
+  mail:        1      # Mail sandbox
+  php:         1      # Local PHP
+  docker:      1      # Docker server
+  dockerProxy: 1      # Docker reverse proxy for containers (apache)
+  clitools:    1      # CliTools
+
+  ## Filesystem of data disk [ext3,ext4,xfs,btrfs]
+  dataFS: 'ext4'
+
+###################
+# VM SETTINGS
+###################
+VM:
+  ## Development domain (automatic redirect of *.vm for internal use)
+  developmentDomain: 'vm'
+
+  ## Insecure registry for Docker
+  #dockerRegistry: ''
+
+  ## Additional docker opts
+  ##  -> if you use btrfs you can set: -s btrfs
+  dockerOpts: ''
+
+  ## Password for growl server
+  growlPassword: ''

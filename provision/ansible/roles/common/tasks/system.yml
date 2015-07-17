@@ -6,7 +6,7 @@
 
 - name: Disable blank console screensaver
   lineinfile:
-    dest:   '/etc/default/keyboard'
+    dest:   '/etc/default/grub'
     regexp: '{{ item.regexp }}'
     line:   '{{ item.line }}'
   with_items:

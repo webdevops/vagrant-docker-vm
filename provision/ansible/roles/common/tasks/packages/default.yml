@@ -1,41 +1,56 @@
-- name: Install default packages
-  action: apt pkg='{{ item }}' state=latest
+- name: Install default provisioning packages
+  apt:
+    pkg:   '{{ item }}'
+    state: latest
   with_items:
-    # Tools
-    - zsh
-    - swaks
-    - moreutils
+    - parted
     - curl
+
+- name: Install default tool packages
+  apt:
+    pkg:   '{{ item }}'
+    state: latest
+  with_items:
+    - zsh
+    - moreutils
     - byobu
     - multitail
     - dnsutils
     - telnet
-    - curl
-    - ethtool
-    - netcat-openbsd
     - vim
     - tmux
-    - mailutils
-    - ack-grep
-    - mysql-client
-    # Status tools
-    - htop
-    - atop
-    - iftop
-    - mytop
-    - iotop
-    - pfqueue
-    # Conversion tools
-    - poppler-utils
-    - graphicsmagick
-    - imagemagick
+
+- name: Install default compression packages
+  apt:
+    pkg:   '{{ item }}'
+    state: latest
+  with_items:
     - zip
     - unzip
     - bzip2
-    - wkhtmltopdf
-    # Development
+    - p7zip-full
+
+- name: Install default development packages
+  apt:
+    pkg:   '{{ item }}'
+    state: latest
+  with_items:
     - git
-    - tig
-    - strace
     - sudo
     - cstream
+
+- name: Install default filesystem packages
+  apt:
+    pkg:   '{{ item }}'
+    state: latest
+  with_items:
+    - e2fsprogs
+    - xfsprogs
+    - btrfs-tools
+
+- name: Install default other packages
+  apt:
+    pkg:   '{{ item }}'
+    state: latest
+  with_items:
+    - incron

@@ -2,6 +2,13 @@
 
 # Usage
 
+## Custom files/config
+
+Put your custom files for your home directory `/home/vagrant` into  `customization/home`.
+Files for `/etc` customization must be in `customization/etc`.
+
+After provisioning all files will be synchronized to their destination folders.
+
 ## Access to VM
 
 You can get access to this VM with [SSH (ssh, rsync, scp) or with SMB (Samba)](SERVICES.md).
@@ -27,6 +34,37 @@ VM: /Users/foo/
 
 Hint: This handling is needed if you want to use docker-compose from your host system.
 
-# Windows specific
+### Windows specific
 
 If you're working under Windows you can put your files under `/home/vagrant/projects/`
+
+You can access these Files via Samba.
+
+1. Map a new Network Drive
+2. Select Drive Letter
+3. Enter: \\\192.168.56.2
+4. Browse and select the directory **projects**
+
+Use the following Credentials:
+
+Username: \vagrant
+Password: vagrant
+
+
+## Destroy & Recreate
+
+### VirtualBox
+
+With `vagrant destroy` you will destroy the VM and also the data disk so you can immediately
+recreate the box with `vagrant up`.
+
+### VMware & Parallels
+
+If you're using VMware or Parallels your disk will be stored inside the `disk/` directory.
+
+After `vagrant destroy` you need to destroy these disk if you want a clean reinstallation:
+
+VMware: Change to `disks/` directory and reset the VMware disk data files with git: `git checkout data*`
+
+Parallels: Just remove the directory `disks/parallels-disk/`.
+

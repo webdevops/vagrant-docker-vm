@@ -1,5 +1,7 @@
 - name: Install apache2
-  action: apt pkg='{{ item }}' state=latest
+  apt:
+    pkg:   '{{ item }}'
+    state: latest
   with_items:
     - apache2-mpm-worker
     - libapache2-mod-macro

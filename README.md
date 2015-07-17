@@ -1,6 +1,7 @@
 # Vagrant Docker Development-VM
 
-![License MIT](https://img.shields.io/badge/license-MIT-blue.svg?style=flat)
+[![latest v1.0.0](https://img.shields.io/badge/latest-v1.0.0-green.svg?style=flat)](https://github.com/mblaschke/vagrant-development/releases/tag/1.0.0)
+[![License MIT](https://img.shields.io/badge/license-MIT-blue.svg?style=flat)](/LICENSE)
 
 ![Vagrant Development VM login](/documentation/VagrantVM.png)
 
@@ -43,14 +44,17 @@ Following the "keep it simple, stupid" this box provides all tools with a simple
 - [Using Docker](/documentation/DOCKER.md)
 - [Using CliTools](/documentation/CLITOOLS.md)
 - [About Provisioning](/documentation/PROVISION.md)
+- [Troubleshooting](/documentation/TROUBLESHOOTING.md)
+- [Changelog](/CHANGELOG.md)
 
 ## Credits
 
 Thanks for support, ideas and issues ...
-- [Ingo Pfennigstorf](https://twitter.com/krautsock)
-- [Florian Tatzel](https://twitter.com/PanadeEdu)
+- [Ingo Pfennigstorf](https://github.com/ipf)
+- [Florian Tatzel](https://github.com/PanadeEdu)
 - [Achim Fritz](https://twitter.com/achimfritz73)
-- Rainer Zeh
+- [Rainer Zeh](https://twitter.com/rzeh)
+- [Philipp Kitzberger](https://github.com/Kitzberger)
 
 Did I forget anyone? Send me a tweet or create pull request!
 

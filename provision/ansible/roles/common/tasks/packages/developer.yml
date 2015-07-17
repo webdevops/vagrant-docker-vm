@@ -1,29 +1,72 @@
-- name: Install developer packages
-  action: apt pkg='{{ item }}' state=latest
+- name: Install developer tool packages
+  apt:
+    pkg:   '{{ item }}'
+    state: latest
   with_items:
-    # Tools
     - jq
     - sloccount
     - pydf
-    # System
+    - ack-grep
+    - tig
+
+- name: Install developer status packages
+  apt:
+    pkg:   '{{ item }}'
+    state: latest
+  with_items:
+    - htop
+    - atop
+    - iftop
+    - mytop
+    - iotop
+    - pfqueue
+
+- name: Install developer system packages
+  apt:
+    pkg:   '{{ item }}'
+    state: latest
+  with_items:
     - fuse
     - sshfs
     - xvfb
-    # ldap
+
+- name: Install developer ldap packages
+  apt:
+    pkg:   '{{ item }}'
+    state: latest
+  with_items:
     - ldap-utils
-    # cron stuff
-    - incron
-    # Compiling/Debugging
+
+- name: Install developer compiling packages
+  apt:
+    pkg:   '{{ item }}'
+    state: latest
+  with_items:
     - build-essential
     - strace
     - closure-compiler
     - g++
-    # Network
+
+- name: Install developer network packages
+  apt:
+    pkg:   '{{ item }}'
+    state: latest
+  with_items:
     - tshark
     - tcpflow
     - tcpdump
     - ngrep
-    # Dev stuff
+    - swaks
+    - ethtool
+    - netcat-openbsd
+    - mailutils
+    - mysql-client
+
+- name: Install developer library packages
+  apt:
+    pkg:   '{{ item }}'
+    state: latest
+  with_items:
     - libsqlite3-dev
     - php5-dev
     - libcurl3-gnutls-dev
@@ -33,7 +76,40 @@
     - libjpeg8-dev
     - libpango1.0-dev
     - libgif-dev
-    # Other stuff
+
+- name: Install developer language packages
+  apt:
+    pkg:   '{{ item }}'
+    state: latest
+  with_items:
+    - ruby
+    - ruby-dev
+    - ruby-compass
+
+- name: Install developer vcs packages
+  apt:
+    pkg:   '{{ item }}'
+    state: latest
+  with_items:
+    - subversion
+    - git
+    - git-flow
+
+- name: Install developer conversion tool packages
+  apt:
+    pkg:   '{{ item }}'
+    state: latest
+  with_items:
+    - poppler-utils
+    - graphicsmagick
+    - imagemagick
+    - wkhtmltopdf
+
+- name: Install developer other packages
+  apt:
+    pkg:   '{{ item }}'
+    state: latest
+  with_items:
     - tnef
     - dos2unix
     - octave
@@ -45,10 +121,3 @@
     - unace
     - colordiff
     - graphviz
-    # Languages
-    - ruby
-    - ruby-dev
-    # VCS
-    - subversion
-    - git
-    - git-flow

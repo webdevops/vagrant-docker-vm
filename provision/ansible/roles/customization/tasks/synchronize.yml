@@ -1,0 +1,15 @@
+- name: Deploy home customization
+  synchronize:
+    rsync_path: "sudo rsync"
+    src:        /vagrant/customization/home/
+    dest:       /home/vagrant/
+    delete:     no
+    rsync_opts: '--exclude=.gitkeep,--chown=vagrant:vagrant'
+
+- name: Deploy etc customization
+  synchronize:
+    rsync_path: "sudo rsync"
+    src:        /vagrant/customization/etc/
+    dest:       /etc/
+    delete:     no
+    rsync_opts: '--exclude=.gitkeep,--chown=vagrant:vagrant'

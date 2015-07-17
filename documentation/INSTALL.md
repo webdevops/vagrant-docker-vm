@@ -6,7 +6,7 @@
 
 ```bash
 # Clone git repository
-git clone --recursive https://github.com/mblaschke/vagrant-development.git devvm
+git clone --recursive --config core.autocrlf=false https://github.com/mblaschke/vagrant-development.git devvm
 cd devvm
 
 # Customize the vm.yml with your favorite editor
