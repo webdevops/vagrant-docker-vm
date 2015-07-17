@@ -28,7 +28,7 @@ VAGRANT_VM_FORWARD_IP    = '127.0.0.1'
 ###################
 
 ## Prebuilt image (testing - feel free to test, too)
-#VAGRANT_IMAGE = 'webdevops/ubuntu-docker '
+#VAGRANT_IMAGE = 'webdevops/ubuntu-docker'
 
 ## BoxCutter plain Ubuntu image
 VAGRANT_IMAGE = 'box-cutter/ubuntu1404-docker"'
