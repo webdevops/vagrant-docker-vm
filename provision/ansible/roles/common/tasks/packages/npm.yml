@@ -2,7 +2,6 @@
   apt:
     pkg:   '{{ item }}'
     state: latest
-  when: ansible_distribution == 'Ubuntu'
   with_items:
     - nodejs
     - nodejs-legacy
@@ -12,7 +11,6 @@
   apt:
     pkg:   '{{ item }}'
     state: latest
-  when: ansible_distribution == 'Ubuntu'
   with_items:
     - npm
 
