@@ -1,8 +1,8 @@
-- name: Update system
+- name: Update system (apt-get update)
   apt:
     update_cache: yes
 
-- name: Safe update packages
+- name: Safe update packages (apt-get safe-upgrade)
   apt:
     upgrade: safe
 
