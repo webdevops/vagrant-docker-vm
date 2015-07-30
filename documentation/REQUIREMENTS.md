@@ -10,13 +10,13 @@
 
 ## System Requirements
 
-Type                  | Minimum                 | Recommendation
+Type                  | Minimum (just working)  | Recommendation (eg. for developers)
 --------------------- | ----------------------- | --------------------
 CPU                   | 2 (eg. Intel Core i5)   | 4 physical Cores (or more, eg. Intel Core i7)
 RAM                   | 8 GB                    | 16 GB (or more)
 Disk                  | 60 GB free              | 80 GB free
 <br>                  |                         |
-RAM of VM             | 1.5 GB                  | 2 GB or more
+RAM of VM             | 1.5 GB                  | 1/4 System RAM
 
 If you want to develop in a fast way make sure to get at least the recommended values.
 
