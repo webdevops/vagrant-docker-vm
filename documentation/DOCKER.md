@@ -52,7 +52,7 @@ db:
     MYSQL_DATABASE: app
 ```
 
-For TYPO3, NEOS or FLOW use the [TYPO3 Docker Boilerplate](https://github.com/mblaschke/typo3-docker-boilerplate)/
+For TYPO3, NEOS or FLOW use the [TYPO3 Docker Boilerplate](https://github.com/webdevops/typo3-docker-boilerplate)/
 
 Your existing code will be mounted in your web-container and will be executed with the PHP standalone server utility.
 If you want to use Nginx or Apache feel free to use own Dockerfiles or existing Web-Containers. Make sure you mount
