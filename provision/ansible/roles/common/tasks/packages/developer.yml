@@ -1,7 +1,7 @@
 - name: Install developer tool packages
   apt:
     pkg:   '{{ item }}'
-    state: latest
+    state: present
   with_items:
     - jq
     - sloccount
@@ -12,7 +12,7 @@
 - name: Install developer status packages
   apt:
     pkg:   '{{ item }}'
-    state: latest
+    state: present
   with_items:
     - htop
     - atop
@@ -24,7 +24,7 @@
 - name: Install developer system packages
   apt:
     pkg:   '{{ item }}'
-    state: latest
+    state: present
   with_items:
     - fuse
     - sshfs
@@ -33,14 +33,14 @@
 - name: Install developer ldap packages
   apt:
     pkg:   '{{ item }}'
-    state: latest
+    state: present
   with_items:
     - ldap-utils
 
 - name: Install developer compiling packages
   apt:
     pkg:   '{{ item }}'
-    state: latest
+    state: present
   with_items:
     - build-essential
     - strace
@@ -50,7 +50,7 @@
 - name: Install developer network packages
   apt:
     pkg:   '{{ item }}'
-    state: latest
+    state: present
   with_items:
     - tshark
     - tcpflow
@@ -65,7 +65,7 @@
 - name: Install developer library packages
   apt:
     pkg:   '{{ item }}'
-    state: latest
+    state: present
   with_items:
     - libsqlite3-dev
     - php5-dev
@@ -80,7 +80,7 @@
 - name: Install developer language packages
   apt:
     pkg:   '{{ item }}'
-    state: latest
+    state: present
   with_items:
     - ruby
     - ruby-dev
@@ -89,7 +89,7 @@
 - name: Install developer vcs packages
   apt:
     pkg:   '{{ item }}'
-    state: latest
+    state: present
   with_items:
     - subversion
     - git
@@ -98,7 +98,7 @@
 - name: Install developer conversion tool packages
   apt:
     pkg:   '{{ item }}'
-    state: latest
+    state: present
   with_items:
     - poppler-utils
     - graphicsmagick
@@ -108,7 +108,7 @@
 - name: Install developer other packages
   apt:
     pkg:   '{{ item }}'
-    state: latest
+    state: present
   with_items:
     - tnef
     - dos2unix

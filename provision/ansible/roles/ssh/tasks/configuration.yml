@@ -5,7 +5,5 @@
     line:     'PermitRootLogin without-password'
     state:     present
   notify:
-    - restart ssh
+    - Restart ssh
 
-- name: Restart ssh
-  command: service ssh restart

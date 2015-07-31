@@ -1,7 +1,7 @@
 - name: Install server packages
   apt:
     pkg:   '{{ item }}'
-    state: latest
+    state: present
   with_items:
     - zram-config
     - haveged

@@ -28,6 +28,5 @@
    - { regexp: '^net.ipv4.tcp_tw_recycle',        line: 'net.ipv4.tcp_tw_recycle = 0' }
    - { regexp: '^net.ipv4.tcp_tw_reuse',          line: 'net.ipv4.tcp_tw_reuse = 0' }
    - { regexp: '^net.ipv4.tcp_fin_timeout',       line: 'net.ipv4.tcp_fin_timeout = 10' }
-
-- name: Apply sysctl settings
-  command: 'sysctl -p --ignore'
+  notify:
+    - Apply sysctl settings

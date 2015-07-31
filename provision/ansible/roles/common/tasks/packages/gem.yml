@@ -1,7 +1,7 @@
 - name: Install compass
   gem:
     name:  '{{ item }}'
-    state: latest
+    state: present
     user_install: no
   with_items:
    - compass

@@ -11,12 +11,8 @@
     line:   '{{ item.line }}'
   with_items:
    - { regexp: '^GRUB_CMDLINE_LINUX_DEFAULT=', line: 'GRUB_CMDLINE_LINUX_DEFAULT="quiet consoleblank=0"' }
-
-- name: Update grub
-  command: 'update-grub'
-
-- name: Update initramfs
-  command: 'update-initramfs -k all -u'
+  notify:
+    - Update grub
 
 - name: Setup System Hostname
   hostname: name=DEV-VM

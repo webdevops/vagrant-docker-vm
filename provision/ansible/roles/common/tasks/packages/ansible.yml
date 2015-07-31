@@ -1,7 +1,7 @@
 - name: Install ansible libraries
   apt:
     pkg:   '{{ item }}'
-    state: latest
+    state: present
   with_items:
     - ansible
     - ca-certificates
