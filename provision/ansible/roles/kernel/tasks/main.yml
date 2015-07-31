@@ -1,4 +1,4 @@
-#- name: Install kernel
-#  include: install.yml
-#  tags:
-#    - bootstrap
+- name: Install custom kernel
+  include: install.yml
+  tags:
+    - bootstrap

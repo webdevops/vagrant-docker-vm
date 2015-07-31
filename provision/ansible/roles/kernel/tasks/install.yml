@@ -1,20 +1,12 @@
-- name: Fetch kernel
-  get_url:
-    url:   '{{ item.url }}'
-    dest:  '/tmp/linux-kernel.{{ item.type }}.deb'
-    owner: root
-    group: root
-    mode:  0700
+- name: Install specific kernel version
+  apt:
+    pkg:   '{{ item }}'
+    state: present
   with_items:
-    - { type: 'header-all',    url: 'http://kernel.ubuntu.com/~kernel-ppa/mainline/v3.18.9-vivid/linux-headers-3.18.9-031809_3.18.9-031809.201503080036_all.deb' }
-    - { type: 'header-kernel', url: 'http://kernel.ubuntu.com/~kernel-ppa/mainline/v3.18.9-vivid/linux-headers-3.18.9-031809-generic_3.18.9-031809.201503080036_amd64.deb' }
-    - { type: 'kernel',        url: 'http://kernel.ubuntu.com/~kernel-ppa/mainline/v3.18.9-vivid/linux-image-3.18.9-031809-generic_3.18.9-031809.201503080036_amd64.deb' }
+    - 'linux-image-{{ PACKAGES.kernel }}'
+    - 'linux-image-extra-{{ PACKAGES.kernel }}'
+    - 'linux-tools-{{ PACKAGES.kernel }}'
+    - 'linux-headers-{{ PACKAGES.kernel }}'
 
-- name: Install kernel
-  raw: 'dpkg -i /tmp/linux-kernel.*.deb'
 
-- name: Remove downloaded files
-  raw: 'rm -f /tmp/linux-kernel.*.deb'
-
-- name: Update grub configuration
-  command: update-grub
+# ansible_virtualization_type
