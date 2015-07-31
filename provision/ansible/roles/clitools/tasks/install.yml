@@ -1,10 +1,22 @@
+# FIXME: wait for upstream SNI support
+#- name: Fetch clitools (latest)
+#  get_url:
+#    url:   'https://dl.webdevops.io/clicommand/clitools.phar'
+#    dest:  /usr/local/bin/ct
+#    owner: 'root'
+#    group: 'root'
+#    mode:  0755
+
 - name: Fetch clitools (latest)
-  get_url:
-    url:   'https://dl.webdevops.io/clicommand/clitools.phar'
+  command: 'wget -O/usr/local/bin/ct https://dl.webdevops.io/clicommand/clitools.phar'
+
+- name: Set /usr/local/bin/ct rights
+  file:
     dest:  /usr/local/bin/ct
-    owner: 'root'
-    group: 'root'
-    mode:  0755
+    owner: vagrant
+    group: vagrant
+    mode:  0777
+    state: file
 
 - name: Install clitools additional packages
   action: apt pkg='{{ item }}' state=latest
