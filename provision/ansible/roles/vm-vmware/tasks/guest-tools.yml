@@ -1,0 +1,6 @@
+- name: Setup automatic startup maintenance (clitools)
+  lineinfile:
+    destfile: /etc/rc.local
+    insertbefore: '^exit 0'
+    line:  'vmware-config-tools.pl -d > /dev/null'
+    state: present
