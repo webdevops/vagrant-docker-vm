@@ -3,6 +3,12 @@
   tags:
     - bootstrap
 
+- name: Udev cleanup
+  include: udev.yml
+  tags:
+    - bootstrap
+    - maintenance
+
 #- name: Maintain vmtools
 #  include: vmtools.yml
 #  tags:

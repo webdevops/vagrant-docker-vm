@@ -1,0 +1,11 @@
+- name: Remove 70-persistent-net.rules
+  file:
+    path:  /etc/udev/rules.d/70-persistent-net.rules
+    state: absent
+
+- name: Autoremove persistent net rules
+  lineinfile:
+    destfile: /etc/rc.local
+    insertbefore: '^exit 0'
+    line:  'rm -f /etc/udev/rules.d/70-persistent-net.rules > /dev/null'
+    state: present
