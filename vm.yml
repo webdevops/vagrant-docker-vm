@@ -30,7 +30,7 @@ PROFILE:
 # Provisioning features
 ###################
 PROVISION:
-  update:      1      # do full system update for each full provisoning
+  update:      0      # do full system update for each full provisoning (currently not stable for vmware!)
   packages:    'full' # full or minimal
   samba:       1      # Samba server
   ntp:         1      # Time synchronization
