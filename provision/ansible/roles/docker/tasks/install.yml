@@ -1,6 +1,6 @@
 - name: Install docker
   apt:
     pkg:   '{{ item }}'
-    state: present
+    state: latest
   with_items:
     - lxc-docker
