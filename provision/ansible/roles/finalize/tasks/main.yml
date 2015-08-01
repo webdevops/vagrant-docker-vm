@@ -1,3 +1,9 @@
+- name: Fix rights
+  include: fix-rights.yml
+  tags:
+    - bootstrap
+    - maintenance
+
 - name: Cleanup
   include: cleanup.yml
   tags:
@@ -14,3 +20,4 @@
 #  tags:
 #    - bootstrap
 #    - maintenance
+
