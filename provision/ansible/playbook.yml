@@ -19,7 +19,7 @@
     - { role: mail,         when: PROVISION.mail == 1 }
     - { role: ntp,          when: PROVISION.ntp == 1 }
     - firewall
-    - { role: clitools,     when: PROVISION.clitools == 1" }
+    - { role: clitools,     when: PROVISION.clitools == 1 }
     - user
     - customization
     - finalize
