@@ -1,4 +1,11 @@
-- name: Install custom kernel
-  include: install.yml
+- name: Install custom specific kernel version
+  include: install-version.yml
+  when: PACKAGES.kernel != "recent"
+  tags:
+    - bootstrap
+
+- name: Install custom recent kernel
+  include: install-recent.yml
+  when: PACKAGES.kernel == "recent"
   tags:
     - bootstrap

@@ -8,5 +8,5 @@
     - 'linux-tools-{{ PACKAGES.kernel }}'
     - 'linux-headers-{{ PACKAGES.kernel }}'
 
-
+# TODO: update guest tools?
 # ansible_virtualization_type

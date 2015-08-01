@@ -8,7 +8,7 @@
   roles:
     - common
     - { role: update,       when: PROVISION.update }
-    - { role: kernel,       when: PACKAGES.kernel != 0 }
+    - { role: kernel,       when: PACKAGES.kernel != 0 and PACKAGES.kernel != "" }
     - disk
     - ssh
     - { role: samba,        when: PROVISION.samba }

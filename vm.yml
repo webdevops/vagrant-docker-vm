@@ -30,7 +30,7 @@ PROFILE:
 # Provisioning features
 ###################
 PROVISION:
-  update:      1      # do full system update
+  update:      1      # do full system update for each full provisoning
   packages:    'full' # full or minimal
   samba:       1      # Samba server
   ntp:         1      # Time synchronization
@@ -48,9 +48,15 @@ PROVISION:
 ###################
 PACKAGES:
 
-  # Custom GNU/Linux kernel version (need reboot after provisioning, 0 => default kernel)
+  # Custom GNU/Linux kernel version (need reboot after provisioning)
+  #
+  # Examples:
+  #   default kernel   -> 0 or ''
+  #   specific version -> 3.19.0-25-generic
+  #   recent kernel    -> recent
+  #
   # -- WARNING: use with caution - maybe not stable --
-  kernel:        0
+  kernel:        ''
 
   # docker-compose version
   dockerCompose: '1.3.3'
