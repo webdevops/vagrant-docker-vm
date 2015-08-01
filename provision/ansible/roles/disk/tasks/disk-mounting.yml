@@ -10,7 +10,7 @@
     state: directory
     owner: root
     group: root
-    mode:  755
+    mode:  0755
 
 - name: Setup mounting for SDB1
   mount:
@@ -41,7 +41,7 @@
     state: directory
     owner: root
     group: root
-    mode:  700
+    mode:  0700
 
 - name: Setup mounting for docker
   mount:

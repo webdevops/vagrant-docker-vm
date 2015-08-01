@@ -11,7 +11,7 @@
     state: 'file'
     owner: vagrant
     group: vagrant
-    mode: '777'
+    mode: '0777'
 
 - name: Register rupa/z
   lineinfile:
@@ -29,4 +29,4 @@
     state: 'touch'
     owner: vagrant
     group: vagrant
-    mode: '644'
+    mode: '0644'

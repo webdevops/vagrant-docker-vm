@@ -1,0 +1,5 @@
+- name: Restart dnsmasq
+  command: service dnsmasq restart
+
+- name: Reload cron
+  command: service cron reload

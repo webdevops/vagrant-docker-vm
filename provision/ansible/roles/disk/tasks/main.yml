@@ -13,3 +13,4 @@
   include: maintenance.yml
   tags:
     - bootstrap
+    - maintenance

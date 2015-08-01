@@ -21,14 +21,14 @@
     group: vagrant
     mode: '{{ item.mode }}'
   with_items:
-   - { path: '/home/vagrant/',                     state : 'directory', mode: '755' }
-   - { path: '/home/vagrant/.ssh/',                state : 'directory', mode: '700' }
-   - { path: '/home/vagrant/.ssh/authorized_keys', state : 'file',      mode: '600' }
-   - { path: '/home/vagrant/.ssh/known_hosts',     state : 'file',      mode: '644' }
-   - { path: '/home/vagrant/.subversion/',         state : 'directory', mode: '700' }
-   - { path: '/home/vagrant/.subversion/config',   state : 'file',      mode: '600' }
-   - { path: '/home/vagrant/.my.cnf',              state : 'file',      mode: '600' }
-   - { path: '/home/vagrant/.gitconfig',           state : 'file',      mode: '644' }
+   - { path: '/home/vagrant/',                     state : 'directory', mode: '0755' }
+   - { path: '/home/vagrant/.ssh/',                state : 'directory', mode: '0700' }
+   - { path: '/home/vagrant/.ssh/authorized_keys', state : 'file',      mode: '0600' }
+   - { path: '/home/vagrant/.ssh/known_hosts',     state : 'file',      mode: '0644' }
+   - { path: '/home/vagrant/.subversion/',         state : 'directory', mode: '0700' }
+   - { path: '/home/vagrant/.subversion/config',   state : 'file',      mode: '0600' }
+   - { path: '/home/vagrant/.my.cnf',              state : 'file',      mode: '0600' }
+   - { path: '/home/vagrant/.gitconfig',           state : 'file',      mode: '0644' }
 
 - name: Register aliases
   lineinfile:
