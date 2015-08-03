@@ -2,6 +2,32 @@
 
 # Installation
 
+## Preparations
+
+### VMware
+
+You have to install Vagrant-VMware Workstation or Fusion (Player doesn't work!) plugin:
+
+MacOS:
+```bash
+vagrant plugin install vagrant-vmware-fusion
+```
+
+Linux or Windows:
+```bash
+vagrant plugin install vagrant-vmware-workstation
+```
+
+Also you have to purchase a license for vagrant-vmware and install the license file -> http://docs.vagrantup.com/v2/vmware/installation.html
+
+### Parallels
+
+You have to install Vagrant-Parallels plugin:
+```bash
+vagrant plugin install vagrant-parallels
+```
+
+
 ## First startup
 
 ```bash
