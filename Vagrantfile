@@ -24,9 +24,6 @@ VAGRANT_VM_MEMORY        = 1512
 VAGRANT_VM_DATA_SIZE     = 160
 VAGRANT_VM_IP_INTERNAL   = '192.168.56.2'
 
-# Port forwarding
-VAGRANT_VM_FORWARD_IP    = '127.0.0.1'
-
 ###################
 # Vagrant image
 ###################
