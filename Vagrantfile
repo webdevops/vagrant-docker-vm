@@ -53,11 +53,6 @@ VIRTUALBOX_DISK_CONTROLLER = 'IDE Controller'
 
 VAGRANT_CUSTOMIZATION = Proc.new {|config|
 
-    ## Networks
-
-    # Public network (big security issue, don't enable!)
-    # config.vm.network "public_network"
-
     ## Port forwardings
 
     # Public HTTP server
@@ -69,6 +64,15 @@ VAGRANT_CUSTOMIZATION = Proc.new {|config|
 
     # Docker port (local only)
     # config.vm.network "forwarded_port", guest: 2375, host: 2375, host_ip: '127.0.0.1', auto_correct: true
+
+    ## Networks
+
+    # Public network
+    #  |WARNING| This can be a big security issue and an attacker could
+    #  |WARNING| gain access also to host (because of shares or services)!
+    #  |WARNING| Only use if you're sure about the risks!
+    #  |WARNING| If you need access to services use the port forwarding features!
+    # config.vm.network "public_network"
 
 }
 
