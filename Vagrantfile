@@ -7,11 +7,15 @@ VAGRANTFILE_API_VERSION = 2
 ## Configuration
 ###############################################################################
 
+########################
+## General
+########################
+
+# Show vm gui (terminal window, virtualbox, vmware)
+VAGRANT_VM_GUI = true
+
 # Name of VM instance
 VAGRANT_VM_NAME          = 'DEV-VM'
-
-# Show vm gui (terminal window)
-VAGRANT_VM_GUI           = false
 
 # System settings
 VAGRANT_VM_CPUS          = 4
@@ -27,11 +31,46 @@ VAGRANT_VM_FORWARD_IP    = '127.0.0.1'
 # Vagrant image
 ###################
 
-## Prebuilt image (testing - feel free to test, too)
+## Prebuilt image
 VAGRANT_IMAGE = 'webdevops/ubuntu-docker'
 
 ## BoxCutter plain Ubuntu image
 #VAGRANT_IMAGE = 'box-cutter/ubuntu1404-docker'
+
+########################
+## VirtualBox
+########################
+
+# Disk image controller, change change between images, eg.
+#  -> 'IDE Controller'
+#  -> 'SATA Controller'
+VIRTUALBOX_DISK_CONTROLLER = 'IDE Controller'
+
+
+########################
+## Customization
+########################
+
+VAGRANT_CUSTOMIZATION = Proc.new {|config|
+
+    ## Networks
+
+    # Public network (big security issue, don't enable!)
+    # config.vm.network "public_network"
+
+    ## Port forwardings
+
+    # Public HTTP server
+    # config.vm.network "forwarded_port", guest: 80, host: 80, auto_correct: true
+    # config.vm.network "forwarded_port", guest: 443, host: 443, auto_correct: true
+
+    # MySQL (local only)
+    # config.vm.network "forwarded_port", guest: 13306, host: 3306, host_ip: '127.0.0.1', auto_correct: true
+
+    # Docker port (local only)
+    # config.vm.network "forwarded_port", guest: 2375, host: 2375, host_ip: '127.0.0.1', auto_correct: true
+
+}
 
 ###############################################################################
 ## --- Do not edit below ---
@@ -105,7 +144,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
             v.customize ['createhd', '--filename', DiskVmData, '--size', VAGRANT_VM_DATA_SIZE * 1024]
             # v.customize ['modifyhd', DiskVmData, '--type', 'multiattach']
         end
-        v.customize ['storageattach', :id, '--storagectl', 'SATA Controller', '--port', 1, '--device', 0, '--type', 'hdd', '--medium', DiskVmData]
+        v.customize ['storageattach', :id, '--storagectl', VIRTUALBOX_DISK_CONTROLLER, '--port', 1, '--device', 0, '--type', 'hdd', '--medium', DiskVmData]
 
         # network
         v.customize ["modifyvm", :id, "--nictype1", "virtio"]
@@ -161,20 +200,12 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     # Networking
     #################
     config.vm.network "private_network", ip: VAGRANT_VM_IP_INTERNAL
-    #config.vm.network "public_network"
 
     #################
     # Port forwarding
     #################
 
-    # Webserver
-    # config.vm.network "forwarded_port", guest: 8000, host: 8000, auto_correct: true
-
-    # MySQL
-    config.vm.network "forwarded_port", guest: 3306, host: 3306, host_ip: VAGRANT_VM_FORWARD_IP, auto_correct: true
-
-    # Docker port
-    config.vm.network "forwarded_port", guest: 2375, host: 2375, host_ip: VAGRANT_VM_FORWARD_IP, auto_correct: true
+    # nothing defined
 
     #################
     # Shared folders
@@ -204,5 +235,11 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     config.vm.provision "maintenance", run: "always", type: "shell" do |s|
         s.inline = "sudo bash /vagrant/provision/maintenance.sh"
     end
+
+    #################
+    # Customization
+    #################
+
+    VAGRANT_CUSTOMIZATION.call(config)
 
 end
