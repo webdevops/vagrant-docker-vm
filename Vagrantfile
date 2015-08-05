@@ -15,32 +15,46 @@ VAGRANTFILE_API_VERSION = 2
 VAGRANT_VM_GUI = false
 
 # Name of VM instance
-VAGRANT_VM_NAME          = 'DEV-VM'
+VAGRANT_VM_NAME = 'DEV-VM'
 
 # System settings
-VAGRANT_VM_CPUS          = 4
-VAGRANT_VM_CPU_EXEC_CAP  = 100
-VAGRANT_VM_MEMORY        = 1512
-VAGRANT_VM_DATA_SIZE     = 160
-VAGRANT_VM_IP_INTERNAL   = '192.168.56.2'
+VAGRANT_VM_CPUS   = 'auto'
+VAGRANT_VM_MEMORY = 'auto'
+
+# Disk size of data image (GB)
+VAGRANT_VM_DATA_SIZE = 160
+
+# Host-only IP address (for communication between host and vm)
+VAGRANT_VM_IP_INTERNAL = '192.168.56.2'
 
 ###################
 # Vagrant image
 ###################
 
-## Prebuilt image
-VAGRANT_IMAGE = 'webdevops/ubuntu-docker'
+# You can use nearly any Ubuntu 14.04 vagrant base image.
+# This VM is tested with box-cutter and webdevops image.
+#
+# box-cutter is a plain Ubuntu image and webdevops image is a
+# prebuilt one with all tools preinstalled (faster provisioning)
+#
+# Images:
+# -> webdevops/ubuntu-docker
+# -> box-cutter/ubuntu1404-docker
+#
 
-## BoxCutter plain Ubuntu image
-#VAGRANT_IMAGE = 'box-cutter/ubuntu1404-docker'
+VAGRANT_IMAGE = 'webdevops/ubuntu-docker'
 
 ########################
 ## VirtualBox
 ########################
 
 # Disk image controller, change change between images, eg.
+# You sometimes have to switch controller if the image is using another one.
+# See VM settings in VirtualBox for the correct naming.
+#
 #  -> 'IDE Controller'
 #  -> 'SATA Controller'
+
 VIRTUALBOX_DISK_CONTROLLER = 'IDE Controller'
 
 
@@ -49,6 +63,11 @@ VIRTUALBOX_DISK_CONTROLLER = 'IDE Controller'
 ########################
 
 VAGRANT_CUSTOMIZATION = Proc.new {|config|
+
+    # Fallback ssh connection (https://github.com/mitchellh/vagrant/issues/5186)
+    # -> Authentication issues? Workaround:
+    # config.ssh.username = 'vagrant'
+    # config.ssh.password = 'vagrant'
 
     ## Port forwardings
 
@@ -101,6 +120,34 @@ module OS
 end
 
 ###############################################################################
+## --- Ressource detection ---
+###############################################################################
+
+if VAGRANT_VM_CPUS =~ /auto/
+  if OS.mac?
+    _VAGRANT_VM_CPUS = `sysctl -n hw.ncpu`.to_i
+  elsif OS.linux?
+    _VAGRANT_VM_CPUS = `nproc`.to_i
+  else
+    _VAGRANT_VM_CPUS = 2
+  end
+else
+    _VAGRANT_VM_CPUS = VAGRANT_VM_CPUS
+end
+
+if VAGRANT_VM_MEMORY =~ /auto/
+  if OS.mac?
+    _VAGRANT_VM_MEMORY = `sysctl -n hw.memsize`.to_i / 1024 / 1024 / 4
+  elsif OS.linux?
+    _VAGRANT_VM_MEMORY = `grep 'MemTotal' /proc/meminfo | sed -e 's/MemTotal://' -e 's/ kB//'`.to_i / 1024 / 4
+  else
+    _VAGRANT_VM_MEMORY = 2048
+  end
+else
+    _VAGRANT_VM_MEMORY = VAGRANT_VM_MEMORY
+end
+
+###############################################################################
 ## --- Disc setup ---
 ###############################################################################
 
@@ -125,9 +172,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         v.gui = VAGRANT_VM_GUI
         v.customize ["modifyvm", :id, "--name",                VAGRANT_VM_NAME]
         v.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
-        v.customize ["modifyvm", :id, "--memory",              VAGRANT_VM_MEMORY]
-        v.customize ["modifyvm", :id, "--cpus",                VAGRANT_VM_CPUS]
-        v.customize ["modifyvm", :id, "--cpuexecutioncap",     VAGRANT_VM_CPU_EXEC_CAP]
+        v.customize ["modifyvm", :id, "--memory",              _VAGRANT_VM_MEMORY]
+        v.customize ["modifyvm", :id, "--cpus",                _VAGRANT_VM_CPUS]
         v.customize ["modifyvm", :id, "--chipset",             "ich9"]
         v.customize ["modifyvm", :id, "--ioapic",              "on"]
         v.customize ["modifyvm", :id, "--rtcuseutc",           "on"]
@@ -160,8 +206,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     ["vmware_fusion", "vmware_workstation"].each do |provider|
         config.vm.provider provider do |v, override|
             v.gui = VAGRANT_VM_GUI
-            v.vmx["memsize"]  = VAGRANT_VM_MEMORY
-            v.vmx["numvcpus"] = VAGRANT_VM_CPUS
+            v.vmx["memsize"]  = _VAGRANT_VM_MEMORY
+            v.vmx["numvcpus"] = _VAGRANT_VM_CPUS
 
             v.vmx['scsi0:1.filename'] = "#{VAGRANT_ROOT}/disks/data"
             v.vmx['scsi0:1.present']  = 'TRUE'
@@ -176,8 +222,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     # Parallels
     config.vm.provider :parallels do |v|
         v.name   = VAGRANT_VM_NAME
-        v.memory = VAGRANT_VM_MEMORY
-        v.cpus   = VAGRANT_VM_CPUS
+        v.memory = _VAGRANT_VM_MEMORY
+        v.cpus   = _VAGRANT_VM_CPUS
         v.optimize_power_consumption = false
         v.update_guest_tools = true
 
@@ -215,7 +261,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     if OS.windows?
         ## Windows
         # configure shared folders here
-    elsif OS.mac?
+    elsif OS.unix?
         ## Linux/Unix/MacOS
         config.vm.synced_folder "#{ENV['HOME']}", "#{ENV['HOME']}", :nfs => { :mount_options => [ "dmode=775", "fmode=774" ] }
     end
