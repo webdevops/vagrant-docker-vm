@@ -12,7 +12,7 @@ VAGRANTFILE_API_VERSION = 2
 ########################
 
 # Show vm gui (terminal window, virtualbox, vmware)
-VAGRANT_VM_GUI = true
+VAGRANT_VM_GUI = false
 
 # Name of VM instance
 VAGRANT_VM_NAME          = 'DEV-VM'
