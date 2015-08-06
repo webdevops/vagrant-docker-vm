@@ -54,15 +54,15 @@ function firewall_ruleset_standard() {
 
 {% endif %}
 
-{% if FIREWALL.bridge.interface %}
+{% if FIREWALL is defined and FIREWALL.bridge.interface is defined and FIREWALL.bridge.interface %}
     #########################
     # Bridge
     #########################
 
     firewall_infomsg "[CHAIN:DEFAULT] bridge-rules"
-    {% if FIREWALL.bridge.ports %}
+    {% if FIREWALL.bridge.ports is defined and FIREWALL.bridge.ports %}
         {% for item in FIREWALL.bridge.ports %}
-            {% if item.port %}
+            {% if item.port is defined and item.port %}
 
                 $IPTABLES -A bridge-rules \
                     --protocol "{{ item.protocol }}" \
