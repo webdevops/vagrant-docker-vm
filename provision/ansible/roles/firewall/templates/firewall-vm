@@ -18,7 +18,31 @@ ETH1_IP=$(ifdata -pa eth1)
 #################################################
 ### Function firewall_ruleset_standard
 function firewall_ruleset_standard() {
+    # reset bridge-rules
+    $IPTABLES -F bridge-rules
+    $IPTABLES -X bridge-rules
+    $IPTABLES -N bridge-rules
+
+    # reset reject-rules
+    $IPTABLES -F reject-rules
+    $IPTABLES -X reject-rules
+    $IPTABLES -N reject-rules
+
+
+    ## default policy rules
+    firewall_infomsg "[CHAIN:DEFAULT] reject-rules"
+    $IPTABLES -A reject-rules -p tcp -j REJECT --reject-with tcp-reset
+    $IPTABLES -A reject-rules -p udp -j REJECT --reject-with icmp-port-unreachable
+    $IPTABLES -A reject-rules -j REJECT --reject-with icmp-port-unreachable
+
+{% if PROVISION.mail %}
+
+    #########################
+    # Mail sandbox
+    #########################
+
     ## redirect all smtp traffic to internal server
+    firewall_infomsg "[CHAIN:ROUTING] main sandbox"
     $IPTABLES -t nat -A OUTPUT -p tcp --dport  25 -j DNAT --to-destination 127.0.0.1:25
     $IPTABLES -t nat -A OUTPUT -p tcp --dport 587 -j DNAT --to-destination 127.0.0.1:25
 
@@ -27,6 +51,26 @@ function firewall_ruleset_standard() {
 
     $IPTABLES -t nat -I PREROUTING 1 -p tcp --dport 587 -j DNAT --to-destination "$ETH1_IP:25"
     $IPTABLES -t nat -I POSTROUTING 1 -p tcp -d "$ETH1_IP" --dport 587 -j MASQUERADE
+
+{% endif %}
+
+{% if FIREWALL.bridge.interface %}
+    #########################
+    # Bridge
+    #########################
+
+    firewall_infomsg "[CHAIN:DEFAULT] bridge-rules"
+    {% if FIREWALL.bridge.ports %}
+        {% for item in FIREWALL.bridge.ports %}
+        $IPTABLES -A bridge-rules -p "{{ item.protocol }}" --dport "{{ item.port }}"  -j ACCEPT
+        {% endfor %}
+    {% endif %}
+    $IPTABLES -A bridge-rules -j reject-rules
+
+
+    $IPTABLES -A INPUT --in-interface "{{ FIREWALL.bridge.interface }}" -j bridge-rules
+
+{% endif %}
 }
 
 #################################################
@@ -35,7 +79,9 @@ function firewall_ruleset_clear() {
     ###################################
     ## Clearing chains
     ###################################
-    #$IPTABLES -F
+    $IPTABLES -F INPUT
+    $IPTABLES -F OUTPUT
+
     #$IPTABLES -t nat -F
     #$IPTABLES -X
 

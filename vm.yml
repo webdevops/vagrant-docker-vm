@@ -88,3 +88,13 @@ CLITOOLS:
     password: 'dev'
   docker:
     boilerplate: 'https://github.com/mblaschke/php-docker-boilerplate.git'
+
+###################
+# Firewall settings
+###################
+FIREWALL:
+  bridge:
+    interface: eth2
+    ports:
+      - { port: 80, protocol: tcp }
+      - { port: 443, protocol: tcp }
