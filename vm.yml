@@ -93,8 +93,18 @@ CLITOOLS:
 # Firewall settings
 ###################
 FIREWALL:
+
+  # Network bridge firewall
   bridge:
+
+    # Interface of bridge
     interface: eth2
+
+    # List of allowed ports
     ports:
+      # list of ports
+      # required fields: port, protocol
+      # - { port: 22, protocol: tcp, source: '10.0.0.0/8' }
       - { port: 80, protocol: tcp }
       - { port: 443, protocol: tcp }
+

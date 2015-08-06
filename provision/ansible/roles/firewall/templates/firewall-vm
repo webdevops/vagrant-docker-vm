@@ -62,9 +62,17 @@ function firewall_ruleset_standard() {
     firewall_infomsg "[CHAIN:DEFAULT] bridge-rules"
     {% if FIREWALL.bridge.ports %}
         {% for item in FIREWALL.bridge.ports %}
-        $IPTABLES -A bridge-rules -p "{{ item.protocol }}" --dport "{{ item.port }}"  -j ACCEPT
+            {% if item.port %}
+
+                $IPTABLES -A bridge-rules \
+                    --protocol "{{ item.protocol }}" \
+                    --dport "{{ item.port }}" \
+                    {% if item.source is defined %}--source "{{ item.source }}" {% endif %} -j ACCEPT
+            {% endif %}
         {% endfor %}
     {% endif %}
+
+    # reject all other traffic
     $IPTABLES -A bridge-rules -j reject-rules
 
 
