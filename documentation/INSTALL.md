@@ -38,6 +38,9 @@ cd devvm
 # Customize the vm.yml with your favorite editor
 vim vm.yml
 
+# Customize the Vagrantfile with your favorite editor
+vim Vagrantfile
+
 # Setup Docker environment (only linux and mac, only once)
 source provision/docker-init.sh
 
