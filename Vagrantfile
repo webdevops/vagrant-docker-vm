@@ -17,8 +17,10 @@ VAGRANT_VM_GUI = false
 # Name of VM instance
 VAGRANT_VM_NAME = 'DEV-VM'
 
-# System settings
+# CPU count (auto = all available cores, 2 = only 2 cores)
 VAGRANT_VM_CPUS   = 'auto'
+
+# Memory usage (auto = 1/4 system memory, 1500 = 1.5 GB)
 VAGRANT_VM_MEMORY = 'auto'
 
 # Disk size of data image (GB)
