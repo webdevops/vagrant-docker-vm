@@ -104,7 +104,9 @@ FIREWALL:
     ports:
       # list of ports
       # required fields: port, protocol
-      # - { port: 22, protocol: tcp, source: '10.0.0.0/8' }
-      - { port: 80, protocol: tcp }
-      - { port: 443, protocol: tcp }
+      # optional fields: source
+      #- { port: 22, protocol: tcp, source: '10.0.0.0/8' } # SSH
+      - { port: 80, protocol: tcp }  # HTTP
+      - { port: 443, protocol: tcp } # HTTPS
+      #- { port: 143, protocol: tcp } # IMAP
 
