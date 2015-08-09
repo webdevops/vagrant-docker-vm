@@ -205,8 +205,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     #################
 
     # VMware Fusion and Workstation
-    ["vmware_fusion", "vmware_workstation"].each do |provider|
-        config.vm.provider provider do |v, override|
+    [:vmware_fusion, :vmware_workstation].each do |provider|
+        config.vm.provider provider do |v|
             v.gui = VAGRANT_VM_GUI
             v.vmx["memsize"]  = _VAGRANT_VM_MEMORY
             v.vmx["numvcpus"] = _VAGRANT_VM_CPUS
