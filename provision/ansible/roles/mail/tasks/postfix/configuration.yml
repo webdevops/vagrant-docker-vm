@@ -4,6 +4,8 @@
     src: roles/mail/files/postfix/
     dest: /etc/postfix/
     delete: no
+  notify:
+    - Restart postfix
 
 - name: Postfix configuration
   lineinfile:
@@ -18,21 +20,20 @@
     - { regexp: '^home_mailbox',             line: 'home_mailbox = .mail/' }
     - { regexp: '^mynetworks',               line: 'mynetworks = 127.0.0.0/8 168.100.189.0/28 [::1]/128 [fe80::]/10 [2001:240:587::]/64 172.16.0.0/12 {{ ansible_eth1.ipv4.address }} {{ ansible_eth1.ipv4.network }}/24' }
     - { regexp: '^message_size_limit',       line: 'message_size_limit = 102400000' }
+  notify:
+    - Restart postfix
 
 - name: Enable additional_headers
   lineinfile:
     dest:    /etc/postfix/main.cf
     regexp: 'header_checks'
     line:   'header_checks = regexp:/etc/postfix/additional_headers'
+  notify:
+    - Restart postfix
 
 - name: Create /etc/mailname
   raw: 'hostname > /etc/mailname'
   args:
     creates: '/etc/mailname'
 
-- name: Init postfix
-  command: '{{ item }}'
-  with_items:
-    - postmap /etc/postfix/recipient_canonical_maps
-    - postmap /etc/postfix/additional_headers
-    - service postfix restart
+

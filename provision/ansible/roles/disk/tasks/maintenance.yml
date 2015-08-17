@@ -41,13 +41,21 @@
   args:
     creates: '/mnt/data/projects/'
 
-- name: Setup rights for code
+- name: Setup rights for /mnt/data
+  file:
+    path:  /mnt/data
+    state: directory
+    owner: vagrant
+    group: vagrant
+    mode:  0777
+
+- name: Setup rights for /mnt/data/projects
   file:
     path:  /mnt/data/projects
     state: directory
     owner: vagrant
     group: vagrant
-    mode:  777
+    mode:  0777
 
 - name: Setup mounting for docker
   mount:

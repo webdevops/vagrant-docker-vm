@@ -30,6 +30,7 @@ PROFILE:
 # Provisioning features
 ###################
 PROVISION:
+  update:      0      # do full system update for each full provisoning (currently not stable for vmware!)
   packages:    'full' # full or minimal
   samba:       1      # Samba server
   ntp:         1      # Time synchronization
@@ -41,6 +42,24 @@ PROVISION:
 
   ## Filesystem of data disk [ext3,ext4,xfs,btrfs]
   dataFS: 'ext4'
+
+###################
+# Packages
+###################
+PACKAGES:
+
+  # Custom GNU/Linux kernel version (need reboot after provisioning)
+  #
+  # Examples:
+  #   default kernel   -> 0 or ''
+  #   specific version -> 3.19.0-25-generic
+  #   recent kernel    -> recent
+  #
+  # -- WARNING: use with caution - maybe not stable --
+  kernel:        ''
+
+  # docker-compose version
+  dockerCompose: '1.3.3'
 
 ###################
 # VM settings
@@ -69,3 +88,25 @@ CLITOOLS:
     password: 'dev'
   docker:
     boilerplate: 'https://github.com/mblaschke/php-docker-boilerplate.git'
+
+###################
+# Firewall settings
+###################
+FIREWALL:
+
+  # Network bridge firewall
+  bridge:
+
+    # Interface of bridge
+    interface: eth2
+
+    # List of allowed ports
+    ports:
+      # list of ports
+      # required fields: port, protocol
+      # optional fields: source
+      #- { port: 22, protocol: tcp, source: '10.0.0.0/8' } # SSH
+      - { port: 80, protocol: tcp }  # HTTP
+      - { port: 443, protocol: tcp } # HTTPS
+      #- { port: 143, protocol: tcp } # IMAP
+

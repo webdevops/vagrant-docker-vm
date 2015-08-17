@@ -36,7 +36,7 @@ alias make='ct make'
 # Docker aliases
 
 # Cleanup old unused images (safe remove)
-alias docker-clean='docker rmi -f $(docker images | grep "<none>" | awk "{print \$3}")'
+alias docker-clean='docker images | grep "<none>" | awk "{print \$3}" | xargs --no-run-if-empty docker rmi -f'
 
 #######################################
 # General aliases

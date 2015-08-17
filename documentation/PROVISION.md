@@ -27,7 +27,7 @@ It will check and correct most of the issues automatically.
   - analysis tools (htop, atop, iftop, mytop, iotop, pfqueue)
   - editors (nano, vim)
   - debugging tools (strace)
-  - [CliTools (as "ct")](https://github.com/mblaschke/clitools)
+  - [CliTools (as "ct")](https://github.com/webdevops/clitools)
 - Daemons
   - dnsmasq
   - samba

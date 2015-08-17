@@ -3,11 +3,6 @@
   tags:
     - bootstrap
 
-#- name: Update system
-#  include: upgrade.yml
-  tags:
-    - bootstrap
-
 - name: Install packages
   include: packages.yml
   tags:

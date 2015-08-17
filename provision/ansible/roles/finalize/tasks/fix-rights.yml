@@ -1,0 +1,18 @@
+- name: Fix filesystem rights
+  file:
+    path:    '{{ item.path }}'
+    state:   directory
+    mode:    '{{ item.mode }}'
+    owner:   'vagrant'
+    group:   'vagrant'
+    recurse: '{{ item.recurse }}'
+  with_items:
+   - { path: '/home/vagrant/.config/',                  recurse: 'yes', mode: '0775' }
+   - { path: '/home/vagrant/.ssh/',                     recurse: 'no',  mode: '0700' }
+   - { path: '/home/vagrant/.ssh/.ssh/authorized_keys', recurse: 'no',  mode: '0600' }
+   - { path: '/home/vagrant/.ssh/.ssh/known_hosts',     recurse: 'no',  mode: '0644' }
+   - { path: '/home/vagrant/.ssh/.ssh/id_rsa',          recurse: 'no',  mode: '0600' }
+   - { path: '/home/vagrant/.ssh/.ssh/id_rsa.pub',      recurse: 'no',  mode: '0644' }
+   - { path: '/home/vagrant/tmp/',                      recurse: 'no',  mode: '0775' }
+   - { path: '/usr/local/bin/',                         recurse: 'yes', mode: '0775' }
+   - { path: '/var/www/',                               recurse: 'no',  mode: '0775' }

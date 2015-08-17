@@ -1,12 +1,25 @@
 Vagrant Development VM Changelog
 ================================
 
-1.1.0 - UPCOMING
+2.0.0 - UPCOMING
 ------------------
-* Modular provisioning
+* Added prebuilt vagrant image from WebDevOps
+* Modular provisioning in `vm.yml`
 * Increased data disk size to 160 GB
 * Improved provisioning feedback (splitted big ansible tasks into smaller ones)
-* Smaller improvements
+* Improved general provisoning
+* Added distribution update switch in `vm.yml`
+* Added auto installation custom kernel in `vm.yml`
+* Added ext4, ext3, xfs and btrfs support for data image in `vm.yml`
+* Added oh-my-zsh and prezto as zsh profiles
+* Modular and more customizable `Vagrantfile`
+* Automatic detection of CPUs and Memory (will use 1/4 of host) for MacOS and Linux
+* Secured default vhost for reverse proxy (docker proxy)
+* Auto rebuild VMware guest tools
+* Secured SSL configuration (disabled RC4)
+* Added basic and easy `customization/` folder (will deployed on server)
+* Added firewall for bridged networks
+* Many other smaller improvements and bugfixes
 
 1.0.0 - 2015-06-17
 ------------------

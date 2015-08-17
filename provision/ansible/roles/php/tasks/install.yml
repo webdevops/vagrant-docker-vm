@@ -1,7 +1,7 @@
 - name: Install php
   apt:
     pkg:   '{{ item }}'
-    state: latest
+    state: present
   with_items:
     # PHP
     - php5-cli

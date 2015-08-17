@@ -1,6 +1,12 @@
 - name: Install samba
   apt:
     pkg:   '{{ item }}'
-    state: latest
+    state: present
   with_items:
     - samba
+
+- name: Init samba
+  raw: '{{ item }}'
+  with_items:
+    - (echo vagrant; echo vagrant) | smbpasswd -s -a vagrant
+

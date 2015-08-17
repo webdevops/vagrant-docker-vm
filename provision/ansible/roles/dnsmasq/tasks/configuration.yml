@@ -5,6 +5,8 @@
     owner: vagrant
     group: root
     mode:  0644
+  notify:
+    - Restart dnsmasq
 
 - name: Deploy dnsmasq configuration (docker)
   template:
@@ -13,6 +15,8 @@
     owner: vagrant
     group: root
     mode:  0644
+  notify:
+    - Restart dnsmasq
 
 - name: Create /opt/docker/dns/ directory
   file:
@@ -35,6 +39,8 @@
     src: roles/dnsmasq/files/cron/
     dest: /etc/cron.d/
     delete: no
+  notify:
+    - Reload cron
 
 - name: Fix rights
   file:
@@ -44,10 +50,7 @@
     group: root
     mode: '{{ item.mode }}'
   with_items:
-   - { path: '/etc/cron.d/docker-dns', state : 'file', mode: '644' }
+   - { path: '/etc/cron.d/docker-dns', state : 'file', mode: '0644' }
+  notify:
+    - Reload cron
 
-- name: Restart dnsmasq
-  command: service dnsmasq restart
-
-- name: Reload cron
-  command: service cron reload

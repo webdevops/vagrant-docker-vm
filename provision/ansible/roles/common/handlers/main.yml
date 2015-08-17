@@ -1,0 +1,5 @@
+- name: Apply sysctl settings
+  command: 'sysctl -p --ignore'
+
+- name: Update grub
+  command: 'update-grub'

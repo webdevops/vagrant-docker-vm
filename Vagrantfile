@@ -7,31 +7,92 @@ VAGRANTFILE_API_VERSION = 2
 ## Configuration
 ###############################################################################
 
+########################
+## General
+########################
+
+# Show vm gui (terminal window, virtualbox, vmware)
+VAGRANT_VM_GUI = false
+
 # Name of VM instance
-VAGRANT_VM_NAME          = 'DEV-VM'
+VAGRANT_VM_NAME = 'DEV-VM'
 
-# Show vm gui (terminal window)
-VAGRANT_VM_GUI           = false
+# CPU count (auto = all available cores, 2 = only 2 cores)
+VAGRANT_VM_CPUS   = 'auto'
 
-# System settings
-VAGRANT_VM_CPUS          = 4
-VAGRANT_VM_CPU_EXEC_CAP  = 100
-VAGRANT_VM_MEMORY        = 1512
-VAGRANT_VM_DATA_SIZE     = 160
-VAGRANT_VM_IP_INTERNAL   = '192.168.56.2'
+# Memory usage (auto = 1/4 system memory, 1500 = 1.5 GB)
+VAGRANT_VM_MEMORY = 'auto'
 
-# Port forwarding
-VAGRANT_VM_FORWARD_IP    = '127.0.0.1'
+# Disk size of data image (GB)
+VAGRANT_VM_DATA_SIZE = 160
+
+# Host-only IP address (for communication between host and vm)
+VAGRANT_VM_IP_INTERNAL = '192.168.56.2'
 
 ###################
 # Vagrant image
 ###################
 
-## Prebuilt image (testing - feel free to test, too)
-#VAGRANT_IMAGE = 'webdevops/ubuntu-docker'
+# You can use nearly any Ubuntu 14.04 vagrant base image.
+# This VM is tested with box-cutter and webdevops image.
+#
+# box-cutter is a plain Ubuntu image and webdevops image is a
+# prebuilt one with all tools preinstalled (faster provisioning)
+#
+# Images:
+# -> webdevops/ubuntu-docker
+# -> box-cutter/ubuntu1404-docker
+#
 
-## BoxCutter plain Ubuntu image
-VAGRANT_IMAGE = 'box-cutter/ubuntu1404-docker'
+VAGRANT_IMAGE = 'webdevops/ubuntu-docker'
+
+########################
+## VirtualBox
+########################
+
+# Disk image controller, change change between images, eg.
+# You sometimes have to switch controller if the image is using another one.
+# See VM settings in VirtualBox for the correct naming.
+#
+#  -> 'IDE Controller'
+#  -> 'SATA Controller'
+
+VIRTUALBOX_DISK_CONTROLLER = 'IDE Controller'
+
+
+########################
+## Customization
+########################
+
+VAGRANT_CUSTOMIZATION = Proc.new {|config|
+
+    # Fallback ssh connection (https://github.com/mitchellh/vagrant/issues/5186)
+    # -> Authentication issues? Workaround:
+    # config.ssh.username = 'vagrant'
+    # config.ssh.password = 'vagrant'
+
+    ## Port forwardings
+
+    # Public HTTP server
+    # config.vm.network "forwarded_port", guest: 80, host: 80, auto_correct: true
+    # config.vm.network "forwarded_port", guest: 443, host: 443, auto_correct: true
+
+    # MySQL (local only)
+    # config.vm.network "forwarded_port", guest: 13306, host: 3306, host_ip: '127.0.0.1', auto_correct: true
+
+    # Docker port (local only)
+    # config.vm.network "forwarded_port", guest: 2375, host: 2375, host_ip: '127.0.0.1', auto_correct: true
+
+    ## Networks
+
+    # Public network
+    #  |WARNING| This can be a big security issue and an attacker could
+    #  |WARNING| gain access also to host (because of shares or services)!
+    #  |WARNING| Only use if you're sure about the risks!
+    #  |WARNING| If you need access to services use the port forwarding features!
+    # config.vm.network "public_network"
+
+}
 
 ###############################################################################
 ## --- Do not edit below ---
@@ -61,6 +122,34 @@ module OS
 end
 
 ###############################################################################
+## --- Ressource detection ---
+###############################################################################
+
+if VAGRANT_VM_CPUS =~ /auto/
+  if OS.mac?
+    _VAGRANT_VM_CPUS = `sysctl -n hw.ncpu`.to_i
+  elsif OS.linux?
+    _VAGRANT_VM_CPUS = `nproc`.to_i
+  else
+    _VAGRANT_VM_CPUS = 2
+  end
+else
+    _VAGRANT_VM_CPUS = VAGRANT_VM_CPUS
+end
+
+if VAGRANT_VM_MEMORY =~ /auto/
+  if OS.mac?
+    _VAGRANT_VM_MEMORY = `sysctl -n hw.memsize`.to_i / 1024 / 1024 / 4
+  elsif OS.linux?
+    _VAGRANT_VM_MEMORY = `grep 'MemTotal' /proc/meminfo | sed -e 's/MemTotal://' -e 's/ kB//'`.to_i / 1024 / 4
+  else
+    _VAGRANT_VM_MEMORY = 2048
+  end
+else
+    _VAGRANT_VM_MEMORY = VAGRANT_VM_MEMORY
+end
+
+###############################################################################
 ## --- Disc setup ---
 ###############################################################################
 
@@ -85,9 +174,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         v.gui = VAGRANT_VM_GUI
         v.customize ["modifyvm", :id, "--name",                VAGRANT_VM_NAME]
         v.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
-        v.customize ["modifyvm", :id, "--memory",              VAGRANT_VM_MEMORY]
-        v.customize ["modifyvm", :id, "--cpus",                VAGRANT_VM_CPUS]
-        v.customize ["modifyvm", :id, "--cpuexecutioncap",     VAGRANT_VM_CPU_EXEC_CAP]
+        v.customize ["modifyvm", :id, "--memory",              _VAGRANT_VM_MEMORY]
+        v.customize ["modifyvm", :id, "--cpus",                _VAGRANT_VM_CPUS]
         v.customize ["modifyvm", :id, "--chipset",             "ich9"]
         v.customize ["modifyvm", :id, "--ioapic",              "on"]
         v.customize ["modifyvm", :id, "--rtcuseutc",           "on"]
@@ -105,7 +193,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
             v.customize ['createhd', '--filename', DiskVmData, '--size', VAGRANT_VM_DATA_SIZE * 1024]
             # v.customize ['modifyhd', DiskVmData, '--type', 'multiattach']
         end
-        v.customize ['storageattach', :id, '--storagectl', 'SATA Controller', '--port', 1, '--device', 0, '--type', 'hdd', '--medium', DiskVmData]
+        v.customize ['storageattach', :id, '--storagectl', VIRTUALBOX_DISK_CONTROLLER, '--port', 1, '--device', 0, '--type', 'hdd', '--medium', DiskVmData]
 
         # network
         v.customize ["modifyvm", :id, "--nictype1", "virtio"]
@@ -117,11 +205,11 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     #################
 
     # VMware Fusion and Workstation
-    ["vmware_fusion", "vmware_workstation"].each do |provider|
-        config.vm.provider provider do |v, override|
+    [:vmware_fusion, :vmware_workstation].each do |provider|
+        config.vm.provider provider do |v|
             v.gui = VAGRANT_VM_GUI
-            v.vmx["memsize"]  = VAGRANT_VM_MEMORY
-            v.vmx["numvcpus"] = VAGRANT_VM_CPUS
+            v.vmx["memsize"]  = _VAGRANT_VM_MEMORY
+            v.vmx["numvcpus"] = _VAGRANT_VM_CPUS
 
             v.vmx['scsi0:1.filename'] = "#{VAGRANT_ROOT}/disks/data"
             v.vmx['scsi0:1.present']  = 'TRUE'
@@ -136,8 +224,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     # Parallels
     config.vm.provider :parallels do |v|
         v.name   = VAGRANT_VM_NAME
-        v.memory = VAGRANT_VM_MEMORY
-        v.cpus   = VAGRANT_VM_CPUS
+        v.memory = _VAGRANT_VM_MEMORY
+        v.cpus   = _VAGRANT_VM_CPUS
         v.optimize_power_consumption = false
         v.update_guest_tools = true
 
@@ -161,20 +249,12 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     # Networking
     #################
     config.vm.network "private_network", ip: VAGRANT_VM_IP_INTERNAL
-    #config.vm.network "public_network"
 
     #################
     # Port forwarding
     #################
 
-    # Webserver
-    # config.vm.network "forwarded_port", guest: 8000, host: 8000, auto_correct: true
-
-    # MySQL
-    config.vm.network "forwarded_port", guest: 3306, host: 3306, host_ip: VAGRANT_VM_FORWARD_IP, auto_correct: true
-
-    # Docker port
-    config.vm.network "forwarded_port", guest: 2375, host: 2375, host_ip: VAGRANT_VM_FORWARD_IP, auto_correct: true
+    # nothing defined
 
     #################
     # Shared folders
@@ -183,7 +263,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     if OS.windows?
         ## Windows
         # configure shared folders here
-    elsif OS.mac?
+    elsif OS.unix?
         ## Linux/Unix/MacOS
         config.vm.synced_folder "#{ENV['HOME']}", "#{ENV['HOME']}", :nfs => { :mount_options => [ "dmode=775", "fmode=774" ] }
     end
@@ -204,5 +284,11 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     config.vm.provision "maintenance", run: "always", type: "shell" do |s|
         s.inline = "sudo bash /vagrant/provision/maintenance.sh"
     end
+
+    #################
+    # Customization
+    #################
+
+    VAGRANT_CUSTOMIZATION.call(config)
 
 end

@@ -50,8 +50,3 @@
   tags:
     - bootstrap
 
-- name: Fix rights
-  include: rights.yml
-  tags:
-    - bootstrap
-    - maintenance

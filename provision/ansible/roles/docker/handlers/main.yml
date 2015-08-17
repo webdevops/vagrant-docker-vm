@@ -1,0 +1,5 @@
+- name: Reload AppArmor
+  command: 'service apparmor reload'
+
+- name: Restart Docker
+  command: 'service docker restart'

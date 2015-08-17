@@ -7,17 +7,20 @@
     - /vagrant/vm.yml
   roles:
     - common
+    - { role: vm-vmware,    when: ansible_virtualization_type == "VMware" }
+    - { role: update,       when: PROVISION.update == 1 }
+    - { role: kernel,       when: PACKAGES.kernel != 0 and PACKAGES.kernel != "" }
     - disk
     - ssh
-    - { role: samba,        when: PROVISION.samba }
+    - { role: samba,        when: PROVISION.samba == 1 }
     - dnsmasq
-    - { role: php,          when: PROVISION.php }
-    - { role: docker,       when: PROVISION.docker }
-    - { role: docker-proxy, when: PROVISION.dockerProxy }
-    - { role: mail,         when: PROVISION.mail }
-    - { role: ntp,          when: PROVISION.ntp }
+    - { role: php,          when: PROVISION.php == 1 }
+    - { role: docker,       when: PROVISION.docker == 1 }
+    - { role: docker-proxy, when: PROVISION.dockerProxy == 1 }
+    - { role: mail,         when: PROVISION.mail == 1 }
+    - { role: ntp,          when: PROVISION.ntp == 1 }
     - firewall
-    - { role: clitools,     when: PROVISION.clitools }
+    - { role: clitools,     when: PROVISION.clitools == 1 }
     - user
     - customization
     - finalize

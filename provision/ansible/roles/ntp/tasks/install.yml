@@ -14,6 +14,6 @@
 - name: Install chrony
   apt:
     pkg:   '{{ item }}'
-    state: latest
+    state: present
   with_items:
     - chrony

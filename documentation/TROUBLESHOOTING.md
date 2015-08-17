@@ -43,7 +43,13 @@ recreated.
 
 You can safely run `docker-clean` to remove old and unused images.
 
+## Networking issues
 
+### No IP address or no network
+
+Remove the udev rule for network interfaces:
+
+`sudo rm /etc/udev/rules.d/70-persistent-net.rules`
 
 ## Docker errors
 

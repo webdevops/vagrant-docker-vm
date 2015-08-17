@@ -1,0 +1,4 @@
+- name: Setup auto rebuild vmware guest tools
+  include: guest-tools.yml
+  tags:
+    - bootstrap

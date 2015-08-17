@@ -1,0 +1,12 @@
+- name: Install specific kernel version
+  apt:
+    pkg:   '{{ item }}'
+    state: present
+  with_items:
+    - 'linux-image-{{ PACKAGES.kernel }}'
+    - 'linux-image-extra-{{ PACKAGES.kernel }}'
+    - 'linux-tools-{{ PACKAGES.kernel }}'
+    - 'linux-headers-{{ PACKAGES.kernel }}'
+
+# TODO: update guest tools?
+# ansible_virtualization_type

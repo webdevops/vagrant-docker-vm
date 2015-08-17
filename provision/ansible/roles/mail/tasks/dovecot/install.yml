@@ -1,7 +1,7 @@
 - name: Install dovecot
   apt:
     pkg:   '{{ item }}'
-    state: latest
+    state: present
   with_items:
     - dovecot-core
     - dovecot-imapd

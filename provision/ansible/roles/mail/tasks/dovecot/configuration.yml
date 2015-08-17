@@ -12,8 +12,5 @@
     line:   '{{ item.line }}'
   with_items:
     - { regexp: '^listen', line: 'listen = {{ ansible_eth1.ipv4.address }}' }
-
-- name: Init dovecot
-  raw: '{{ item }}'
-  with_items:
-    - service dovecot restart
+  notify:
+    - Restart dovecot

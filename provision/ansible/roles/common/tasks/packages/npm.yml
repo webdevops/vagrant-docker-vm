@@ -1,8 +1,7 @@
 - name: Install nodejs
   apt:
     pkg:   '{{ item }}'
-    state: latest
-  when: ansible_distribution == 'Ubuntu'
+    state: present
   with_items:
     - nodejs
     - nodejs-legacy
@@ -11,8 +10,7 @@
 - name: Install npm
   apt:
     pkg:   '{{ item }}'
-    state: latest
-  when: ansible_distribution == 'Ubuntu'
+    state: present
   with_items:
     - npm
 

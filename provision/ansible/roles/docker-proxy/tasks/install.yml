@@ -1,7 +1,7 @@
 - name: Install apache2
   apt:
     pkg:   '{{ item }}'
-    state: latest
+    state: present
   with_items:
     - apache2-mpm-worker
     - libapache2-mod-macro
@@ -33,6 +33,14 @@
    - proxy
    - proxy_http
    - rewrite
+
+- name: Create /var/www/empty/ directory
+  file:
+    dest:  /var/www/empty/
+    owner: vagrant
+    group: vagrant
+    mode:  0755
+    state: directory
 
 - name: Restart apache2
   command: service apache2 restart

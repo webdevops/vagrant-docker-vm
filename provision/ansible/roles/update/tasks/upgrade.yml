@@ -1,8 +1,8 @@
-- name: Update system
+- name: Update system (apt-get update) ... will take some time
   apt:
     update_cache: yes
 
-- name: Upgrade system
+- name: Upgrade system (apt-get dist-upgrade) ... will take some time
   apt:
     upgrade: dist
 

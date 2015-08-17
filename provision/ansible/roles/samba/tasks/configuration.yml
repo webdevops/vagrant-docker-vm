@@ -14,11 +14,6 @@
     mode: 0775
 
 - name: Init samba
-  raw: '{{ item }}'
-  with_items:
-    - (echo vagrant; echo vagrant) | smbpasswd -s -a vagrant
-
-- name: Init samba
   command: 'service {{ item }} restart'
   with_items:
     - nmbd
