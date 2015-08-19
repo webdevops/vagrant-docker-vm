@@ -59,7 +59,7 @@ PACKAGES:
   kernel:        ''
 
   # docker-compose version
-  dockerCompose: '1.3.3'
+  dockerCompose: '1.4.0'
 
 ###################
 # VM settings
