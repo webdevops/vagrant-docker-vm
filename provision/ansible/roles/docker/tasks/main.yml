@@ -1,14 +1,11 @@
-- name: Install docker
-  include: install.yml
+- include: install.yml
   tags:
     - bootstrap
 
-#- name: Maintenance docker
-#  include: maintenance.yml
-#  tags:
-#    - bootstrap
+- include: maintenance.yml
+  tags:
+    - bootstrap
 
-- name: Configure docker
-  include: configuration.yml
+- include: configuration.yml
   tags:
     - bootstrap
