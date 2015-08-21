@@ -8,6 +8,7 @@ Vagrant Development VM Changelog
 * Increased data disk size to 160 GB
 * Improved provisioning feedback (splitted big ansible tasks into smaller ones)
 * Improved general provisoning
+* Switched to official docker installation command (removed docker ppa)
 * Added distribution update switch in `vm.yml`
 * Added auto installation custom kernel in `vm.yml`
 * Added ext4, ext3, xfs and btrfs support for data image in `vm.yml`

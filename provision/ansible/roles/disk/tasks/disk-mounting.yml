@@ -61,3 +61,4 @@
 
 - name: Start services
   command: 'service docker restart'
+  ignore_errors: True

@@ -1,6 +1,26 @@
-- name: Install docker
+- name: Uninstall docker (from Ubuntu PPA)
   apt:
     pkg:   '{{ item }}'
-    state: latest
+    state: absent
   with_items:
     - lxc-docker
+    - lxc-docker-*
+
+- name: Add docker repository
+  apt_repository:
+    repo: 'ppa:docker-maint/testing'
+    state: absent
+
+- name: Install docker utils
+  apt:
+    pkg:   '{{ item }}'
+    state: present
+  with_items:
+    - curl
+    - aufs-tools
+
+- name: Add docker.io key
+  apt_key: url=https://get.docker.com/gpg state=present
+
+- name: Install docker.io daemon
+  raw: 'curl -sSL https://get.docker.com/ | sh'
