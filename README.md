@@ -58,15 +58,3 @@ Thanks for support, ideas and issues ...
 - [Philipp Kitzberger](https://github.com/Kitzberger)
 
 Did I forget anyone? Send me a tweet or create pull request!
-
-## TODO
-- Reverse Proxy
-  - distributed perverse proxy configuration via shared folders for easy and fast deployment
-- auto update composer and stuff? -> ansible tag?
-- Vagrantfile
-  - private IP-address
-  - VAGRANT_VM_DATA_SIZE vmware
-  - https://github.com/BerlinVagrant/vagrant-dns
-- move vagrant home to shared folder?
-- /etc/host provision
-- testing
