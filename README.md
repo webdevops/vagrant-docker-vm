@@ -56,5 +56,6 @@ Thanks for support, ideas and issues ...
 - [Achim Fritz](https://twitter.com/achimfritz73)
 - [Rainer Zeh](https://twitter.com/rzeh)
 - [Philipp Kitzberger](https://github.com/Kitzberger)
+- [Josef Glatz](https://github.com/jousch)
 
 Did I forget anyone? Send me a tweet or create pull request!
