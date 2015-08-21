@@ -58,5 +58,6 @@ Thanks for support, ideas and issues ...
 - [Philipp Kitzberger](https://github.com/Kitzberger)
 - [Josef Glatz](https://github.com/jousch)
 - [Elmar Hinz](https://github.com/elmar-hinz)
+- [Alexander Grein](https://github.com/rabe69)
 
 Did I forget anyone? Send me a tweet or create pull request!
