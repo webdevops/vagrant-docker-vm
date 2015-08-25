@@ -51,7 +51,7 @@ vagrant up
 vagrant ssh
 ```
 
-Put this snipped in your .ssh/config:
+Put this snipped in your .ssh/config of your host machine:
 
     Host vm vagrant 192.168.56.2
         Hostname 192.168.56.2
