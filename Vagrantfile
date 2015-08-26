@@ -3,31 +3,11 @@
 
 VAGRANTFILE_API_VERSION = 2
 
-###############################################################################
-## Configuration
-###############################################################################
-
-require 'yaml'
-
-path = "#{File.dirname(__FILE__)}"
-
-# Get machine configuration
-configuration = {}
-if File.exist?(path + '/vm.yml')
-	configuration = YAML::load(File.read(path + '/vm.yml')) || {}
-end
-
 ########################
 ## Customization
 ########################
 
 VAGRANT_CUSTOMIZATION = Proc.new {|config|
-
-    # Fallback ssh connection (https://github.com/mitchellh/vagrant/issues/5186)
-    # -> Authentication issues? Workaround:
-    # config.ssh.username = 'vagrant'
-    # config.ssh.password = 'vagrant'
-
     ## Port forwardings
 
     # Public HTTP server
@@ -48,13 +28,25 @@ VAGRANT_CUSTOMIZATION = Proc.new {|config|
     #  |WARNING| Only use if you're sure about the risks!
     #  |WARNING| If you need access to services use the port forwarding features!
     # config.vm.network "public_network"
-
 }
+
+###############################################################################
+## YAML configuration loader
+###############################################################################
+
+require 'yaml'
+
+path = "#{File.dirname(__FILE__)}"
+
+# Get machine configuration
+configuration = {}
+if File.exist?(path + '/vm.yml')
+	configuration = YAML::load(File.read(path + '/vm.yml')) || {}
+end
 
 ###############################################################################
 ## --- Do not edit below ---
 ###############################################################################
-
 
 ###############################################################################
 ## --- OS detection ---
@@ -100,6 +92,12 @@ if configuration['VM']['memory'] =~ /auto/
   else
     configuration['VM']['memory'] = 2048
   end
+
+  # at least 1 GB
+  if configuration['VM']['memory'].to_i < 1024
+    configuration['VM']['memory'] = 1024
+  end
+
 end
 
 ###############################################################################
@@ -199,9 +197,17 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     end
 
     #################
-    # Networking
+    # Networking :: private
     #################
     config.vm.network "private_network", ip: configuration['VM']['network']['private']['address']
+
+
+    #################
+    # Networking :: public
+    #################
+    if configuration['VM']['network']['public']['address'] =~ /auto/
+        config.vm.network "public_network"
+    end
 
     #################
     # Port forwarding
@@ -241,6 +247,17 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
             config.vm.synced_folder "#{mount['src']}", "#{mount['target']}"
         end
     end
+
+    #################
+    # Workarounds
+    #################
+    if configuration['VM']['workaround']['useSshPasswordAuth']
+        # Fallback ssh connection (https://github.com/mitchellh/vagrant/issues/5186)
+        # -> Authentication issues? Workaround:
+        config.ssh.username = 'vagrant'
+        config.ssh.password = 'vagrant'
+    end
+
 
     #################
     # Provisioning

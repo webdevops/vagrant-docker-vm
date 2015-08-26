@@ -1,19 +1,16 @@
 ---
-# ++++++++++++++++++++++++++++++++++++++++++++++++#
-#       Vagrant Provisioning Configuration        #
-# ++++++++++++++++++++++++++++++++++++++++++++++++#
-#
-#  Defaults can be found in
-#       provision/ansible/default.yml
-#
-# ++++++++++++++++++++++++++++++++++++++++++++++++
+# +++++++++++++++++++++++++++++++++++++++++++++++ #
+#       Vagrant VM Configuration                  #
+# +++++++++++++++++++++++++++++++++++++++++++++++ #
 
 ###################
 # VM settings
 ###################
 VM:
+  # Name of VM
   name: 'DEV-VM'
 
+  # Base image
   # You can use nearly any Ubuntu 14.04 vagrant base image.
   # This VM is tested with box-cutter and webdevops image.
   #
@@ -26,22 +23,32 @@ VM:
   #
   image: 'webdevops/ubuntu-docker'
 
+  # Enable GUI mode
+  gui: false
+
   # ---------------------------------------------
   # Resource settings
+  #
+  # cpu:
+  #   auto -> max number of CPU cores
+  #      2 -> 2 CPU cores
+  #
+  # memory:
+  #   auto -> 1/4 of system RAM
+  #   1500 -> 1.5 GB RAM
   #
   cpu:    'auto'
   memory: 'auto'
 
   # ---------------------------------------------
-  # General settings
-  #
-  gui: false
-
-  # ---------------------------------------------
   # Data image (additonal partition) settings
   #
   data:
+    # Image size in GB
     size: 160
+
+    # Filesystem of image
+    # -> ext4, btrfs or xfs
     filesystem: 'ext4'
 
   # ---------------------------------------------
@@ -52,8 +59,16 @@ VM:
     private:
       address: 192.168.56.2
 
-    bridge:
-      address: false
+    # Public network
+    #  |WARNING| This can be a big security issue and an attacker could
+    #  |WARNING| gain access also to host (because of shares or services)!
+    #  |WARNING| Only use if you're sure about the risks!
+    #  |WARNING| If you need access to services use the port forwarding features!
+    public:
+      # Address
+      #  false -> disabled
+      #  auto  -> auto configuration (dhcp)
+      address: 'auto'
 
   # ---------------------------------------------
   # Shared folders
@@ -61,6 +76,14 @@ VM:
   sharedFolder:
     - { type: 'home' }
     #- { type: 'nfs', src: '~/Projects', target: '/var/www' }
+
+  # ---------------------------------------------
+  # Workarounds
+  #
+  workaround:
+    # Fallback ssh connection (https://github.com/mitchellh/vagrant/issues/5186)
+    # -> Authentication issues? Workaround:
+    useSshPasswordAuth: false
 
   # ---------------------------------------------
   # VirtualBox settings
