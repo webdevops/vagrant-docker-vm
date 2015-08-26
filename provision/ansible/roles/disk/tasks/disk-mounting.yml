@@ -21,7 +21,7 @@
     state:  present
 
 - name: Mount SDB1
-  mount: name=/mnt/data src=/dev/sdb1 fstype='{{ PROVISION.dataFS }}' state=mounted
+  mount: name=/mnt/data src=/dev/sdb1 fstype='{{ VM.data.filesystem }}' state=mounted
 
 #############################
 # Docker

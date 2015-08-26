@@ -8,7 +8,7 @@
 
 [config]
 ssh_conf_path   = "/vagrant/provision/sshconfig/"
-domain_dev      = "{{ VM.developmentDomain }}"
+domain_dev      = "{{ PROVISION.developmentDomain }}"
 
 [db]
 dsn = "{{ CLITOOLS.db.dsn }}"
@@ -18,7 +18,7 @@ debug_log_dir = "/tmp/debug/"
 
 [syscheck]
 enabled = 1
-{% if VM.growlPassword %}
+{% if CLITOOLS.growlPassword %}
 wall = 0
 growl = 1
 {% else %}
@@ -29,7 +29,7 @@ diskusage = 90
 
 [growl]
 server = 192.168.56.1
-password = "{{ VM.growlPassword }}"
+password = "{{ CLITOOLS.growlPassword }}"
 
 [docker]
 container   = main
