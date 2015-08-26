@@ -5,8 +5,11 @@
 # Shortcut for docker-compose (autosearch docker-compose.yml in up-dir, you don't have to be in directory with docker-compose.yml)
 alias dcc='ct docker:compose'
 
-# Startup docker-container (and shutdown previous one, v1.9.0 and up)
+# Startup docker-container
 alias dccup='ct docker:up'
+# Startup docker-container and shutdown previous one (> v2.1.5)
+alias dccswitch='ct docker:up --switch'
+# Stop docker-container
 alias dccstop='ct docker:compose stop'
 
 # Enter main docker container (as CLI_USER if available - if not specified then root is used)
