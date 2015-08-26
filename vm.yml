@@ -9,6 +9,72 @@
 # ++++++++++++++++++++++++++++++++++++++++++++++++
 
 ###################
+# VM settings
+###################
+VM:
+  name: 'DEV-VM'
+
+  # You can use nearly any Ubuntu 14.04 vagrant base image.
+  # This VM is tested with box-cutter and webdevops image.
+  #
+  # box-cutter is a plain Ubuntu image and webdevops image is a
+  # prebuilt one with all tools preinstalled (faster provisioning)
+  #
+  # Images:
+  # -> webdevops/ubuntu-docker
+  # -> box-cutter/ubuntu1404-docker
+  #
+  image: 'webdevops/ubuntu-docker'
+
+  # ---------------------------------------------
+  # Resource settings
+  #
+  cpu:    'auto'
+  memory: 'auto'
+
+  # ---------------------------------------------
+  # General settings
+  #
+  gui: false
+
+  # ---------------------------------------------
+  # Data image (additonal partition) settings
+  #
+  data:
+    size: 160
+    filesystem: 'ext4'
+
+  # ---------------------------------------------
+  # Network settings
+  #
+  network:
+    # Private/Host-only network
+    private:
+      address: 192.168.56.2
+
+    bridge:
+      address: false
+
+  # ---------------------------------------------
+  # Shared folders
+  #
+  sharedFolder:
+    - { type: 'home' }
+    #- { type: 'nfs', src: '~/Projects', target: '/var/www' }
+
+  # ---------------------------------------------
+  # VirtualBox settings
+  #
+  virtualbox:
+    # Disk image controller, may change between images, eg.
+    # You sometimes have to switch controller if the image is using another one.
+    # See VM settings in VirtualBox for the correct naming.
+    #
+    #  -> 'IDE Controller'
+    #  -> 'SATA Controller'
+    diskController: 'IDE Controller'
+
+###################
 # User/Profile info
 ###################
 PROFILE:
@@ -40,8 +106,12 @@ PROVISION:
   dockerProxy: 1      # Docker reverse proxy for containers (apache)
   clitools:    1      # CliTools
 
-  ## Filesystem of data disk [ext3,ext4,xfs,btrfs]
-  dataFS: 'ext4'
+  ## Development domain (automatic redirect of *.vm for internal use)
+  developmentDomain: 'vm'
+
+  ## Additional docker opts
+  ##  -> if you use btrfs you can set: -s btrfs
+  dockerOpts: ''
 
 ###################
 # Packages
@@ -62,26 +132,11 @@ PACKAGES:
   dockerCompose: '1.4.0'
 
 ###################
-# VM settings
-###################
-VM:
-  ## Development domain (automatic redirect of *.vm for internal use)
-  developmentDomain: 'vm'
-
-  ## Insecure registry for Docker
-  #dockerRegistry: ''
-
-  ## Additional docker opts
-  ##  -> if you use btrfs you can set: -s btrfs
-  dockerOpts: ''
-
-  ## Password for growl server
-  growlPassword: ''
-
-###################
 # Clitools settings
 ###################
 CLITOOLS:
+  ## Password for growl server
+  growlPassword: ''
   db:
     dsn:      'mysql:host=127.0.0.1;port=13306'
     username: 'root'
