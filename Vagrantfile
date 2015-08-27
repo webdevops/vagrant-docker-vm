@@ -44,6 +44,21 @@ if File.exist?(path + '/vm.yml')
 	configuration = YAML::load(File.read(path + '/vm.yml')) || {}
 end
 
+## Defaults
+
+if !configuration['VM'].has_key?('sharedFolder') or !configuration['VM']['sharedFolder']
+    configuration['VM']['sharedFolder'] = {}
+end
+
+if !configuration['VM'].has_key?('portForwarding') or !configuration['VM']['portForwarding']
+    configuration['VM']['portForwarding'] = {}
+end
+
+if !configuration['VM']['network'].has_key?('bridged') or !configuration['VM']['network']['bridged']
+    configuration['VM']['network']['bridged'] = {}
+end
+
+
 ###############################################################################
 ## --- Do not edit below ---
 ###############################################################################
@@ -97,7 +112,6 @@ if configuration['VM']['memory'] =~ /auto/
   if configuration['VM']['memory'].to_i < 1024
     configuration['VM']['memory'] = 1024
   end
-
 end
 
 ###############################################################################
@@ -199,52 +213,102 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     #################
     # Networking :: private
     #################
-    config.vm.network "private_network", ip: configuration['VM']['network']['private']['address']
+    config.vm.network "private_network",
+        ip: configuration['VM']['network']['private']['address']
 
 
     #################
     # Networking :: public
     #################
-    if configuration['VM']['network']['public']['address'] =~ /auto/
-        config.vm.network "public_network"
+
+    if configuration['VM']['network']['bridged']
+        if configuration['VM']['network']['bridged']['address'] =~ /auto/
+            #################
+            # auto bridged (dhcp)
+            #################
+            config.vm.network "public_network",
+                bridge: configuration['VM']['network']['bridged']['bridge']
+
+        elsif configuration['VM']['network']['bridged']['address']
+            #################
+            # auto bridged (dhcp)
+            #################
+            config.vm.network "public_network",
+                ip: "#{configuration['VM']['network']['bridged']['address']}",
+                bridge: configuration['VM']['network']['bridged']['bridge']
+        end
     end
 
     #################
     # Port forwarding
     #################
 
-    # nothing defined
+    configuration['VM']['portForwarding'].each do |port|
+        if !port.has_key?('guestIP')
+            port['guestIp'] = ''
+        end
+
+        if !port.has_key?('hostIp')
+            port['guestIp'] = ''
+        end
+
+        if !port.has_key?('protocol')
+            port['protocol'] = 'tcp'
+        end
+
+        config.vm.network :forwarded_port,
+            guest: "#{port['guest']}",
+            guest_ip: "#{port['guestIP']}",
+            host: "#{port['host']}",
+            host_ip: "#{port['hostIp']}",
+            protocol: "#{port['protocol']}"
+    end
 
     #################
     # Shared folders
     #################
 
+    # Ensure proper permissions for nfs mounts
+    config.nfs.map_uid = Process.uid
+    config.nfs.map_gid = Process.gid
+
     configuration['VM']['sharedFolder'].each do |mount|
+        if !mount.has_key?('type')
+            mount['type'] = 'vm'
+        end
+
         if mount['type'] =~ /home/
             #################
             # Home (only unix)
             #################
             if OS.unix?
-                config.vm.synced_folder "#{ENV['HOME']}", "#{ENV['HOME']}", :nfs => { :mount_options => [ "dmode=775", "fmode=774" ] }
+                config.vm.synced_folder "#{ENV['HOME']}",
+                    "#{ENV['HOME']}",
+                    :nfs => { :mount_options => [ "dmode=775", "fmode=774" ] }
             end
 
         elsif mount['type'] =~ /nfs/
             #################
             # NFS
             #################
-            config.vm.synced_folder "#{mount['src']}", "#{mount['target']}", :nfs => { :mount_options => [ "dmode=775", "fmode=774" ] }
+            config.vm.synced_folder "#{mount['src']}",
+                "#{mount['target']}",
+                :nfs => { :mount_options => [ "dmode=775", "fmode=774" ] }
 
         elsif mount['type'] =~ /smb/
             #################
             # CIFS/SMB
             #################
-            config.vm.synced_folder "#{mount['src']}", "#{mount['target']}", type: "smb"
+            config.vm.synced_folder "#{mount['src']}",
+                "#{mount['target']}",
+                type: "smb"
 
         else
             #################
-            # Native
+            # VM (built-in)
             #################
-            config.vm.synced_folder "#{mount['src']}", "#{mount['target']}"
+            config.vm.synced_folder "#{mount['src']}",
+                "#{mount['target']}"
         end
     end
 

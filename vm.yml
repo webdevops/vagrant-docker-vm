@@ -59,16 +59,19 @@ VM:
     private:
       address: 192.168.56.2
 
-    # Public network
+    # Public bridged network
     #  |WARNING| This can be a big security issue and an attacker could
     #  |WARNING| gain access also to host (because of shares or services)!
     #  |WARNING| Only use if you're sure about the risks!
     #  |WARNING| If you need access to services use the port forwarding features!
-    public:
+    bridged:
       # Address
       #  false -> disabled
       #  auto  -> auto configuration (dhcp)
       address: 'auto'
+
+      bridge:
+        # - "en1: Wi-Fi (AirPort)"
 
   # ---------------------------------------------
   # Shared folders
@@ -76,6 +79,13 @@ VM:
   sharedFolder:
     - { type: 'home' }
     #- { type: 'nfs', src: '~/Projects', target: '/var/www' }
+
+  # ---------------------------------------------
+  # Port forwarding
+  #
+  portForwarding:
+   # - { guest: 80, host: 80, protocol: 'tcp' }
+
 
   # ---------------------------------------------
   # Workarounds
