@@ -19,8 +19,12 @@
     - curl
     - aufs-tools
 
-- name: Add docker.io key
-  apt_key: url=https://get.docker.com/gpg state=present
+# ssl cert error?!
+#- name: Add docker.io key
+#  apt_key: url=https://get.docker.com/gpg state=present
+
+- name: Install docker.io key
+  raw: 'curl -sSL https://get.docker.com/gpg | sudo apt-key add -'
 
 - name: Install docker.io daemon
   raw: 'curl -sSL https://get.docker.com/ | sh'
