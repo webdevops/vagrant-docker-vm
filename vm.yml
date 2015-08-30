@@ -4,7 +4,24 @@
 # +++++++++++++++++++++++++++++++++++++++++++++++ #
 
 ###################
-# VM settings
+# User/Profile info
+###################
+PROFILE:
+  ## git informations
+  email:    'user@example.com'
+  realname: 'FULL NAME'
+
+  ## default shell
+  shell:    '/bin/zsh'
+
+  ## zsh shell layout [grml,prezto,ohmyzsh]
+  zshShell: 'grml'
+
+  ## Github username, eg. for automatic ssh pub-key fetching
+  githubUser: ''
+
+###################
+# VM (vagrant) settings
 ###################
 VM:
   # Name of VM
@@ -23,7 +40,7 @@ VM:
   #
   image: 'webdevops/ubuntu-docker'
 
-  # Enable GUI mode
+  # Enable GUI mode (show screen of VM)
   gui: false
 
   # ---------------------------------------------
@@ -68,10 +85,8 @@ VM:
       # Address
       #  false -> disabled
       #  auto  -> auto configuration (dhcp)
-      address: 'auto'
-
-      bridge:
-        # - "en1: Wi-Fi (AirPort)"
+      address: 'false'
+      bridge: 'en0'
 
   # ---------------------------------------------
   # Shared folders
@@ -84,8 +99,8 @@ VM:
   # Port forwarding
   #
   portForwarding:
-   # - { guest: 80, host: 80, protocol: 'tcp' }
-
+    - { guest: 80, host: 80, protocol: 'tcp' }
+    - { guest: 80, host: 8000, protocol: 'tcp' }
 
   # ---------------------------------------------
   # Workarounds
@@ -103,27 +118,9 @@ VM:
     # You sometimes have to switch controller if the image is using another one.
     # See VM settings in VirtualBox for the correct naming.
     #
-    #  -> 'IDE Controller'
+    #  -> 'IDE Controller'  (eg. webdevops prebuilt 0.2)
     #  -> 'SATA Controller'
     diskController: 'IDE Controller'
-
-###################
-# User/Profile info
-###################
-PROFILE:
-  ## git informations
-  email:    'user@example.com'
-  realname: 'FULL NAME'
-
-  ## default shell
-  shell:    '/bin/zsh'
-
-  ## zsh shell layout [grml,prezto,ohmyzsh]
-  zshShell: 'grml'
-
-  ## automatic ssh key fetching from github
-  #githubUser: 'example'
-
 
 ###################
 # Provisioning features

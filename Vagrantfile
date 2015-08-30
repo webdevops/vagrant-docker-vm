@@ -221,7 +221,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     # Networking :: public
     #################
 
-    if configuration['VM']['network']['bridged']
+    if configuration['VM']['network']['bridged'] && configuration['VM']['network']['bridged'] =~ /false/
         if configuration['VM']['network']['bridged']['address'] =~ /auto/
             #################
             # auto bridged (dhcp)
@@ -235,7 +235,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
             #################
             config.vm.network "public_network",
                 ip: "#{configuration['VM']['network']['bridged']['address']}",
-                bridge: configuration['VM']['network']['bridged']['bridge']
+                bridge: Array(configuration['VM']['network']['bridged']['bridge'])
         end
     end
 

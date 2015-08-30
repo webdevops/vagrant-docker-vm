@@ -16,7 +16,7 @@
   mount:
     name:  /mnt/data
     src:   /dev/sdb1
-    fstype: '{{ PROVISION.dataFS }}'
+    fstype: '{{ VM.data.filesystem }}'
     opts:   'defaults,nodev,nosuid,noatime,nodiratime,data=writeback,barrier=0,nobh'
     state:  present
 

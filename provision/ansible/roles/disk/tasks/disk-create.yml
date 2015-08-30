@@ -2,14 +2,14 @@
   mount:
     name:   /mnt/data
     src:    /dev/sdb1
-    fstype: '{{ PROVISION.dataFS }}'
+    fstype: '{{ VM.data.filesystem }}'
     state:  unmounted
 
 - name: Remove mount SDB1
   mount:
     name:   /mnt/data
     src:    /dev/sdb1
-    fstype: '{{ PROVISION.dataFS }}'
+    fstype: '{{ VM.data.filesystem }}'
     state:  absent
 
 - name: Generate disk label (SDB)
@@ -19,4 +19,4 @@
   command: 'parted -- /dev/sdb mkpart primary 1M -1'
 
 - name: Create filesystem (SDB)
-  command: 'mkfs --type={{ PROVISION.dataFS }} /dev/sdb1'
+  command: 'mkfs --type={{ VM.data.filesystem }} /dev/sdb1'
