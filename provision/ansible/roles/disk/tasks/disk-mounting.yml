@@ -16,12 +16,12 @@
   mount:
     name:  /mnt/data
     src:   /dev/sdb1
-    fstype: '{{ PROVISION.dataFS }}'
+    fstype: '{{ VM.data.filesystem }}'
     opts:   'defaults,nodev,nosuid,noatime,nodiratime,data=writeback,barrier=0,nobh'
     state:  present
 
 - name: Mount SDB1
-  mount: name=/mnt/data src=/dev/sdb1 fstype='{{ PROVISION.dataFS }}' state=mounted
+  mount: name=/mnt/data src=/dev/sdb1 fstype='{{ VM.data.filesystem }}' state=mounted
 
 #############################
 # Docker

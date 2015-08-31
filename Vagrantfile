@@ -3,74 +3,11 @@
 
 VAGRANTFILE_API_VERSION = 2
 
-###############################################################################
-## Configuration
-###############################################################################
-
-########################
-## General
-########################
-
-# Show vm gui (terminal window, virtualbox, vmware)
-VAGRANT_VM_GUI = false
-
-# Name of VM instance
-VAGRANT_VM_NAME = 'DEV-VM'
-
-# CPU count (auto = all available cores, 2 = only 2 cores)
-VAGRANT_VM_CPUS   = 'auto'
-
-# Memory usage (auto = 1/4 system memory, 1500 = 1.5 GB)
-VAGRANT_VM_MEMORY = 'auto'
-
-# Disk size of data image (GB)
-VAGRANT_VM_DATA_SIZE = 160
-
-# Host-only IP address (for communication between host and vm)
-VAGRANT_VM_IP_INTERNAL = '192.168.56.2'
-
-###################
-# Vagrant image
-###################
-
-# You can use nearly any Ubuntu 14.04 vagrant base image.
-# This VM is tested with box-cutter and webdevops image.
-#
-# box-cutter is a plain Ubuntu image and webdevops image is a
-# prebuilt one with all tools preinstalled (faster provisioning)
-#
-# Images:
-# -> webdevops/ubuntu-docker
-# -> box-cutter/ubuntu1404-docker
-#
-
-VAGRANT_IMAGE = 'webdevops/ubuntu-docker'
-
-########################
-## VirtualBox
-########################
-
-# Disk image controller, change change between images, eg.
-# You sometimes have to switch controller if the image is using another one.
-# See VM settings in VirtualBox for the correct naming.
-#
-#  -> 'IDE Controller'
-#  -> 'SATA Controller'
-
-VIRTUALBOX_DISK_CONTROLLER = 'IDE Controller'
-
-
 ########################
 ## Customization
 ########################
 
 VAGRANT_CUSTOMIZATION = Proc.new {|config|
-
-    # Fallback ssh connection (https://github.com/mitchellh/vagrant/issues/5186)
-    # -> Authentication issues? Workaround:
-    # config.ssh.username = 'vagrant'
-    # config.ssh.password = 'vagrant'
-
     ## Port forwardings
 
     # Public HTTP server
@@ -91,13 +28,40 @@ VAGRANT_CUSTOMIZATION = Proc.new {|config|
     #  |WARNING| Only use if you're sure about the risks!
     #  |WARNING| If you need access to services use the port forwarding features!
     # config.vm.network "public_network"
-
 }
+
+###############################################################################
+## YAML configuration loader
+###############################################################################
+
+require 'yaml'
+
+path = "#{File.dirname(__FILE__)}"
+
+# Get machine configuration
+configuration = {}
+if File.exist?(path + '/vm.yml')
+	configuration = YAML::load(File.read(path + '/vm.yml')) || {}
+end
+
+## Defaults
+
+if !configuration['VM'].has_key?('sharedFolder') or !configuration['VM']['sharedFolder']
+    configuration['VM']['sharedFolder'] = {}
+end
+
+if !configuration['VM'].has_key?('portForwarding') or !configuration['VM']['portForwarding']
+    configuration['VM']['portForwarding'] = {}
+end
+
+if !configuration['VM']['network'].has_key?('bridged') or !configuration['VM']['network']['bridged']
+    configuration['VM']['network']['bridged'] = {}
+end
+
 
 ###############################################################################
 ## --- Do not edit below ---
 ###############################################################################
-
 
 ###############################################################################
 ## --- OS detection ---
@@ -125,28 +89,29 @@ end
 ## --- Ressource detection ---
 ###############################################################################
 
-if VAGRANT_VM_CPUS =~ /auto/
+if configuration['VM']['cpu'] =~ /auto/
   if OS.mac?
-    _VAGRANT_VM_CPUS = `sysctl -n hw.ncpu`.to_i
+    configuration['VM']['cpu'] = `sysctl -n hw.ncpu`.to_i
   elsif OS.linux?
-    _VAGRANT_VM_CPUS = `nproc`.to_i
+    configuration['VM']['cpu'] = `nproc`.to_i
   else
-    _VAGRANT_VM_CPUS = 2
+    configuration['VM']['cpu'] = 2
   end
-else
-    _VAGRANT_VM_CPUS = VAGRANT_VM_CPUS
 end
 
-if VAGRANT_VM_MEMORY =~ /auto/
+if configuration['VM']['memory'] =~ /auto/
   if OS.mac?
-    _VAGRANT_VM_MEMORY = `sysctl -n hw.memsize`.to_i / 1024 / 1024 / 4
+    configuration['VM']['memory'] = `sysctl -n hw.memsize`.to_i / 1024 / 1024 / 4
   elsif OS.linux?
-    _VAGRANT_VM_MEMORY = `grep 'MemTotal' /proc/meminfo | sed -e 's/MemTotal://' -e 's/ kB//'`.to_i / 1024 / 4
+    configuration['VM']['memory'] = `grep 'MemTotal' /proc/meminfo | sed -e 's/MemTotal://' -e 's/ kB//'`.to_i / 1024 / 4
   else
-    _VAGRANT_VM_MEMORY = 2048
+    configuration['VM']['memory'] = 2048
   end
-else
-    _VAGRANT_VM_MEMORY = VAGRANT_VM_MEMORY
+
+  # at least 1 GB
+  if configuration['VM']['memory'].to_i < 1024
+    configuration['VM']['memory'] = 1024
+  end
 end
 
 ###############################################################################
@@ -162,7 +127,7 @@ DiskVmData = File.join(VAGRANT_ROOT, '/disks/vm-data.vdi')
 ###############################################################################
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
-    config.vm.box = VAGRANT_IMAGE
+    config.vm.box = configuration['VM']['image']
     config.vm.box_check_update = true
 
     #################
@@ -171,11 +136,11 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     # VirtualBox
     config.vm.provider :virtualbox do |v|
-        v.gui = VAGRANT_VM_GUI
-        v.customize ["modifyvm", :id, "--name",                VAGRANT_VM_NAME]
+        v.gui = configuration['VM']['gui']
+        v.customize ["modifyvm", :id, "--name",                configuration['VM']['name']]
         v.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
-        v.customize ["modifyvm", :id, "--memory",              _VAGRANT_VM_MEMORY]
-        v.customize ["modifyvm", :id, "--cpus",                _VAGRANT_VM_CPUS]
+        v.customize ["modifyvm", :id, "--memory",              configuration['VM']['memory']]
+        v.customize ["modifyvm", :id, "--cpus",                configuration['VM']['cpu']]
         v.customize ["modifyvm", :id, "--chipset",             "ich9"]
         v.customize ["modifyvm", :id, "--ioapic",              "on"]
         v.customize ["modifyvm", :id, "--rtcuseutc",           "on"]
@@ -190,10 +155,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
         # second disk
         unless File.exist?(DiskVmData)
-            v.customize ['createhd', '--filename', DiskVmData, '--size', VAGRANT_VM_DATA_SIZE * 1024]
+            v.customize ['createhd', '--filename', DiskVmData, '--size', configuration['VM']['data']['size'] * 1024]
             # v.customize ['modifyhd', DiskVmData, '--type', 'multiattach']
         end
-        v.customize ['storageattach', :id, '--storagectl', VIRTUALBOX_DISK_CONTROLLER, '--port', 1, '--device', 0, '--type', 'hdd', '--medium', DiskVmData]
+        v.customize ['storageattach', :id, '--storagectl', configuration['VM']['virtualbox']['diskController'], '--port', 1, '--device', 0, '--type', 'hdd', '--medium', DiskVmData]
 
         # network
         v.customize ["modifyvm", :id, "--nictype1", "virtio"]
@@ -207,9 +172,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     # VMware Fusion and Workstation
     [:vmware_fusion, :vmware_workstation].each do |provider|
         config.vm.provider provider do |v|
-            v.gui = VAGRANT_VM_GUI
-            v.vmx["memsize"]  = _VAGRANT_VM_MEMORY
-            v.vmx["numvcpus"] = _VAGRANT_VM_CPUS
+            v.gui = configuration['VM']['gui']
+            v.vmx["memsize"]  = configuration['VM']['memory']
+            v.vmx["numvcpus"] = configuration['VM']['cpu']
 
             v.vmx['scsi0:1.filename'] = "#{VAGRANT_ROOT}/disks/data"
             v.vmx['scsi0:1.present']  = 'TRUE'
@@ -223,9 +188,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     # Parallels
     config.vm.provider :parallels do |v|
-        v.name   = VAGRANT_VM_NAME
-        v.memory = _VAGRANT_VM_MEMORY
-        v.cpus   = _VAGRANT_VM_CPUS
+        v.name   = configuration['VM']['name']
+        v.memory = configuration['VM']['memory']
+        v.cpus   = configuration['VM']['cpu']
         v.optimize_power_consumption = false
         v.update_guest_tools = true
 
@@ -235,7 +200,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
                  "--device-add", "hdd",
                  "--image", "#{VAGRANT_ROOT}/disks/parallels-disk",
                  "--type", "expand",
-                 "--size", VAGRANT_VM_DATA_SIZE * 1024,
+                 "--size", configuration['VM']['data']['size'] * 1024,
             ]
         )
 
@@ -246,27 +211,117 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     end
 
     #################
-    # Networking
+    # Networking :: private
     #################
-    config.vm.network "private_network", ip: VAGRANT_VM_IP_INTERNAL
+    config.vm.network "private_network",
+        ip: configuration['VM']['network']['private']['address']
+
+
+    #################
+    # Networking :: public
+    #################
+
+    if configuration['VM']['network']['bridged'] && configuration['VM']['network']['bridged'] =~ /false/
+        if configuration['VM']['network']['bridged']['address'] =~ /auto/
+            #################
+            # auto bridged (dhcp)
+            #################
+            config.vm.network "public_network",
+                bridge: configuration['VM']['network']['bridged']['bridge']
+
+        elsif configuration['VM']['network']['bridged']['address']
+            #################
+            # auto bridged (dhcp)
+            #################
+            config.vm.network "public_network",
+                ip: "#{configuration['VM']['network']['bridged']['address']}",
+                bridge: Array(configuration['VM']['network']['bridged']['bridge'])
+        end
+    end
 
     #################
     # Port forwarding
     #################
 
-    # nothing defined
+    configuration['VM']['portForwarding'].each do |port|
+        if !port.has_key?('guestIP')
+            port['guestIp'] = ''
+        end
+
+        if !port.has_key?('hostIp')
+            port['guestIp'] = ''
+        end
+
+        if !port.has_key?('protocol')
+            port['protocol'] = 'tcp'
+        end
+
+        config.vm.network :forwarded_port,
+            guest: "#{port['guest']}",
+            guest_ip: "#{port['guestIP']}",
+            host: "#{port['host']}",
+            host_ip: "#{port['hostIp']}",
+            protocol: "#{port['protocol']}"
+    end
 
     #################
     # Shared folders
     #################
 
-    if OS.windows?
-        ## Windows
-        # configure shared folders here
-    elsif OS.unix?
-        ## Linux/Unix/MacOS
-        config.vm.synced_folder "#{ENV['HOME']}", "#{ENV['HOME']}", :nfs => { :mount_options => [ "dmode=775", "fmode=774" ] }
+    # Ensure proper permissions for nfs mounts
+    config.nfs.map_uid = Process.uid
+    config.nfs.map_gid = Process.gid
+
+    configuration['VM']['sharedFolder'].each do |mount|
+        if !mount.has_key?('type')
+            mount['type'] = 'vm'
+        end
+
+        if mount['type'] =~ /home/
+            #################
+            # Home (only unix)
+            #################
+            if OS.unix?
+                config.vm.synced_folder "#{ENV['HOME']}",
+                    "#{ENV['HOME']}",
+                    :nfs => { :mount_options => [ "dmode=775", "fmode=774" ] }
+            end
+
+        elsif mount['type'] =~ /nfs/
+            #################
+            # NFS
+            #################
+            config.vm.synced_folder "#{mount['src']}",
+                "#{mount['target']}",
+                :nfs => { :mount_options => [ "dmode=775", "fmode=774" ] }
+
+        elsif mount['type'] =~ /smb/
+            #################
+            # CIFS/SMB
+            #################
+            config.vm.synced_folder "#{mount['src']}",
+                "#{mount['target']}",
+                type: "smb"
+
+        else
+            #################
+            # VM (built-in)
+            #################
+            config.vm.synced_folder "#{mount['src']}",
+                "#{mount['target']}"
+        end
     end
+
+    #################
+    # Workarounds
+    #################
+    if configuration['VM']['workaround']['useSshPasswordAuth']
+        # Fallback ssh connection (https://github.com/mitchellh/vagrant/issues/5186)
+        # -> Authentication issues? Workaround:
+        config.ssh.username = 'vagrant'
+        config.ssh.password = 'vagrant'
+    end
+
 
     #################
     # Provisioning
