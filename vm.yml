@@ -99,8 +99,9 @@ VM:
   # Port forwarding
   #
   portForwarding:
-    - { guest: 80, host: 80, protocol: 'tcp' }
-    - { guest: 80, host: 8000, protocol: 'tcp' }
+    #- { guest: 80, host: 80, hostIp: '0.0.0.0',, protocol: 'tcp' }
+    #- { guest: 80, host: 8000, hostIp: '0.0.0.0',, protocol: 'tcp' }
+    #- { guest: 13306, host: 3306, hostIp: '0.0.0.0', protocol: 'tcp' }
 
   # ---------------------------------------------
   # Workarounds
