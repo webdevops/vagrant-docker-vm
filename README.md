@@ -50,7 +50,7 @@ Following the "keep it simple, stupid" this box provides all tools with a simple
 
 ## Credits
 
-Thanks for support, ideas and issues ...
+Thanks for your support, ideas and issues
 - [Ingo Pfennigstorf](https://github.com/ipf)
 - [Florian Tatzel](https://github.com/PanadeEdu)
 - [Achim Fritz](https://twitter.com/achimfritz73)
