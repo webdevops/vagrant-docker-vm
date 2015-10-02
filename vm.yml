@@ -175,10 +175,6 @@ PROVISION:
     - memcached
     # Redis
     - redis
-    # Other
-    - guywithnose/solr:4.9.0
-    - schickling/mailcatcher
-
 
 ###################
 # Packages
