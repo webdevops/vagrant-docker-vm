@@ -144,6 +144,42 @@ PROVISION:
   ##  -> if you use btrfs you can set: -s btrfs
   dockerOpts: ''
 
+  ## Automatic docker image loading/updating
+  dockerImages:
+    # Official images
+    - ubuntu:12.04
+    - ubuntu:14.04
+    - ubuntu:15.04
+    - centos:7
+    # WebDevOps images
+    - webdevops/php-boilerplate:ubuntu-12.04
+    - webdevops/php-boilerplate:ubuntu-14.04
+    - webdevops/php-boilerplate:ubuntu-15.04
+    - webdevops/php-boilerplate:centos-7
+    # Apache
+    - httpd:2.2
+    - httpd:2.4
+    # Nginx
+    - nginx
+    # MySQL
+    - mariadb:5.5
+    - mariadb:10
+    - mysql:5.5
+    - mysql:5.6
+    - mysql:5.7
+    - percona:5.5
+    - percona:5.6
+    # Postgres
+    - postgres:9.4
+    # Memcached
+    - memcached
+    # Redis
+    - redis
+    # Other
+    - guywithnose/solr:4.9.0
+    - schickling/mailcatcher
+
+
 ###################
 # Packages
 ###################
