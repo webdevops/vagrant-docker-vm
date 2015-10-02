@@ -159,9 +159,6 @@ PACKAGES:
   # -- WARNING: use with caution - maybe not stable --
   kernel:        ''
 
-  # docker-compose version
-  dockerCompose: '1.4.0'
-
 ###################
 # Clitools settings
 ###################
