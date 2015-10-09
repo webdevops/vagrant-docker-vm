@@ -9,5 +9,6 @@
   command: 'php5enmod {{ item }}'
   with_items:
    - mcrypt
+   - imap
    - local-prod
    - local-dev

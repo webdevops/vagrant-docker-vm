@@ -16,4 +16,5 @@
     - php5-xsl
     - php5-geoip
     - php5-ldap
+    - php5-imap
     - php-pear
