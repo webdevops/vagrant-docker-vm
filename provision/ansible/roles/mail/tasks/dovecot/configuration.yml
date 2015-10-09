@@ -11,6 +11,6 @@
     regexp: '{{ item.regexp }}'
     line:   '{{ item.line }}'
   with_items:
-    - { regexp: '^listen', line: 'listen = {{ ansible_eth1.ipv4.address }}' }
+    - { regexp: '^listen', line: 'listen = 127.0.0.1 {{ ansible_eth1.ipv4.address }}' }
   notify:
     - Restart dovecot
