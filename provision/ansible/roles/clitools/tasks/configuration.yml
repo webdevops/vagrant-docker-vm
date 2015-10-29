@@ -50,3 +50,5 @@
 
 - name: Run clitools system startup
   raw: '/usr/local/bin/ct system:startup > /dev/null'
+  notify:
+    - Run clitools system startup
