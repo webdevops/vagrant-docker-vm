@@ -1,0 +1,14 @@
+- name: Deploy firewall (template)
+  template:
+    src:   roles/firewall/templates/firewall-vm
+    dest:  /etc/init.d/firewall-vm
+    owner: vagrant
+    group: root
+    mode:  0775
+  notify:
+    - Restart Docker
+
+- name: Start firewall
+  command: 'service firewall-vm restart'
+  notify:
+    - Restart Docker

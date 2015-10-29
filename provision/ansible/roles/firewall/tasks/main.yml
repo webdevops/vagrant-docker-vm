@@ -2,3 +2,8 @@
   include: install.yml
   tags:
     - bootstrap
+
+- name: Configure firewall
+  include: configuration.yml
+  tags:
+    - maintenance

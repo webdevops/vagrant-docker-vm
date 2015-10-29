@@ -54,31 +54,37 @@ function firewall_ruleset_standard() {
 
 {% endif %}
 
-{% if FIREWALL is defined and FIREWALL.bridge.interface is defined and FIREWALL.bridge.interface %}
+
+    {% if FIREWALL is defined %}
+        {% for fwRuleName in FIREWALL %}
+
+            {% if fwRuleName is defined and FIREWALL[fwRuleName].interface is defined and FIREWALL[fwRuleName].interface %}
+
     #########################
-    # Bridge
+    # Provision rule for "{{ fwRuleName }}"
+    #   - interface: {{ FIREWALL[fwRuleName].interface }}
     #########################
 
-    firewall_infomsg "[CHAIN:DEFAULT] bridge-rules"
-    {% if FIREWALL.bridge.ports is defined and FIREWALL.bridge.ports %}
-        {% for item in FIREWALL.bridge.ports %}
-            {% if item.port is defined and item.port %}
+    firewall_infomsg "[CHAIN:DEFAULT] {{ fwRuleName }}-rules"
+                {% for item in FIREWALL[fwRuleName].ports %}
+                    {% if item.port is defined and item.port %}
 
-                $IPTABLES -A bridge-rules \
-                    --protocol "{{ item.protocol }}" \
-                    --dport "{{ item.port }}" \
-                    {% if item.source is defined %}--source "{{ item.source }}" {% endif %} -j ACCEPT
+    $IPTABLES -A "{{ fwRuleName }}-rules" \
+        --protocol "{{ item.protocol }}" \
+        --dport "{{ item.port }}" \
+        {% if item.source is defined %}--source "{{ item.source }}" {% endif %} -j ACCEPT
+                    {% endif %}
+                {% endfor %}
+
+    # reject all other traffic
+    $IPTABLES -A "{{ fwRuleName }}-rules" -j reject-rules
+
+    $IPTABLES -A INPUT --in-interface "{{ FIREWALL[fwRuleName].interface }}" -j "{{ fwRuleName }}-rules"
             {% endif %}
+
         {% endfor %}
     {% endif %}
 
-    # reject all other traffic
-    $IPTABLES -A bridge-rules -j reject-rules
-
-
-    $IPTABLES -A INPUT --in-interface "{{ FIREWALL.bridge.interface }}" -j bridge-rules
-
-{% endif %}
 }
 
 #################################################
