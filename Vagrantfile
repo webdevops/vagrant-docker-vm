@@ -191,8 +191,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         v.name   = configuration['VM']['name']
         v.memory = configuration['VM']['memory']
         v.cpus   = configuration['VM']['cpu']
-        v.optimize_power_consumption = false
         v.update_guest_tools = true
+
+        v.customize ["set", :id, "--longer-battery-life", "off"]
 
         v.customize(
             "post-import", [
@@ -221,22 +222,25 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     # Networking :: public
     #################
 
-    if configuration['VM']['network']['bridged'] && configuration['VM']['network']['bridged'] =~ /false/
-        if configuration['VM']['network']['bridged']['address'] =~ /auto/
+    if configuration['VM']['network']['bridged'] && configuration['VM']['network']['bridged']['address'] != "false"
+        if configuration['VM']['network']['bridged']['address'] == "auto"
             #################
             # auto bridged (dhcp)
             #################
-            config.vm.network "public_network",
-                bridge: configuration['VM']['network']['bridged']['bridge']
-
-        elsif configuration['VM']['network']['bridged']['address']
+            if configuration['VM']['network']['bridged']['bridge'] && configuration['VM']['network']['bridged']['bridge'] != ""
+                config.vm.network "public_network",
+                    bridge: configuration['VM']['network']['bridged']['bridge']
+            else
+                config.vm.network "public_network"
+            end
+        elsif configuration['VM']['network']['bridged']['address'] && configuration['VM']['network']['bridged']['address'] != ""
             #################
             # auto bridged (dhcp)
             #################
             config.vm.network "public_network",
                 ip: "#{configuration['VM']['network']['bridged']['address']}",
-                bridge: Array(configuration['VM']['network']['bridged']['bridge'])
-        end
+                bridge: configuration['VM']['network']['bridged']['bridge']
+      end
     end
 
     #################
