@@ -192,6 +192,36 @@ PACKAGES:
   kernel:        ''
 
 ###################
+# Reverse Proxy
+###################
+
+DOCKERPROXY:
+  vhosts:
+    # Docker vhosts
+    # eg.        8000.vm.dev
+    #        foo.8000.vm.dev
+    #            8005.vm.dev
+    #    bar.foo.8005.vm.dev
+    #                8000.vm
+    #            foo.8000.vm
+    #                8005.vm
+    #        bar.foo.8005.vm
+    - { type: 'docker', domain: '8000', HTTP: 8000, HTTPS: 8443 }
+    - { type: 'docker', domain: '8001', HTTP: 8001, HTTPS: 8444 }
+    - { type: 'docker', domain: '8002', HTTP: 8002, HTTPS: 8445 }
+    - { type: 'docker', domain: '8003', HTTP: 8003, HTTPS: 8446 }
+    - { type: 'docker', domain: '8004', HTTP: 8004, HTTPS: 8447 }
+    - { type: 'docker', domain: '8005', HTTP: 8005, HTTPS: 8448 }
+    # solr.vm
+    - { type: 'solr',   domain: 'solr', HTTP: 18983 }
+    # elasticsearch.vm
+    - { type: 'docker', domain: 'elasticsearch', HTTP: 19200 }
+    # vagrant share proxy
+    - { type: 'vagrantshare', HTTP: 8000, HTTPS: 8443 }
+    # docker fallback (default *.vm redirect)
+    - { type: 'dockerfallback', HTTP: 8000, HTTPS: 8443 }
+
+###################
 # Clitools settings
 ###################
 CLITOOLS:
