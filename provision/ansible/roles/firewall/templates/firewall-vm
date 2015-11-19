@@ -66,6 +66,9 @@ function firewall_ruleset_standard() {
     #########################
 
     firewall_infomsg "[CHAIN:DEFAULT] {{ fwRuleName }}-rules"
+    $IPTABLES -N "{{ fwRuleName }}-rules"
+    $IPTABLES -F "{{ fwRuleName }}-rules"
+
                 {% for item in FIREWALL[fwRuleName].ports %}
                     {% if item.port is defined and item.port %}
 
