@@ -193,8 +193,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         v.cpus   = configuration['VM']['cpu']
         v.update_guest_tools = true
 
-        v.customize ["set", :id, "--longer-battery-life", "off"]
-
         v.customize(
             "post-import", [
                 "set", :id,
