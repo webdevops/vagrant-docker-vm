@@ -1,0 +1,11 @@
+---
+
+- name: Install monit
+  include: install.yml
+  tags:
+    - bootstrap
+
+- name: Configure monit
+  include: configuration.yml
+  tags:
+    - bootstrap

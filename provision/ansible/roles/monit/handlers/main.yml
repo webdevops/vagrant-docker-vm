@@ -1,0 +1,4 @@
+- name: Restart monit
+  raw: '{{ item }}'
+  with_items:
+    - service monit restart

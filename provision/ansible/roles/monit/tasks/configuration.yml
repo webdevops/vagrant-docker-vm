@@ -1,0 +1,24 @@
+---
+
+- name: Setup monitrc
+  lineinfile:
+    dest:   /etc/monit/monitrc
+    regexp: '^[\s]*{{ item.regexp }}'
+    line:   '{{ item.line }}'
+  with_items:
+    - { regexp: 'set daemon 120',   line: 'set daemon 60 with start delay 240' }
+    - { regexp: 'set mailserver',   line: 'set mailserver localhost' }
+    - { regexp: 'set alert',        line: 'set alert monit@vm  but not on { instance, pid }' }
+    - { regexp: 'set httpd',        line: 'set httpd port 2812 and allow admin:monit' }
+  notify:
+    - Restart monit
+
+
+- name: Deploy monit conf.d
+  synchronize:
+    rsync_path: "sudo rsync"
+    src:        roles/monit/files/monit.d/
+    dest:       /etc/monit/conf.d/
+    delete:     no
+  notify:
+    - Restart monit

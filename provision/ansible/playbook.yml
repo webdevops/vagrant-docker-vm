@@ -21,6 +21,7 @@
     - { role: ntp,          when: PROVISION.ntp == 1 }
     - { role: firewall       }
     - { role: clitools,     when: PROVISION.clitools == 1 }
+    - { role: monit          }
     - { role: user           }
     - { role: customization  }
     - { role: finalize       }
