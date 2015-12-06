@@ -41,6 +41,7 @@
     group: vagrant
     mode:  0755
     state: directory
+  ignore_errors: True
 
 - name: Restart apache2
   command: service apache2 restart
