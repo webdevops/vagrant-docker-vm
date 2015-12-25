@@ -10,24 +10,17 @@
 - name: Postfix configuration
   lineinfile:
     dest:   /etc/postfix/main.cf
-    regexp: '{{ item.regexp }}'
-    line:   '{{ item.line }}'
+    regexp: '^[\s#]*{{ item.variable }}[\s]*='
+    line:   '{{ item.variable }}={{ item.value }}'
   with_items:
-    - { regexp: '^smtpd_banner',             line: 'smtpd_banner = $myhostname ESMTP DEV-VM (Mail Sandbox)' }
-    - { regexp: '^inet_interfaces',          line: 'inet_interfaces = 127.0.0.1,{{ ansible_eth1.ipv4.address }}' }
-    - { regexp: '^header_checks',            line: 'header_checks = regexp:/etc/postfix/additional_headers' }
-    - { regexp: '^recipient_canonical_maps', line: 'recipient_canonical_maps = regexp:/etc/postfix/recipient_canonical_maps' }
-    - { regexp: '^home_mailbox',             line: 'home_mailbox = .mail/' }
-    - { regexp: '^mynetworks',               line: 'mynetworks = 127.0.0.0/8 168.100.189.0/28 [::1]/128 [fe80::]/10 [2001:240:587::]/64 172.16.0.0/12 {{ ansible_eth1.ipv4.address }} {{ ansible_eth1.ipv4.network }}/24' }
-    - { regexp: '^message_size_limit',       line: 'message_size_limit = 102400000' }
-  notify:
-    - Restart postfix
-
-- name: Enable additional_headers
-  lineinfile:
-    dest:    /etc/postfix/main.cf
-    regexp: 'header_checks'
-    line:   'header_checks = regexp:/etc/postfix/additional_headers'
+    - { variable: 'smtpd_banner',             value: '$myhostname ESMTP DEV-VM (Mail Sandbox)' }
+    - { variable: 'inet_interfaces',          value: '127.0.0.1,{{ ansible_eth1.ipv4.address }}' }
+    - { variable: 'header_checks',            value: 'regexp:/etc/postfix/additional_headers' }
+    - { variable: 'recipient_canonical_maps', value: 'regexp:/etc/postfix/recipient_canonical_maps' }
+    - { variable: 'home_mailbox',             value: '.mail/' }
+    - { variable: 'mynetworks',               value: '127.0.0.0/8 168.100.189.0/28 [::1]/128 [fe80::]/10 [2001:240:587::]/64 172.16.0.0/12 {{ ansible_eth1.ipv4.address }} {{ ansible_eth1.ipv4.network }}/24' }
+    - { variable: 'message_size_limit',       value: '102400000' }
+    - { variable: 'header_checks',            value: 'regexp:/etc/postfix/additional_headers' }
   notify:
     - Restart postfix
 
