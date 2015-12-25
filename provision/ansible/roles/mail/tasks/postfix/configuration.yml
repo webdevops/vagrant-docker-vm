@@ -13,7 +13,7 @@
     regexp: '{{ item.regexp }}'
     line:   '{{ item.line }}'
   with_items:
-    - { regexp: '^smtpd_banner',             line: 'smtpd_banner = $myhostname ESMTP DEVELOPMENT-VM' }
+    - { regexp: '^smtpd_banner',             line: 'smtpd_banner = $myhostname ESMTP DEV-VM (Mail Sandbox)' }
     - { regexp: '^inet_interfaces',          line: 'inet_interfaces = 127.0.0.1,{{ ansible_eth1.ipv4.address }}' }
     - { regexp: '^header_checks',            line: 'header_checks = regexp:/etc/postfix/additional_headers' }
     - { regexp: '^recipient_canonical_maps', line: 'recipient_canonical_maps = regexp:/etc/postfix/recipient_canonical_maps' }
