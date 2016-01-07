@@ -19,12 +19,20 @@
     - curl
     - aufs-tools
 
-# ssl cert error?!
-#- name: Add docker.io key
-#  apt_key: url=https://get.docker.com/gpg state=present
+- name: Add docker repository key
+  apt_key:
+    keyserver: keyserver.ubuntu.com
+    id:        58118E89F3A912897C070ADBF76221572C52609D
 
-- name: Install docker.io key
-  raw: 'curl -sSL https://get.docker.com/gpg | sudo apt-key add -'
+- name: Add docker repository
+  apt_repository:
+    repo:  'deb https://apt.dockerproject.org/repo ubuntu-trusty main'
+    state: present
+    update_cache: yes
 
-- name: Install docker.io daemon
-  raw: 'curl -sSL https://get.docker.com/ | sh'
+- name: Install docker
+  apt:
+    pkg:   '{{ item }}'
+    state: latest
+  with_items:
+    - docker-engine
