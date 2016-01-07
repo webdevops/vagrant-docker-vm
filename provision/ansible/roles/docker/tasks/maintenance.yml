@@ -1,16 +1,16 @@
 - name: Cleanup old orphaned docker images
   raw: 'docker images | grep "<none>" | awk "{print \$3}" | xargs --no-run-if-empty docker rmi -f'
-  when: DOCKER.cleanup.images is defined and DOCKER.cleanup.images == "1"
+  when: DOCKER.cleanup.images is defined and DOCKER.cleanup.images
   ignore_errors: yes
 
 - name: Get newest cleanup docker container
   command: "docker pull martin/docker-cleanup-volumes"
-  when: DOCKER.cleanup.volumes is defined and DOCKER.cleanup.volumes == "1"
+  when: DOCKER.cleanup.volumes is defined and DOCKER.cleanup.volumes
   ignore_errors: yes
 
 - name: Cleanup old orphaned docker volumes
   raw: 'docker run -v /var/run/docker.sock:/var/run/docker.sock -v /var/lib/docker:/var/lib/docker --rm martin/docker-cleanup-volumes'
-  when: DOCKER.cleanup.volumes is defined and DOCKER.cleanup.volumes == "1"
+  when: DOCKER.cleanup.volumes is defined and DOCKER.cleanup.volumes
   ignore_errors: yes
 
 - name: Cleanup old temp builds
@@ -19,5 +19,5 @@
     state: absent
   with_fileglob:
     - /var/lib/docker/tmp/*
-  when: DOCKER.cleanup.tmp is defined and DOCKER.cleanup.tmp == "1"
+  when: DOCKER.cleanup.tmp is defined and DOCKER.cleanup.tmp
   ignore_errors: yes
