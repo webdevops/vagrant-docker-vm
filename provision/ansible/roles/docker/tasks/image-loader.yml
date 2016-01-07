@@ -1,4 +1,4 @@
 - name: Download and update docker images
   command: "docker pull {{ item }}"
-  with_items: "{{ PROVISION.dockerImages }}"
+  with_items: "{{ DOCKER.images }}"
   ignore_errors: yes

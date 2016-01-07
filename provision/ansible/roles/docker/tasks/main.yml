@@ -2,11 +2,11 @@
   tags:
     - bootstrap
 
-- include: maintenance.yml
+- include: configuration.yml
   tags:
     - bootstrap
 
-- include: configuration.yml
+- include: maintenance.yml
   tags:
     - bootstrap
 

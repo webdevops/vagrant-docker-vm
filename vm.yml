@@ -140,12 +140,24 @@ PROVISION:
   ## Development domain (automatic redirect of *.vm for internal use)
   developmentDomain: 'vm'
 
+###################
+# Docker features
+###################
+DOCKER:
   ## Additional docker opts
   ##  -> if you use btrfs you can set: -s btrfs
-  dockerOpts: ''
+  opts: ''
+
+  # Cleanup tasks on provisioning
+  cleanup:
+    # Clean orphaned images
+    images: 1
+
+    # Cleanu ophaned volumes
+    volumes: 1
 
   ## Automatic docker image loading/updating
-  dockerImages:
+  images:
     # Official images
     - ubuntu:12.04
     - ubuntu:14.04

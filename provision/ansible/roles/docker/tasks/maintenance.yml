@@ -1,2 +1,14 @@
-- name: Remove old orphaned docker images
+- name: Cleanup old orphaned docker images
   raw: 'docker images | grep "<none>" | awk "{print \$3}" | xargs --no-run-if-empty docker rmi -f'
+  when: DOCKER.cleanup.images is defined and DOCKER.cleanup.images == "1"
+  ignore_errors: yes
+
+- name: Get newest cleanup docker container
+  command: "docker pull martin/docker-cleanup-volumes"
+  when: DOCKER.cleanup.volumes is defined and DOCKER.cleanup.volumes == "1"
+  ignore_errors: yes
+
+- name: Cleanup old orphaned docker volumes
+  raw: 'docker run -v /var/run/docker.sock:/var/run/docker.sock -v /var/lib/docker:/var/lib/docker --rm martin/docker-cleanup-volumes'
+  when: DOCKER.cleanup.volumes is defined and DOCKER.cleanup.volumes == "1"
+  ignore_errors: yes

@@ -2,7 +2,7 @@
   lineinfile:
     dest: '/etc/default/docker'
     regexp: '^#?DOCKER_OPTS\='
-    line: 'DOCKER_OPTS="-H tcp://0.0.0.0:2375 -H unix:///var/run/docker.sock {{ PROVISION.dockerOpts }}"'
+    line: 'DOCKER_OPTS="-H tcp://0.0.0.0:2375 -H unix:///var/run/docker.sock {{ DOCKER.opts }}"'
     state: present
   notify:
     - Restart Docker
