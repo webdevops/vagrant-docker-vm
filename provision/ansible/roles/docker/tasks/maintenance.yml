@@ -12,3 +12,12 @@
   raw: 'docker run -v /var/run/docker.sock:/var/run/docker.sock -v /var/lib/docker:/var/lib/docker --rm martin/docker-cleanup-volumes'
   when: DOCKER.cleanup.volumes is defined and DOCKER.cleanup.volumes == "1"
   ignore_errors: yes
+
+- name: Cleanup old temp builds
+  file:
+    path: "{{ item }}"
+    state: absent
+  with_fileglob:
+    - /var/lib/docker/tmp/*
+  when: DOCKER.cleanup.tmp is defined and DOCKER.cleanup.tmp == "1"
+  ignore_errors: yes

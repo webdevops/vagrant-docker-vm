@@ -156,6 +156,9 @@ DOCKER:
     # Cleanu ophaned volumes
     volumes: 1
 
+    # Cleanup /var/lib/docker/tmp/
+    tmp: 1
+
   ## Automatic docker image loading/updating
   images:
     # Official images
