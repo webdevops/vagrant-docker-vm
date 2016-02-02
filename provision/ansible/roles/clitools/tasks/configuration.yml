@@ -50,5 +50,6 @@
 
 - name: Run clitools system startup
   raw: '/usr/local/bin/ct system:startup > /dev/null'
+  ignore_errors: True
   notify:
     - Run clitools system startup
