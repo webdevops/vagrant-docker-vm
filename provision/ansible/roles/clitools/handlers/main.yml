@@ -1,2 +1,3 @@
 - name: Run clitools system startup
   command: '/usr/local/bin/ct system:startup > /dev/null'
+  ignore_errors: True
