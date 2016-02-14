@@ -1,15 +1,10 @@
 - name: Cleanup old orphaned docker images
-  raw: 'docker rmi $(docker images -qf "dangling=true")'
+  raw: 'docker images -qf "dangling=true" | xargs --no-run-if-empty docker rmi'
   when: DOCKER.cleanup.images is defined and DOCKER.cleanup.images
   ignore_errors: yes
 
-- name: Get newest cleanup docker container
-  command: "docker pull martin/docker-cleanup-volumes"
-  when: DOCKER.cleanup.volumes is defined and DOCKER.cleanup.volumes
-  ignore_errors: yes
-
 - name: Cleanup old orphaned docker volumes
-  raw: 'docker run -v /var/run/docker.sock:/var/run/docker.sock -v /var/lib/docker:/var/lib/docker --rm martin/docker-cleanup-volumes'
+  raw: 'docker volume ls -qf "dangling=true" | xargs --no-run-if-empty docker volume rm'
   when: DOCKER.cleanup.volumes is defined and DOCKER.cleanup.volumes
   ignore_errors: yes
 
