@@ -25,6 +25,7 @@
 - name: Install docker-compose
   pip:
     name: docker-compose
+    state: latest
 
 - name: Fix rights
   file:
