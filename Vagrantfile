@@ -131,6 +131,50 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     config.vm.box_check_update = true
 
     #################
+    # Provider: Parallels
+    #################
+
+    # Parallels
+    config.vm.provider :parallels do |v|
+        v.name   = configuration['VM']['name']
+        v.memory = configuration['VM']['memory']
+        v.cpus   = configuration['VM']['cpu']
+        v.update_guest_tools = true
+
+        v.customize(
+            "post-import", [
+                "set", :id,
+                 "--device-add", "hdd",
+                 "--image", "#{VAGRANT_ROOT}/disks/parallels-disk",
+                 "--type", "expand",
+                 "--size", configuration['VM']['data']['size'] * 1024,
+            ]
+        )
+
+        v.customize "pre-boot", [
+          "set", :id,
+          "--device-bootorder", "hdd0 hdd1"
+        ]
+    end
+
+    #################
+    # Provider: VMware
+    #################
+
+    # VMware Fusion and Workstation
+    [:vmware_fusion, :vmware_workstation].each do |provider|
+        config.vm.provider provider do |v|
+            v.gui = configuration['VM']['gui']
+            v.vmx["memsize"]  = configuration['VM']['memory']
+            v.vmx["numvcpus"] = configuration['VM']['cpu']
+
+            v.vmx['scsi0:1.filename'] = "#{VAGRANT_ROOT}/disks/data"
+            v.vmx['scsi0:1.present']  = 'TRUE'
+            v.vmx['scsi0:1.redo']     = ''
+        end
+    end
+
+    #################
     # Provider: VirtualBox
     #################
 
@@ -163,50 +207,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         # network
         v.customize ["modifyvm", :id, "--nictype1", "virtio"]
         v.customize ["modifyvm", :id, "--nictype2", "virtio"]
-    end
-
-    #################
-    # Provider: VMware
-    #################
-
-    # VMware Fusion and Workstation
-    [:vmware_fusion, :vmware_workstation].each do |provider|
-        config.vm.provider provider do |v|
-            v.gui = configuration['VM']['gui']
-            v.vmx["memsize"]  = configuration['VM']['memory']
-            v.vmx["numvcpus"] = configuration['VM']['cpu']
-
-            v.vmx['scsi0:1.filename'] = "#{VAGRANT_ROOT}/disks/data"
-            v.vmx['scsi0:1.present']  = 'TRUE'
-            v.vmx['scsi0:1.redo']     = ''
-        end
-    end
-
-    #################
-    # Provider: Parallels
-    #################
-
-    # Parallels
-    config.vm.provider :parallels do |v|
-        v.name   = configuration['VM']['name']
-        v.memory = configuration['VM']['memory']
-        v.cpus   = configuration['VM']['cpu']
-        v.update_guest_tools = true
-
-        v.customize(
-            "post-import", [
-                "set", :id,
-                 "--device-add", "hdd",
-                 "--image", "#{VAGRANT_ROOT}/disks/parallels-disk",
-                 "--type", "expand",
-                 "--size", configuration['VM']['data']['size'] * 1024,
-            ]
-        )
-
-        v.customize "pre-boot", [
-          "set", :id,
-          "--device-bootorder", "hdd0 hdd1"
-        ]
     end
 
     #################
