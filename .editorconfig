@@ -20,3 +20,7 @@ indent_size = 2
 [Makefile]
 indent_size = 4
 indent_style = tabs
+
+[*.rst]
+indent_style = space
+indent_size = 3
