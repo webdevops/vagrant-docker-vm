@@ -14,7 +14,6 @@ Overview
 | Please keep in mind that this Documentation is work in progress but we are happy about every contribution!
 | This Documentation is versioned in GitHub and built with ReadTheDocs.
 | Every change will be automaticaly update our Documentation if merged.
-| Did it Change?
 |
 |
 
