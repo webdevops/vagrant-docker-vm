@@ -27,11 +27,3 @@ Overview
    content/usage/index
    content/components/index
    content/contribute/index
-
-Indices and tables (to be removed)
-==================================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
-
