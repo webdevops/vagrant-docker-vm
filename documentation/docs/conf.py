@@ -59,7 +59,7 @@ source_parsers = {
 #source_encoding = 'utf-8-sig'
 
 # The master toctree document.
-master_doc = 'content'
+master_doc = 'index'
 
 # General information about the project.
 project = u'Vagrant Docker VM'

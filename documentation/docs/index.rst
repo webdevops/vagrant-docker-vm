@@ -9,20 +9,24 @@
 Overview
 ========
 
-| Welcome to the WebDevOps documentation.
-| Here you can find the current documentation for our projects.
-| Please keep in mind that this Documentation is work in progress but we are happy about every contribution!
-| This Documentation is versioned in GitHub and built with ReadTheDocs.
-| Every change will be automaticaly update our Documentation if merged.
+| This are the Documentation pages for the WebDevOps Vagrant Docker VM.
+| This Vagrant VM will provide you an easy solution for virtualized development with Docker.
+| Please keep in mind that this documentation is still work in progress.
 |
 |
 
 .. toctree::
-   :caption: Documentation Overview
+   :maxdepth: 5
+   :caption: General
 
-   content/introduction
    Back to Project Overview <http://webdevops-documentation.readthedocs.org/en/latest/>
+   content/introduction
+
+.. toctree::
+   :caption: Documentation
+
    content/gettingStarted/index
    content/usage/index
    content/components/index
    content/contribute/index
+
