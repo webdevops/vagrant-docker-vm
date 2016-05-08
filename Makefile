@@ -28,3 +28,17 @@ vmware-shrink:
 	echo " * Shrink discs"
 	/Applications/VMware\ Fusion.app/Contents/Library/vmware-vdiskmanager -d disks/data
 	/Applications/VMware\ Fusion.app/Contents/Library/vmware-vdiskmanager -k disks/data
+
+vbox-shrink:
+	vagrant up
+	echo " * Cleanup docker images"
+	vagrant ssh -- 'ct docker:clean &> /dev/null'
+	echo " * Cleanup root partition"
+	vagrant ssh -- 'sudo touch /zero; sudo chmod 666 /zero; cat /dev/zero > /zero 2> /dev/null; sync; sleep 1; sudo rm /zero'
+	echo " * Cleanup data partition"
+	vagrant ssh -- 'sudo touch /mnt/data/zero; sudo chmod 666 /mnt/data/zero; cat /dev/zero > /mnt/data/zero 2> /dev/null; sync; sleep 1; sudo rm /mnt/data/zero'
+	vagrant halt
+	echo " * Shrink discs"
+	VBoxManage modifyhd --compact disks/vm-data.vdi
+
+
