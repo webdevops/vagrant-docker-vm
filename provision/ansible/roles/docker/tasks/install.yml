@@ -1,16 +1,3 @@
-- name: Uninstall docker (from Ubuntu PPA)
-  apt:
-    pkg:   '{{ item }}'
-    state: absent
-  with_items:
-    - lxc-docker
-    - lxc-docker-*
-
-- name: Add docker repository
-  apt_repository:
-    repo: 'ppa:docker-maint/testing'
-    state: absent
-
 - name: Install docker utils
   apt:
     pkg:   '{{ item }}'
@@ -19,16 +6,7 @@
     - curl
     - aufs-tools
 
-- name: Add docker repository key
-  apt_key:
-    keyserver: keyserver.ubuntu.com
-    id:        58118E89F3A912897C070ADBF76221572C52609D
 
-- name: Add docker repository
-  apt_repository:
-    repo:  'deb https://apt.dockerproject.org/repo ubuntu-trusty main'
-    state: present
-    update_cache: yes
 
 - name: Install docker
   apt:

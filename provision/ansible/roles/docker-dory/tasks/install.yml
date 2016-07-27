@@ -1,0 +1,9 @@
+---
+
+- name: Install dory
+  gem:
+    name:  '{{ item }}'
+    state: present
+    user_install: no
+  with_items:
+   - dory

@@ -2,7 +2,7 @@
   lineinfile:
     destfile: /etc/rc.local
     insertbefore: '^exit 0'
-    line:  '/usr/local/bin/ct system:startup > /dev/null'
+    line:  '/usr/local/bin/ct system:startup > /dev/null &'
     state: present
 
 - name: Deploy local configuration

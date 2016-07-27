@@ -11,6 +11,6 @@
     regexp: '^[\s#]*{{ item.variable }}[\s]*='
     line:   '{{ item.variable }}={{ item.value }}'
   with_items:
-    - { variable: 'listen', value: '127.0.0.1 {{ ansible_eth1.ipv4.address }}' }
+    - { variable: 'listen', value: '127.0.0.1 {{ VM.network.private.address }}' }
   notify:
     - Restart dovecot

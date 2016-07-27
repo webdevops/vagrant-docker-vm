@@ -1,0 +1,9 @@
+---
+
+- include: install/common.yml
+  tags:
+    - bootstrap
+
+- include: install/{{ PROVISION.gui }}.yml
+  tags:
+    - bootstrap

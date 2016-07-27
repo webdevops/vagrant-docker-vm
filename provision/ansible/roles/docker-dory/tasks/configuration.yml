@@ -1,0 +1,19 @@
+---
+- name: Deploy docker.service (template)
+  template:
+    src:   templates/dory.yml.j2
+    dest:  /etc/dory.yml
+    owner: vagrant
+    group: root
+    mode:  0775
+
+- name: Symlink dory.yml into home directories
+  file:
+    src: /etc/dory.yml
+    dest: '{{ item }}'
+    owner: vagrant
+    group: vagrant
+    state: link
+  with_items:
+    - /root/.dory.yml
+    - /home/vagrant/.dory.yml

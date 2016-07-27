@@ -1,53 +1,17 @@
-- name: Configure docker
-  lineinfile:
-    dest: '/etc/default/docker'
-    regexp: '^#?DOCKER_OPTS\='
-    line: 'DOCKER_OPTS="-H tcp://0.0.0.0:2375 -H unix:///var/run/docker.sock {{ DOCKER.opts }}"'
-    state: present
+- name: Deploy docker.service (template)
+  template:
+    src:   templates/docker.service.j2
+    dest:  /etc/systemd/system/docker.service
+    owner: vagrant
+    group: root
+    mode:  0775
   notify:
     - Restart Docker
-
-- name: Create /opt/docker/bin/ directory
-  file:
-    dest:  /opt/docker/bin/
-    owner: vagrant
-    group: vagrant
-    mode:  0777
-    state: directory
-
-- name: Deploy docker bin files
-  synchronize:
-    rsync_path: "sudo rsync"
-    src: roles/docker/files/bin/
-    dest: /opt/docker/bin/
-    delete: no
 
 - name: Install docker-compose
   pip:
     name: docker-compose
     state: latest
-
-- name: Fix rights
-  file:
-    path: '{{ item.path }}'
-    state: '{{ item.state }}'
-    owner: vagrant
-    group: vagrant
-    mode: '{{ item.mode }}'
-  with_items:
-   - { path: '/opt/docker/bin/compose-wrapper.sh', state : 'file', mode: '0777' }
-
-- name: Add symlinks
-  file:
-    src:  '{{ item.src }}'
-    dest: '{{ item.dest }}'
-    state: 'link'
-    owner: vagrant
-    group: vagrant
-    mode: '0777'
-    force: yes
-  with_items:
-   - { src: '/opt/docker/bin/compose-wrapper.sh',   dest: '/usr/local/bin/dcc' }
 
 #############################
 # Apparmor profile

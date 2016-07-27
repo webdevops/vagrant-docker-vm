@@ -1,0 +1,31 @@
+---
+
+dory:
+  # Be careful if you change the settings of some of
+  # these services.  They may not talk to each other
+  # if you change IP Addresses.
+  # For example, resolv expects a nameserver listening at
+  # the specified address.  dnsmasq normally does this,
+  # but if you disable dnsmasq, it
+  # will make your system look for a name server that
+  # doesn't exist.
+  dnsmasq:
+    enabled: true
+    domains:               # array of domains that will be resolved to the specified address
+      - domain: docker     # you can set '#' for a wilcard
+        address: {{ VM.network.private.address }} # return for queries against the domain
+      - domain: dev
+        address: {{ VM.network.private.address }}
+      - domain: vm
+        address: {{ VM.network.private.address }}
+    container_name: dory_dnsmasq
+    port: 53  # port to listen for dns requests on.  must be 53 on linux. can be anything that's open on macos
+  nginx_proxy:
+    enabled: true
+    container_name: dory_dinghy_http_proxy
+    https_enabled: true
+    ssl_certs_dir: ''  # leave as empty string to use default certs
+  resolv:
+    enabled: true
+    nameserver: 127.0.0.1
+    port: 53  # port where the nameserver listens. On linux it must be 53

@@ -1,0 +1,11 @@
+---
+
+- name: Install common desktop
+  apt:
+    pkg:   '{{ item }}'
+    state: present
+  with_items:
+    - ubuntu-desktop
+    - xserver-xorg-video-vmware
+    - xserver-xorg-video-vesa
+    - xserver-xorg-video-fbdev

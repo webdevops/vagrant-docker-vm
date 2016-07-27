@@ -14,11 +14,11 @@
     line:   '{{ item.variable }}={{ item.value }}'
   with_items:
     - { variable: 'smtpd_banner',             value: '$myhostname ESMTP DEV-VM (Mail Sandbox)' }
-    - { variable: 'inet_interfaces',          value: '127.0.0.1,{{ ansible_eth1.ipv4.address }}' }
+    - { variable: 'inet_interfaces',          value: '127.0.0.1,{{ VM.network.private.address }}' }
     - { variable: 'header_checks',            value: 'regexp:/etc/postfix/additional_headers' }
     - { variable: 'recipient_canonical_maps', value: 'regexp:/etc/postfix/recipient_canonical_maps' }
     - { variable: 'home_mailbox',             value: '.mail/' }
-    - { variable: 'mynetworks',               value: '127.0.0.0/8 168.100.189.0/28 [::1]/128 [fe80::]/10 [2001:240:587::]/64 172.16.0.0/12 {{ ansible_eth1.ipv4.address }} {{ ansible_eth1.ipv4.network }}/24' }
+    - { variable: 'mynetworks',               value: '127.0.0.0/8 168.100.189.0/28 [::1]/128 [fe80::]/10 [2001:240:587::]/64 172.16.0.0/12 {{ VM.network.private.address }} {{ VM.network.private.address }}/24' }
     - { variable: 'message_size_limit',       value: '102400000' }
     - { variable: 'header_checks',            value: 'regexp:/etc/postfix/additional_headers' }
   notify:

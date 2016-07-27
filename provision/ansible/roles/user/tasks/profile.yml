@@ -1,7 +1,7 @@
 - name: Deploy user files
   synchronize:
     rsync_path: "sudo rsync"
-    src: roles/user/files/profile/
+    src: /vagrant/home/
     dest: /home/vagrant/
     delete: no
 

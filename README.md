@@ -20,7 +20,7 @@ Hint: Vagrant doesn't provides GUI tools, it's just a CLI tool.
 
 ## Features
 
-- Ubuntu 14.04 LTS
+- Ubuntu 16.04 LTS
 - Docker daemon
 - HTTP Reverse Proxy
 - Mail sandbox (catches all local and outgoing SMTP connections, with IMAP service)

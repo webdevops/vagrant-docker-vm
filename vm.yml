@@ -28,17 +28,13 @@ VM:
   name: 'DEV-VM'
 
   # Base image
-  # You can use nearly any Ubuntu 14.04 vagrant base image.
-  # This VM is tested with box-cutter and webdevops image.
-  #
-  # box-cutter is a plain Ubuntu image and webdevops image is a
-  # prebuilt one with all tools preinstalled (faster provisioning)
+  # You can use nearly any Ubuntu 16.04 vagrant base image.
+  # This VM is tested with box-cutter image
   #
   # Images:
-  # -> webdevops/ubuntu-docker
-  # -> box-cutter/ubuntu1404-docker
+  # -> box-cutter/ubuntu1604
   #
-  image: 'webdevops/ubuntu-docker'
+  image: 'boxcutter/ubuntu1604'
 
   # Enable GUI mode (show screen of VM)
   gui: false
@@ -119,7 +115,7 @@ VM:
     # You sometimes have to switch controller if the image is using another one.
     # See VM settings in VirtualBox for the correct naming.
     #
-    #  -> 'IDE Controller'  (eg. webdevops prebuilt 0.2)
+    #  -> 'IDE Controller'
     #  -> 'SATA Controller'
     diskController: 'IDE Controller'
 
@@ -134,8 +130,9 @@ PROVISION:
   mail:        1      # Mail sandbox
   php:         1      # Local PHP
   docker:      1      # Docker server
-  dockerProxy: 1      # Docker reverse proxy for containers (apache)
+  dockerDory:  1      # Docker docker service --> https://github.com/FreedomBen/dory
   clitools:    1      # CliTools
+  desktop:     0      # GUI desktop [0, kde, unity, gnome]
 
   ## Development domain (automatic redirect of *.vm for internal use)
   developmentDomain: 'vm'
@@ -160,81 +157,7 @@ DOCKER:
     tmp: 1
 
   ## Automatic docker image loading/updating
-  images:
-    # Official images
-    - ubuntu:12.04
-    - ubuntu:14.04
-    - ubuntu:15.04
-    - centos:7
-    # WebDevOps images
-    - webdevops/php-boilerplate:ubuntu-12.04
-    - webdevops/php-boilerplate:ubuntu-14.04
-    - webdevops/php-boilerplate:ubuntu-15.04
-    - webdevops/php-boilerplate:centos-7
-    # Apache
-    - httpd:2.2
-    - httpd:2.4
-    # Nginx
-    - nginx
-    # MySQL
-    - mariadb:5.5
-    - mariadb:10
-    - mysql:5.5
-    - mysql:5.6
-    - mysql:5.7
-    - percona:5.5
-    - percona:5.6
-    # Postgres
-    - postgres:9.4
-    # Memcached
-    - memcached
-    # Redis
-    - redis
-
-###################
-# Packages
-###################
-PACKAGES:
-
-  # Custom GNU/Linux kernel version (need reboot after provisioning)
-  #
-  # Examples:
-  #   default kernel   -> 0 or ''
-  #   specific version -> 3.19.0-25-generic
-  #   recent kernel    -> recent
-  #
-  # -- WARNING: use with caution - maybe not stable --
-  kernel:        ''
-
-###################
-# Reverse Proxy
-###################
-
-DOCKERPROXY:
-  vhosts:
-    # Docker vhosts
-    # eg.        8000.vm.dev
-    #        foo.8000.vm.dev
-    #            8005.vm.dev
-    #    bar.foo.8005.vm.dev
-    #                8000.vm
-    #            foo.8000.vm
-    #                8005.vm
-    #        bar.foo.8005.vm
-    - { type: 'docker', domain: '8000', HTTP: 8000, HTTPS: 8443 }
-    - { type: 'docker', domain: '8001', HTTP: 8001, HTTPS: 8444 }
-    - { type: 'docker', domain: '8002', HTTP: 8002, HTTPS: 8445 }
-    - { type: 'docker', domain: '8003', HTTP: 8003, HTTPS: 8446 }
-    - { type: 'docker', domain: '8004', HTTP: 8004, HTTPS: 8447 }
-    - { type: 'docker', domain: '8005', HTTP: 8005, HTTPS: 8448 }
-    # solr.vm
-    - { type: 'solr',   domain: 'solr', HTTP: 18983 }
-    # elasticsearch.vm
-    - { type: 'docker', domain: 'elasticsearch', HTTP: 19200 }
-    # vagrant share proxy
-    - { type: 'vagrantshare', HTTP: 8000, HTTPS: 8443 }
-    # docker fallback (default *.vm redirect)
-    - { type: 'dockerfallback', HTTP: 8000, HTTPS: 8443 }
+  images: []
 
 ###################
 # Clitools settings
@@ -258,7 +181,7 @@ FIREWALL:
   bridge:
 
     # Interface of bridge
-    interface: eth2
+    interface: enp0s5
 
     # List of allowed ports
     ports:

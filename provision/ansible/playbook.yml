@@ -1,27 +1,26 @@
 - hosts: all
   remote_user: vagrant
-  sudo_user: root
-  sudo: yes
+  become: yes
+  become_user: root
   vars_files:
     - /vagrant/provision/ansible/default.yml
     - /vagrant/vm.yml
   roles:
-    - common
-    - { role: vm-vmware,    when: ansible_virtualization_type == "VMware" }
+    - { role: repositories  }
+    - { role: common        }
     - { role: update,       when: PROVISION.update == 1 }
-    - { role: kernel,       when: PACKAGES.kernel != 0 and PACKAGES.kernel != "" }
     - { role: disk          }
     - { role: ssh           }
     - { role: samba,        when: PROVISION.samba == 1 }
-    - { role: dnsmasq       }
     - { role: php,          when: PROVISION.php == 1 }
-    - { role: docker,       when: PROVISION.docker == 1 }
-    - { role: docker-proxy, when: PROVISION.dockerProxy == 1 }
-    - { role: mail,         when: PROVISION.mail == 1 }
     - { role: ntp,          when: PROVISION.ntp == 1 }
+    - { role: mail,         when: PROVISION.mail == 1 }
     - { role: firewall       }
+    - { role: docker,       when: PROVISION.docker == 1 }
+    - { role: docker-dory,  when: PROVISION.dockerDory == 1 }
     - { role: clitools,     when: PROVISION.clitools == 1 }
     - { role: monit          }
+    - { role: desktop,      when: PROVISION.desktop != 0 }
     - { role: user           }
     - { role: customization  }
     - { role: finalize       }

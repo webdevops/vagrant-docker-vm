@@ -7,7 +7,6 @@
   include: postfix/configuration.yml
   tags:
     - bootstrap
-    - maintenance
 
 - name: Init postfix
   include: postfix/init.yml
@@ -23,4 +22,3 @@
   include: dovecot/configuration.yml
   tags:
     - bootstrap
-    - maintenance

@@ -2,13 +2,11 @@
   synchronize:
     rsync_path: "sudo rsync"
     src: roles/php/files/
-    dest: /etc/php5/
+    dest: /etc/php/7.0/
     delete: no
 
 - name: Enable php modules/configurations
-  command: 'php5enmod {{ item }}'
+  command: 'phpenmod {{ item }}'
   with_items:
-   - mcrypt
-   - imap
    - local-prod
    - local-dev

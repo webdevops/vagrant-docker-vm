@@ -10,5 +10,3 @@
 
 - name: Start firewall
   command: 'service firewall-vm restart'
-  notify:
-    - Restart Docker

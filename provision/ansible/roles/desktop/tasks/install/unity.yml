@@ -1,0 +1,8 @@
+---
+
+- name: Install Unity
+  apt:
+    pkg:   '{{ item }}'
+    state: present
+  with_items:
+    - ubuntu-desktop

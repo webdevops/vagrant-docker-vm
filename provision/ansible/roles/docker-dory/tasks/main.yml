@@ -1,0 +1,12 @@
+- include: install.yml
+  tags:
+    - bootstrap
+
+- include: configuration.yml
+  tags:
+    - bootstrap
+
+- include: startup.yml
+  tags:
+    - bootstrap
+    - maintenance

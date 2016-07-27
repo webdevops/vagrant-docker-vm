@@ -1,8 +1,3 @@
-- name: Add repositories
-  include: repository.yml
-  tags:
-    - bootstrap
-
 - name: Install packages
   include: packages.yml
   tags:

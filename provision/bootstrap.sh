@@ -8,7 +8,7 @@ set -o errexit   ## set -e : exit the script if any statement returns a non-true
 export DEBIAN_FRONTEND="noninteractive"
 export PYTHONUNBUFFERED=1
 
-SCRIPT_DIR=$(dirname $(readlink -f "$0"))
+SCRIPT_DIR="$(dirname "$(readlink -f "$0")")"
 
 export ANSIBLE_CONFIG="${SCRIPT_DIR}/ansible/ansible.cfg"
 

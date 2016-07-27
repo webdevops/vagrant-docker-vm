@@ -1,0 +1,25 @@
+- name: Enable partner repositories
+  lineinfile:
+    dest:   /etc/apt/sources.list
+    regexp: '{{ item.regexp }}'
+    line:   '{{ item.line }}'
+  with_items:
+   - { regexp: '#?[\s]*deb http://archive.canonical.com/ubuntu xenial partner', line: 'deb http://archive.canonical.com/ubuntu xenial partner' }
+   - { regexp: '#?[\s]*deb-src http://archive.canonical.com/ubuntu xenial partner', line: 'deb-src http://archive.canonical.com/ubuntu xenial partner' }
+
+- raw: 'apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 16126D3A3E5C1192'
+
+- name: Add docker repository key
+  apt_key:
+    keyserver: keyserver.ubuntu.com
+    id:        58118E89F3A912897C070ADBF76221572C52609D
+
+- name: Add docker repository
+  apt_repository:
+    repo:  'deb https://apt.dockerproject.org/repo ubuntu-xenial main'
+    state: present
+    update_cache: yes
+
+- name: Update system
+  apt:
+    update_cache: yes

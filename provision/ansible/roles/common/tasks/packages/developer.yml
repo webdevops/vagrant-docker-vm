@@ -68,7 +68,7 @@
     state: present
   with_items:
     - libsqlite3-dev
-    - php5-dev
+    - php7.0-dev
     - libcurl3-gnutls-dev
     - libxml2-dev
     - libxml2-utils
