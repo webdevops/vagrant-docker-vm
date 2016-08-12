@@ -71,6 +71,7 @@ VM:
     # Private/Host-only network
     private:
       address: 192.168.56.2
+      netmask: 192.168.56.0/24
 
     # Public bridged network
     #  |WARNING| This can be a big security issue and an attacker could
@@ -176,20 +177,8 @@ CLITOOLS:
 # Firewall settings
 ###################
 FIREWALL:
-
-  # Network bridge firewall
-  bridge:
-
-    # Interface of bridge
-    interface: enp0s5
-
-    # List of allowed ports
-    ports:
-      # list of ports
-      # required fields: port, protocol
-      # optional fields: source
+  rules:
       #- { port: 22, protocol: tcp, source: '10.0.0.0/8' } # SSH
+      #- { port: 143, protocol: tcp } # IMAP
       - { port: 80, protocol: tcp }  # HTTP
       - { port: 443, protocol: tcp } # HTTPS
-      #- { port: 143, protocol: tcp } # IMAP
-

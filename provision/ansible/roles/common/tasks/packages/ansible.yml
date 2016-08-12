@@ -9,3 +9,4 @@
     - python-pycurl
     - python-mysqldb
     - python-passlib
+    - python-netaddr

@@ -12,8 +12,7 @@
 IPTABLES='/sbin/iptables'
 FIREWALL_INFOMSG=1
 
-ETH0_IP=$(ifdata -pa eth0)
-ETH1_IP=$(ifdata -pa eth1)
+DEFAULT_GW_IP="$(/sbin/ip route | awk '/default/ { print $3 }')"
 
 #################################################
 ### Function firewall_ruleset_standard
@@ -55,38 +54,31 @@ function firewall_ruleset_standard() {
 {% endif %}
 
 
-    {% if FIREWALL is defined %}
-        {% for fwRuleName in FIREWALL %}
+{% if FIREWALL is defined and FIREWALL.rules is defined %}
+    firewall_infomsg "[CHAIN:custom] custom rules"
+    $IPTABLES -N "FIREWALL.rules"
+    $IPTABLES -F "FIREWALL.rules"
 
-            {% if fwRuleName is defined and FIREWALL[fwRuleName].interface is defined and FIREWALL[fwRuleName].interface %}
+    ## allow vagrant connection
+    $IPTABLES -A "FIREWALL.rules" --source "${DEFAULT_GW_IP}/24" -j ACCEPT
 
-    #########################
-    # Provision rule for "{{ fwRuleName }}"
-    #   - interface: {{ FIREWALL[fwRuleName].interface }}
-    #########################
+    ## allow private network
+    $IPTABLES -A "FIREWALL.rules" --source "{{VM.network.private.netmask}}" -j ACCEPT
 
-    firewall_infomsg "[CHAIN:DEFAULT] {{ fwRuleName }}-rules"
-    $IPTABLES -N "{{ fwRuleName }}-rules"
-    $IPTABLES -F "{{ fwRuleName }}-rules"
-
-                {% for item in FIREWALL[fwRuleName].ports %}
-                    {% if item.port is defined and item.port %}
-
-    $IPTABLES -A "{{ fwRuleName }}-rules" \
-        --protocol "{{ item.protocol }}" \
-        --dport "{{ item.port }}" \
-        {% if item.source is defined %}--source "{{ item.source }}" {% endif %} -j ACCEPT
-                    {% endif %}
-                {% endfor %}
-
+    ## custom rules
+    {% for rule in FIREWALL.rules %}
+        {% if rule.port is defined and rule.port %}
+    $IPTABLES -A "FIREWALL.rules" \
+        --protocol "{{ rule.protocol }}" \
+        --dport "{{ rule.port }}" \
+        {% if rule.source is defined %}--source "{{ rule.source }}" {% endif %} -j ACCEPT
+        {% endif %}
+    {% endfor %}
     # reject all other traffic
-    $IPTABLES -A "{{ fwRuleName }}-rules" -j reject-rules
+    $IPTABLES -A "FIREWALL.rules" -j reject-rules
 
-    $IPTABLES -A INPUT --in-interface "{{ FIREWALL[fwRuleName].interface }}" -j "{{ fwRuleName }}-rules"
-            {% endif %}
-
-        {% endfor %}
-    {% endif %}
+    $IPTABLES -A INPUT -j "FIREWALL.rules"
+{% endif %}
 
 }
 
