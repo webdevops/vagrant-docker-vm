@@ -4,6 +4,6 @@
   tags:
     - bootstrap
 
-- include: install/{{ PROVISION.gui }}.yml
+- include: install/{{ PROVISION.desktop }}.yml
   tags:
     - bootstrap
