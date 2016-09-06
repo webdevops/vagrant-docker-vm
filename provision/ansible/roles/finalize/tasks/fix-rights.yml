@@ -1,3 +1,5 @@
+---
+
 - name: Fix filesystem rights
   file:
     path:    '{{ item.path }}'
@@ -7,6 +9,7 @@
     group:   'vagrant'
     recurse: '{{ item.recurse }}'
   with_items:
+   - { path: '/home/vagrant',                           recurse: 'no',  mode: '0755' }
    - { path: '/home/vagrant/.config/',                  recurse: 'yes', mode: '0775' }
    - { path: '/home/vagrant/.ssh/',                     recurse: 'no',  mode: '0700' }
    - { path: '/home/vagrant/.ssh/.ssh/authorized_keys', recurse: 'no',  mode: '0600' }
