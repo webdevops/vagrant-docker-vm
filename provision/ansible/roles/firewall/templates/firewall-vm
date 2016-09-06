@@ -59,11 +59,18 @@ function firewall_ruleset_standard() {
     $IPTABLES -N "FIREWALL.rules"
     $IPTABLES -F "FIREWALL.rules"
 
+    ## allow local connections
+    $IPTABLES -A "FIREWALL.rules" --source "127.0.0.1/8" -j ACCEPT
+    $IPTABLES -A "FIREWALL.rules" --destination "127.0.0.1/8" -j ACCEPT
+
     ## allow vagrant connection
     $IPTABLES -A "FIREWALL.rules" --source "${DEFAULT_GW_IP}/24" -j ACCEPT
 
     ## allow private network
     $IPTABLES -A "FIREWALL.rules" --source "{{VM.network.private.netmask}}" -j ACCEPT
+
+    ## allow related (active) connections
+    $IPTABLES -A "FIREWALL.rules" -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
 
     ## custom rules
     {% for rule in FIREWALL.rules %}
