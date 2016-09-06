@@ -42,16 +42,20 @@ VM:
   # ---------------------------------------------
   # Resource settings
   #
+
   # cpu:
   #   auto -> max number of CPU cores
   #      2 -> 2 CPU cores
-  #
-  # memory:
+  cpu:    'auto'
+
+  # memory (in MB):
   #   auto -> 1/4 of system RAM
   #   1500 -> 1.5 GB RAM
-  #
-  cpu:    'auto'
   memory: 'auto'
+
+  # vram (in MB):
+  #   video memory (currently vbox only)
+  vram:   100
 
   # ---------------------------------------------
   # Data image (additonal partition) settings
