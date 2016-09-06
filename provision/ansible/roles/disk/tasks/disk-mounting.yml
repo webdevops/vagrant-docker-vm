@@ -34,6 +34,7 @@
   shell: 'mkdir /mnt/data/docker && cp -a /var/lib/docker/* /mnt/data/docker'
   args:
     creates: '/mnt/data/docker/'
+  ignore_errors: True
 
 - name: Setup rights for docker
   file:
