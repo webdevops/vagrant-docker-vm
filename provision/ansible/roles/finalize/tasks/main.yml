@@ -1,5 +1,5 @@
-- name: Fix rights
-  include: fix-rights.yml
+- name: Fix permissions
+  include: fix-permissions.yml
   tags:
     - bootstrap
     - maintenance
