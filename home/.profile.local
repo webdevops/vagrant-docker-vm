@@ -1,0 +1,11 @@
+# Start ssh-agent if none is available
+if [ -z "$SSH_AUTH_SOCK" ] ; then
+    eval `ssh-agent -s`
+    ssh-add
+fi
+
+# SSH auto root (via sudo)
+function sshroot() {
+	ssh "$@" -t "sudo su"
+}
+

@@ -29,6 +29,25 @@
    - { path: '/home/vagrant/.subversion/config',   state : 'file',      mode: '0600' }
    - { path: '/home/vagrant/.my.cnf',              state : 'file',      mode: '0600' }
    - { path: '/home/vagrant/.gitconfig',           state : 'file',      mode: '0644' }
+   - { path: '/home/vagrant/.profile.local',       state : 'file',      mode: '0644' }
+
+- name: Make sure .profile.local exists
+  file:
+    path: '/home/vagrant/.profile.local'
+    state: touch
+    owner: vagrant
+    group: vagrant
+    mode:  0644
+
+- name: Register .profile.local
+  lineinfile:
+    dest: '{{ item.file }}'
+    regexp: 'source ~/.profile.local'
+    line:   'source ~/.profile.local'
+    state: present
+  with_items:
+   - { file: '/home/vagrant/.zshrc' }
+   - { file: '/home/vagrant/.bashrc' }
 
 - name: Register aliases
   lineinfile:

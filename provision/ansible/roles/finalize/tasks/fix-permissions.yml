@@ -19,3 +19,4 @@
    - { path: '/home/vagrant/tmp/',                      recurse: 'no',  mode: '0775' }
    - { path: '/usr/local/bin/',                         recurse: 'yes', mode: '0775' }
    - { path: '/var/www/',                               recurse: 'no',  mode: '0775' }
+
