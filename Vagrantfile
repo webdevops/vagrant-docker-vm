@@ -193,10 +193,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         v.customize ["modifyvm", :id, "--hwvirtex",            "on"]
         v.customize ["modifyvm", :id, "--nestedpaging",        "on"]
 
-        # Workaround: stability fix
-        v.auto_nat_dns_proxy = false
-        v.customize ["modifyvm", :id, "--natdnsproxy1", "off" ]
-        v.customize ["modifyvm", :id, "--natdnshostresolver1", "off" ]
+        v.customize ["modifyvm", :id, "--natdnsproxy1",        "on"]
+        v.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
 
         # second disk
         unless File.exist?(DiskVmData)
