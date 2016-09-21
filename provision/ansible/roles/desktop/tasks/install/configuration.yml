@@ -1,0 +1,11 @@
+---
+
+- name: Deploy lightdm configuration (autologin)
+   template:
+    src:   templates/vagrant.conf.j2
+    dest:  /etc/lightdm/lightdm.conf.d/vagrant.conf
+     owner: vagrant
+     group: root
+     mode:  0775
+   notify:
+    - Restart LightDM

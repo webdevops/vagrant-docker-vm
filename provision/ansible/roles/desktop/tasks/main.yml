@@ -7,3 +7,7 @@
 - include: install/{{ PROVISION.desktop }}.yml
   tags:
     - bootstrap
+
+- include: configuration.yml
+  tags:
+    - bootstrap
