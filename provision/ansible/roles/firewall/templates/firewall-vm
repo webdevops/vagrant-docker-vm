@@ -45,18 +45,18 @@ function firewall_ruleset_standard() {
     $IPTABLES -t nat -A OUTPUT -p tcp --dport  25 -j DNAT --to-destination 127.0.0.1:25
     $IPTABLES -t nat -A OUTPUT -p tcp --dport 587 -j DNAT --to-destination 127.0.0.1:25
 
-    $IPTABLES -t nat -I PREROUTING 1 -p tcp --dport 25 -j DNAT --to-destination "$ETH1_IP"
-    $IPTABLES -t nat -I POSTROUTING 1 -p tcp -d "$ETH1_IP" --dport 25 -j MASQUERADE
+    $IPTABLES -t nat -I PREROUTING 1 -p tcp --dport 25 -j DNAT --to-destination "127.0.0.1"
+    $IPTABLES -t nat -I POSTROUTING 1 -p tcp -d "127.0.0.1" --dport 25 -j MASQUERADE
 
-    $IPTABLES -t nat -I PREROUTING 1 -p tcp --dport 587 -j DNAT --to-destination "$ETH1_IP:25"
-    $IPTABLES -t nat -I POSTROUTING 1 -p tcp -d "$ETH1_IP" --dport 587 -j MASQUERADE
+    $IPTABLES -t nat -I PREROUTING 1 -p tcp --dport 587 -j DNAT --to-destination "127.0.0.1:25"
+    $IPTABLES -t nat -I POSTROUTING 1 -p tcp -d "127.0.0.1" --dport 587 -j MASQUERADE
 
 {% endif %}
 
 
 {% if FIREWALL is defined and FIREWALL.rules is defined %}
-    firewall_infomsg "[CHAIN:custom] custom rules"
-    $IPTABLES -N "FIREWALL.rules"
+    firewall_infomsg "[CHAIN:FIREWALL.rules] Firewall rules"
+    $IPTABLES -N "FIREWALL.rules" || true
     $IPTABLES -F "FIREWALL.rules"
 
     ## allow local connections
@@ -68,6 +68,11 @@ function firewall_ruleset_standard() {
 
     ## allow private network
     $IPTABLES -A "FIREWALL.rules" --source "{{VM.network.private.netmask}}" -j ACCEPT
+
+    ## allow ssh
+    $IPTABLES -A "FIREWALL.rules" --protocol tcp --dport 22 --source 10.0.0.0/8      -j ACCEPT
+    $IPTABLES -A "FIREWALL.rules" --protocol tcp --dport 22 --source 172.16.0.0/12   -j ACCEPT
+    $IPTABLES -A "FIREWALL.rules" --protocol tcp --dport 22 --source 192.168.56.0/16 -j ACCEPT
 
     ## allow related (active) connections
     $IPTABLES -A "FIREWALL.rules" -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
