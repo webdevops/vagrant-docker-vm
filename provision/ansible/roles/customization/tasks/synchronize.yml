@@ -13,3 +13,12 @@
     dest:       /etc/
     delete:     no
     rsync_opts: '--exclude=.gitkeep,--chown=vagrant:vagrant'
+
+- name: Create files from examples
+  shell: cp -a "{{ item.source }}" "{{ item.destination }}"
+  args:
+    creates: "{{ item.destination }}"
+  with_items:
+    - { source: "/home/vagrant/.ssh/known_hosts.example", destination: "/home/vagrant/.ssh/known_hosts" }
+    - { source: "/home/vagrant/.ssh/config.example",      destination: "/home/vagrant/.ssh/config" }
+  ignore_errors: Yes
