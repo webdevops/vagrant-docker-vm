@@ -13,7 +13,7 @@
     group: vagrant
     mode:  0774
 
-- name: Fix rights
+- name: Fix permissions
   file:
     path: '{{ item.path }}'
     state: '{{ item.state }}'
@@ -30,6 +30,7 @@
    - { path: '/home/vagrant/.my.cnf',              state : 'file',      mode: '0600' }
    - { path: '/home/vagrant/.gitconfig',           state : 'file',      mode: '0644' }
    - { path: '/home/vagrant/.profile.local',       state : 'file',      mode: '0644' }
+  ignore_errors: Yes
 
 - name: Make sure .profile.local exists
   file:
