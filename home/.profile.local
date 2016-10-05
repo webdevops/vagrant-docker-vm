@@ -6,6 +6,6 @@ fi
 
 # SSH auto root (via sudo)
 function sshroot() {
-	ssh "$@" -t "sudo su"
+	ssh "$@" -t "sudo -E su"
 }
 
