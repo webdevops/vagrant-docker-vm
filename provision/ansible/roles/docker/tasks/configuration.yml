@@ -1,3 +1,5 @@
+---
+
 - name: Deploy docker.service (template)
   template:
     src:   templates/docker.service.j2
@@ -25,3 +27,13 @@
     state:       present
   notify:
     - Reload AppArmor
+
+#############################
+# User
+#############################
+
+- name: Add vagrant to docker group
+  user:
+    name:   'vagrant'
+    groups: 'docker'
+    append: yes
