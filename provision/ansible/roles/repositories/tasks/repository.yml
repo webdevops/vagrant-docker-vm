@@ -7,11 +7,11 @@
    - { regexp: '#?[\s]*deb http://archive.canonical.com/ubuntu xenial partner', line: 'deb http://archive.canonical.com/ubuntu xenial partner' }
    - { regexp: '#?[\s]*deb-src http://archive.canonical.com/ubuntu xenial partner', line: 'deb-src http://archive.canonical.com/ubuntu xenial partner' }
 
-- raw: 'apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 16126D3A3E5C1192'
+- raw: 'apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 16126D3A3E5C1192'
 
 - name: Add docker repository key
   apt_key:
-    keyserver: keyserver.ubuntu.com
+    keyserver: hkp://keyserver.ubuntu.com:80
     id:        58118E89F3A912897C070ADBF76221572C52609D
 
 - name: Add docker repository
