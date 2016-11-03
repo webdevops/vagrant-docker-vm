@@ -37,3 +37,9 @@
     name:   'vagrant'
     groups: 'docker'
     append: yes
+
+- name: Add docker.sh to profile.d
+  copy:
+    src: docker.sh
+    dest: /etc/profile.d/
+    mode: 0755
