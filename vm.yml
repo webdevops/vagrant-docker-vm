@@ -134,13 +134,15 @@ PROVISION:
   ntp:         1      # Time synchronization
   mail:        1      # Mail sandbox
   php:         1      # Local PHP
+  dnsmasq:     1      # dnsmasq service (needed for docker consul registration)
+  consul:      1      # Docker consul service
   docker:      1      # Docker server
   dockerDory:  1      # Docker docker service --> https://github.com/FreedomBen/dory
   clitools:    1      # CliTools
   desktop:     0      # GUI desktop [0, kde, unity, gnome]
 
-  ## Development domain (automatic redirect of *.vm for internal use)
-  developmentDomain: 'vm'
+  ## Development domain (automatic redirect of *.docker for internal use)
+  developmentDomain: 'docker'
 
 ###################
 # Docker features

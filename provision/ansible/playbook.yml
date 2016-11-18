@@ -17,6 +17,8 @@
     - { role: mail,         when: PROVISION.mail == 1 }
     - { role: firewall       }
     - { role: docker,       when: PROVISION.docker == 1 }
+    - { role: dnsmasq,      when: PROVISION.dnsmasq == 1 }
+    - { role: consul,       when: PROVISION.consul == 1 }
     - { role: docker-dory,  when: PROVISION.dockerDory == 1 }
     - { role: clitools,     when: PROVISION.clitools == 1 }
     - { role: monit          }

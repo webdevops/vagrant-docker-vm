@@ -1,0 +1,6 @@
+- name: Install dnsmasq
+  apt:
+    pkg:   '{{ item }}'
+    state: present
+  with_items:
+    - dnsmasq

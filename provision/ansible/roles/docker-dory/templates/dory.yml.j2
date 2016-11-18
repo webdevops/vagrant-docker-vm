@@ -10,7 +10,7 @@ dory:
   # will make your system look for a name server that
   # doesn't exist.
   dnsmasq:
-    enabled: true
+    enabled: false
     domains:               # array of domains that will be resolved to the specified address
       - domain: docker     # you can set '#' for a wilcard
         address: {{ VM.network.private.address }} # return for queries against the domain

@@ -1,0 +1,19 @@
+- name: Deploy dnsmasq configuration (docker)
+  template:
+    src:   roles/dnsmasq/templates/docker.j2
+    dest:  /etc/dnsmasq.d/docker
+    owner: vagrant
+    group: root
+    mode:  0644
+  notify:
+    - Restart dnsmasq
+
+- name: Deploy dnsmasq configuration (consul)
+  template:
+    src:   roles/dnsmasq/templates/consul.j2
+    dest:  /etc/dnsmasq.d/consul
+    owner: vagrant
+    group: root
+    mode:  0644
+  notify:
+    - Restart dnsmasq
