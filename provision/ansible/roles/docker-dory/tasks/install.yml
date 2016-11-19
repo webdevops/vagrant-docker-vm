@@ -3,7 +3,7 @@
 - name: Install dory
   gem:
     name:  '{{ item }}'
-    state: present
+    state: latest
     user_install: no
   with_items:
    - dory

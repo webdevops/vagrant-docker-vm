@@ -8,5 +8,4 @@
 
 - include: startup.yml
   tags:
-    - bootstrap
     - maintenance

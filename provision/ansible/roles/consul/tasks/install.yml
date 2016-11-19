@@ -1,0 +1,7 @@
+---
+
+- name: Docker pull consul and gliderlabs/registrator
+  shell: "docker pull {{ item }}"
+  with_items:
+    - consul
+    - gliderlabs/registrator
