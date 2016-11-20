@@ -10,3 +10,15 @@ IP adresses from containers by using following scheme:
 
 With Consul you can eg. connect to a MySQL database with a GUI Tool using an SSH tunnel and this address syntax without
 exposing ports to the VM.
+
+
+DNS lookup examples
+-------------------
+
+========================= ====== =========================================
+Container name            Port   DNS name
+========================= ====== =========================================
+consul                    8500   consul-8500.service.consul
+consul                    8600   consul-8600.service.consul
+dory-http-proxy            443   dory-http-proxy-443.service.consul
+========================= ====== =========================================
