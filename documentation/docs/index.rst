@@ -27,6 +27,7 @@ Overview
 
    content/gettingStarted/index
    content/usage/index
+   content/services/index
+   content/troubleshooting/index
    content/components/index
-   content/contribute/index
 

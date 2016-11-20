@@ -22,24 +22,15 @@ Hint: Vagrant doesn't provides GUI tools, it's just a CLI tool.
 
 - Ubuntu 16.04 LTS
 - Docker daemon
-- HTTP Reverse Proxy
+- HTTP Reverse Proxy (dinghy reverse proxy)
+- Consul with registrator
 - Mail sandbox (catches all local and outgoing SMTP connections, with IMAP service)
 - Samba shares (eg. for Windows)
 - Local development environment
 
-## Table of contents
+## Documentation
 
-- [Requirements](/documentation/REQUIREMENTS.md)
-- [Installation](/documentation/INSTALL.md)
-- [Usage](/documentation/USAGE.md)
-- [Customization](/documentation/CUSTOMIZATION.md)
-- [Updating - Keep your box up2date](/documentation/UPDATE.md)
-- [Services (mail, samba, ssh... ports, credentials)](/documentation/SERVICES.md)
-- [Using Docker](/documentation/DOCKER.md)
-- [Using CliTools](/documentation/CLITOOLS.md)
-- [About Provisioning](/documentation/PROVISION.md)
-- [Troubleshooting](/documentation/TROUBLESHOOTING.md)
-- [Changelog](/CHANGELOG.md)
+[Vagrant Docker VM Documentation is available on readthedocs.io](http://webdevops-documentation.readthedocs.io/projects/vagrant-docker-vm/en/latest/).
 
 ## Credits
 

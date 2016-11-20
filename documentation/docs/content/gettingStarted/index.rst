@@ -10,6 +10,18 @@ Requirements
 - VagrantManager_ (optional)
 - Virtualization Software (VirtualBox, VMware or Parallels)
 
+======================= ========================== ==========================================================
+Type                    Minimum (just working)     Recommendation (eg. for developers)
+======================= ========================== ==========================================================
+Host CPU                2 (eg. Intel Core i5)      4 physical Cores (or more, eg. Intel Core i7)
+Host RAM                8 GB                       16 GB (or more)
+Host Disk               60 GB free                 80 GB free
+VM RAM                  1.5 GB                     1/4 System RAM
+======================= ========================== ==========================================================
+
+If you want to develop in a fast way make sure to get at least the recommended values.
+
+This VM doesn't need 16 GB RAM, but you still need your browser, IDE, mail client and other tools.
 
 ------------
 Installation
@@ -74,6 +86,14 @@ Just clone the Vagrant Docker VM (or download as zip), customize the `vm.yml` an
 Under Linux and MacOS you will be asked for root rights (sudo).
 If you don't want to enter your password every time take a look at the vagrant manual for NFS usage: https://docs.vagrantup.com/v2/synced-folders/nfs.html
 
+------
+Update
+------
+
+If there are any updates in this repository just run ``vagrant up --provision`` or ``vagrant provision`` to
+update your box with the new ansible changes.
+
+
 ------------------
 Vagrant cheatsheet
 ------------------
@@ -90,7 +110,6 @@ Command                               Description
 ===================================== =========================================================================================================
 
 If you want a GUI tool for managing Vagrant VMs you can use VagrantManager_. With it you can controll your VMs from a system tray icon.
-
 
 .. _Vagrant: https://www.vagrantup.com
 .. _VagrantManager: http://vagrantmanager.com/

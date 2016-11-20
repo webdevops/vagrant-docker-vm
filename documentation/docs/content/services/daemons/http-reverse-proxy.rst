@@ -12,6 +12,6 @@ For more informations visit: https://github.com/codekitchen/dinghy-http-proxy
 =============== =======================
 Setting         Value
 =============== =======================
-Hostname        *.docker
+Hostname        \*.docker
 Port            80 and 443
 =============== =======================
