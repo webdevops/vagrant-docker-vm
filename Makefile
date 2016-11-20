@@ -1,8 +1,12 @@
 ARGS = $(filter-out $@,$(MAKECMDGOALS))
 MAKEFLAGS += --silent
+.PHONY: list documentation
 
 list:
 	sh -c "echo; $(MAKE) -p no_targets__ | awk -F':' '/^[a-zA-Z0-9][^\$$#\/\\t=]*:([^=]|$$)/ {split(\$$1,A,/ /);for(i in A)print A[i]}' | grep -v '__\$$' | grep -v 'Makefile'| sort"
+
+documentation:
+	docker run -t -i --rm -p 8080:8000 -v "$$(pwd)/documentation/docs/:/opt/docs" -e "VIRTUAL_HOST=documentation.docker" -e "VIRTUAL_PORT=8000" webdevops/sphinx sphinx-autobuild --poll -H 0.0.0.0 /opt/docs html
 
 parallels-shrink:
 	vagrant up --provider="parallels"
