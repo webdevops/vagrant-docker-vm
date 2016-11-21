@@ -1,6 +1,6 @@
-===============================
-HTTP/web (dinghy reverse proxy)
-===============================
+===========================
+HTTP reverse proxy (dinghy)
+===========================
 
 The default reverse proxy registers automatically any Docker container with ``VIRTUAL_HOST`` and ``VIRUTAL_PORT`` to
 it's configuration so multiple containers are accessable from outside without using other ports.

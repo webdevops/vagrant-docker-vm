@@ -4,7 +4,7 @@ Docker
 
 Docker is running on default port ``2376`` and is accessable from outside without SSL/TLS.
 
-Storage is configured to use AUFS but also possible to use BTRFS (see ``vm.yml``)
+Storage is configured to use AUFS but it's also possible to use BTRFS (see ``vm.yml``)
 
 Environment variables
 ---------------------
