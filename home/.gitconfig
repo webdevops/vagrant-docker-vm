@@ -18,11 +18,22 @@
     ca = commit -a --verbose
     cm = commit -m
     cam = commit -a -m
+    oops = commit --amend --no-edit
+    ci = commit
+    cia = commit --amend
 
     # diff aliases
     d = diff
     ds = diff --stat
     dc = diff --cached
+
+    # Branch
+    br = branch -avv
+
+    # Get Code
+    co = checkout
+    cp = cherry-pick
+    f = fetch -p
 
     # Status
     st = status
@@ -40,8 +51,15 @@
     # git pull with changed files fails. This alias saves all changes in stash, does a pull and applies the stash again and also push changes to server
     spp = !git stash && git p && git stash pop && git push
 
+    # Delete all deleted files
+    rma = !git ls-files --deleted -z | xargs -0 --no-run-if-empty git rm
+
     # security check
     secck = fsck --no-reflog --full --strict
+
+    # Status
+    st = status
+    changelog = "!f() { r=${1:-`git describe --tags --abbrev=0`..HEAD}; echo Changelog for $r; git log --reverse --no-merges --format='* %s' $r; }; f"
 
     # One line log tree
     lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cd) %C(bold blue)<%an>%Creset' --abbrev-commit --all
@@ -55,6 +73,8 @@
     b-ls = for-each-ref --sort=-committerdate --format='%(committerdate) %(authorname) %(refname)' refs/remotes/origin/
     # Show files ignored by git
     ign = ls-files -o -i --exclude-standard
+    #log refs
+    lr = log --all --graph --decorate --oneline --simplify-by-decoration --no-merges
     # Show last tag
     lt = describe --tags --abbrev=0
     # Delete already merged branches
