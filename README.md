@@ -30,7 +30,7 @@ Hint: Vagrant doesn't provides GUI tools, it's just a CLI tool.
 
 ## Documentation
 
-[Vagrant Docker VM Documentation is available on readthedocs.io](http://webdevops-documentation.readthedocs.io/projects/vagrant-docker-vm/en/latest/).
+- [Vagrant Docker VM Documentation](http://webdevops-documentation.readthedocs.io/projects/vagrant-docker-vm/en/ubuntu-16.04/).
 
 ## Credits
 
