@@ -1,0 +1,10 @@
+- name: Install dnsmasq
+  include: install.yml
+  tags:
+    - bootstrap
+
+- name: Configure dnsmasq
+  include: configuration.yml
+  tags:
+    - bootstrap
+    - maintenance

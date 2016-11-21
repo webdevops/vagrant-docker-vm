@@ -13,5 +13,7 @@ as well as learn about each internal part so you can customize it as you wish.
 
    gettingStarted/index
    usage/index
+   services/index
+   troubleshooting/index
    components/index
 

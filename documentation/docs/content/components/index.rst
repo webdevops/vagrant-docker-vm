@@ -9,6 +9,4 @@ This section is not done yet!
    :maxdepth: 1
 
    vagrantfile
-   configuration
    provisioning
-   ansibleRoles/roles
