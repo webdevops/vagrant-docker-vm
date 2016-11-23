@@ -1,21 +1,21 @@
 ---
 
 - name: Kill running consul and gliderlabs/registrator Docker container
-  shell: "docker kill {{ item }}"
+  shell: "docker kill {{ item }} &> /dev/null || exit 0"
   with_items:
     - consul
     - consul-registrator
   ignore_errors: True
 
 - name: Remove consul and gliderlabs/registrator Docker container
-  shell: "docker rm -f {{ item }}"
+  shell: "docker rm -f {{ item }} &> /dev/null || exit 0"
   with_items:
     - consul
     - consul-registrator
   ignore_errors: True
 
 - name: Start consul Docker container
-  shell: docker run -d --name=consul -e 'VIRTUAL_HOST=consul.docker' -e 'VIRTUAL_PORT=8500' -p 127.0.0.53:8500:8500 -p 127.0.0.53:8600:8600/tcp -p 127.0.0.53:8600:8600/udp -p 127.0.0.53:1053:8600/tcp -p 127.0.0.53:1053:8600/udp consul
+  shell: docker run -d --name=consul -e 'VIRTUAL_HOST=consul.{{ PROVISION.developmentDomain }}' -e 'VIRTUAL_PORT=8500' -p 127.0.0.53:8500:8500 -p 127.0.0.53:8600:8600/tcp -p 127.0.0.53:8600:8600/udp -p 127.0.0.53:1053:8600/tcp -p 127.0.0.53:1053:8600/udp consul
 
 - name: Start gliderlabs/registrator Docker container
   shell: docker run -d --name=consul-registrator --net=host --volume=/var/run/docker.sock:/tmp/docker.sock gliderlabs/registrator -internal -resync=600 -ttl=120 -ttl-refresh=30 -retry-attempts -1 consul://127.0.0.53:8500
