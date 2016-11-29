@@ -6,7 +6,7 @@
     - nodejs
     - nodejs-legacy
     - node-less
-
+  
 - name: Install npm
   apt:
     pkg:   '{{ item }}'
@@ -30,6 +30,7 @@
    - typescript
    - jshint
    - jslint
+  ignore_errors: True
 
 - name: Install grunt
   npm:
@@ -39,6 +40,7 @@
     production: yes
   with_items:
    - grunt
+  ignore_errors: True
 
 - name: Install gulp
   npm:
@@ -48,3 +50,4 @@
     production: yes
   with_items:
    - gulp
+  ignore_errors: True
