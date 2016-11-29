@@ -316,6 +316,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     #################
     # Workarounds
     #################
+    config.ssh.host = configuration['VM']['network']['private']['address']
     if configuration['VM']['workaround']['useSshPasswordAuth']
         # Fallback ssh connection (https://github.com/mitchellh/vagrant/issues/5186)
         # -> Authentication issues? Workaround:
