@@ -185,7 +185,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         v.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
         v.customize ["modifyvm", :id, "--memory",              configuration['VM']['memory']]
         v.customize ["modifyvm", :id, "--cpus",                configuration['VM']['cpu']]
-        v.customize ["modifyvm", :id, "--vram",                configuration['VM']['vram']]
         v.customize ["modifyvm", :id, "--chipset",             "ich9"]
         v.customize ["modifyvm", :id, "--ioapic",              "on"]
         v.customize ["modifyvm", :id, "--rtcuseutc",           "on"]
@@ -195,6 +194,12 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
         v.customize ["modifyvm", :id, "--natdnsproxy1",        "on"]
         v.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
+
+        # GFX settings
+        v.customize ["modifyvm", :id, "--vram",               configuration['VM']['vram']]
+        v.customize ["modifyvm", :id, "--graphicscontroller", "vboxvga"]
+        v.customize ["modifyvm", :id, "--accelerate2dvideo",  "on"]
+        v.customize ["modifyvm", :id, "--accelerate3d",       "on"]
 
         # second disk
         unless File.exist?(DiskVmData)
