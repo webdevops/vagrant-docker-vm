@@ -25,6 +25,7 @@
     insertafter: '[\s]*capability'
     line:        '  ptrace peer=docker-default,'
     state:       present
+  ignore_errors: True
   notify:
     - Reload AppArmor
 
