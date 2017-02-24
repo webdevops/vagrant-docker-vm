@@ -173,7 +173,7 @@ DOCKER:
     # Cleanup /var/lib/docker/tmp/
     tmp: 1
 
-  ## Automatic docker image loading/updating
+  ## Automatic docker image pulling
   images: []
 
 ###################
