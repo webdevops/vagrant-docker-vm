@@ -11,6 +11,7 @@
     - { role: repositories  }
     - { role: common        }
     - { role: update,       when: PROVISION.update == 1 }
+    - { role: manpages,     when: PROVISION.manpages == 1 }
     - { role: disk          }
     - { role: docker,       when: PROVISION.docker == 1 }
     - { role: ssh           }

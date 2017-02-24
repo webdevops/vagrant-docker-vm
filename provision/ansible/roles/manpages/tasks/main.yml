@@ -1,0 +1,24 @@
+---
+
+- name: Deploy reinstall manages script
+  copy:
+    src:   files/reinstall-manpages.sh
+    dest:  /tmp/.reinstall-manpages.sh
+    owner: root
+    group: root
+    mode:  0700
+  tags:
+    - bootstrap
+
+- name: Reinstall manpages
+  shell: bash /tmp/.reinstall-manpages.sh
+  tags:
+    - bootstrap
+
+- name: Remove reinstall manages script
+  file:
+    path: "/tmp/.reinstall-manpages.sh"
+    state: absent
+  tags:
+    - bootstrap
+

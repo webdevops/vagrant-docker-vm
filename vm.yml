@@ -139,7 +139,7 @@ PROVISION:
   dockerDory:  1      # Docker docker service --> https://github.com/FreedomBen/dory
   clitools:    1      # CliTools
   desktop:     0      # GUI desktop [0, kde, unity, gnome]
-
+  manpages:    1      # Manpages are not available in baseimage, so reinstall them
   buildEssentials: 0  # build essentials (gcc, compilers...)
 
   ## Development domain (automatic redirect of *.docker for internal use)
