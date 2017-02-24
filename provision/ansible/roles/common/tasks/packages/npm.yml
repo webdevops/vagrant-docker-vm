@@ -1,3 +1,5 @@
+---
+
 - name: Install nodejs
   apt:
     pkg:   '{{ item }}'
@@ -5,7 +7,6 @@
   with_items:
     - nodejs
     - nodejs-legacy
-    - node-less
   
 - name: Install npm
   apt:
@@ -14,40 +15,11 @@
   with_items:
     - npm
 
-#- name: Update npm packages
-#  command: 'npm update -g'
-
-- name: Install npm tools packages
+- name: Install custom npm packages
   npm:
     name:   '{{ item }}'
     global: yes
     state:  latest
     production: yes
-  with_items:
-   - growl
-   - bower
-   - phantomjs
-   - typescript
-   - jshint
-   - jslint
-  ignore_errors: True
-
-- name: Install grunt
-  npm:
-    name:   '{{ item }}'
-    global: yes
-    state:  latest
-    production: yes
-  with_items:
-   - grunt
-  ignore_errors: True
-
-- name: Install gulp
-  npm:
-    name:   '{{ item }}'
-    global: yes
-    state:  latest
-    production: yes
-  with_items:
-   - gulp
+  with_items: "{{ PROVISION.npm }}"
   ignore_errors: True

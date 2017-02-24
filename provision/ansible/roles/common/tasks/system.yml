@@ -1,3 +1,5 @@
+---
+
 - name: Add tmp cleanup at reboot
   lineinfile:
     dest:   '/etc/default/rcS'
@@ -17,7 +19,8 @@
     - Update grub
 
 - name: Setup System Hostname
-  hostname: name=DEV-VM
+  hostname:
+    name: DEV-VM
 
 - name: Setup hosts
   lineinfile:

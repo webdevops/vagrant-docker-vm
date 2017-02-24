@@ -1,3 +1,5 @@
+---
+
 - name: Install ansible libraries
   apt:
     pkg:   '{{ item }}'

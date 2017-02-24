@@ -1,24 +1,37 @@
+---
+
 - name: Install ansible packages
   include: packages/ansible.yml
+
+- name: Install system packages
+  include: packages/system.yml
 
 - name: Install default packages
   include: packages/default.yml
 
+- name: Install build-essentials packages
+  include: packages/build-essentials.yml
+  when: PROVISION.buildEssentials is defined and PROVISION.buildEssentials == 1
+
 - name: Install developer packages
   include: packages/developer.yml
-  when: PROVISION.packages == "full"
+
+- name: Install npm packages
+  include: packages/apt.yml
+  when: PROVISION.apt is defined and PROVISION.apt
 
 - name: Install npm packages
   include: packages/npm.yml
-  when: PROVISION.packages == "full"
+  when: PROVISION.npm is defined and PROVISION.npm
 
 - name: Install gem packages
   include: packages/gem.yml
-  when: PROVISION.packages == "full"
+  when: PROVISION.gem is defined and PROVISION.gem
 
-- name: Install server packages
-  include: packages/server.yml
+- name: Install pip packages
+  include: packages/pip.yml
+  when: PROVISION.pip is defined and PROVISION.pip
 
 - name: Install phar packages
   include: packages/phar.yml
-  when: PROVISION.packages == "full"
+  when: PROVISION.php == 1

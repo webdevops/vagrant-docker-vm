@@ -1,0 +1,11 @@
+---
+
+- name: Install zram (compressed swap in memory)
+  apt:
+    pkg:   zram-config
+    state: present
+
+- name: Install haveged (random number generator daemon)
+  apt:
+    pkg:   haveged
+    state: present
