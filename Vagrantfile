@@ -141,6 +141,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         v.cpus   = configuration['VM']['cpu']
         v.update_guest_tools = true
 
+        # Used linked base images, save disk space (Parallels >= 11)
+        # see https://parallels.github.io/vagrant-parallels/docs/configuration.html
+        v.linked_clone = true
+
         if configuration['VM']['gui']
             v.customize ["set", :id, "--startup-view", "window"]
             v.customize ["set", :id, "--on-window-close", "suspend"]
