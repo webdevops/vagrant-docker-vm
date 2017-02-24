@@ -141,6 +141,13 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         v.cpus   = configuration['VM']['cpu']
         v.update_guest_tools = true
 
+        if configuration['VM']['gui']
+            v.customize ["set", :id, "--startup-view", "window"]
+            v.customize ["set", :id, "--on-window-close", "suspend"]
+        else
+            v.customize ["set", :id, "--startup-view", "headless"]
+        end
+
         v.customize(
             "post-import", [
                 "set", :id,
