@@ -1,6 +1,6 @@
 # Vagrant Docker Development-VM
 
-[![latest v1.0.0](https://img.shields.io/badge/latest-v1.0.0-green.svg?style=flat)](https://github.com/mblaschke/vagrant-development/releases/tag/1.0.0)
+[![latest ubuntu-16.04](https://img.shields.io/badge/latest-ubuntu_16.04-green.svg?style=flat)](https://github.com/webdevops/vagrant-docker-vm/tree/ubuntu-16.04)
 [![License MIT](https://img.shields.io/badge/license-MIT-blue.svg?style=flat)](/LICENSE)
 
 ![Vagrant Development VM login](/documentation/VagrantVM.png)
