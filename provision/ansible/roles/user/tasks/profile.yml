@@ -25,6 +25,7 @@
   with_items:
    - { path: '/home/vagrant/',                     state : 'directory', mode: '0755' }
    - { path: '/home/vagrant/.ssh/',                state : 'directory', mode: '0700' }
+   - { path: '/home/vagrant/.ssh/config',          state : 'file',      mode: '0600' }
    - { path: '/home/vagrant/.ssh/authorized_keys', state : 'file',      mode: '0600' }
    - { path: '/home/vagrant/.ssh/known_hosts',     state : 'file',      mode: '0644' }
    - { path: '/home/vagrant/.subversion/',         state : 'directory', mode: '0700' }
