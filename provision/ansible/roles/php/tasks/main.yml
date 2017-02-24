@@ -9,3 +9,8 @@
   include: configuration.yml
   tags:
     - bootstrap
+
+- name: Install phars
+  include: phar.yml
+  tags:
+    - bootstrap

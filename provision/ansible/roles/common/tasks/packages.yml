@@ -31,7 +31,3 @@
 - name: Install pip packages
   include: packages/pip.yml
   when: PROVISION.pip is defined and PROVISION.pip
-
-- name: Install phar packages
-  include: packages/phar.yml
-  when: PROVISION.php == 1
