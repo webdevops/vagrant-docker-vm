@@ -128,7 +128,7 @@ VM:
 # Provisioning features
 ###################
 PROVISION:
-  update:      0      # do full system update for each full provisoning (currently not stable for vmware!)
+  update:      1      # do full system update for each full provisoning
   samba:       1      # Samba server
   ntp:         1      # Time synchronization
   mail:        1      # Mail sandbox
