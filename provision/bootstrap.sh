@@ -22,10 +22,10 @@ if [ -z "`which ansible-playbook`" ]; then
    echo " *** Starting installation of ansible "
    echo " ***************************************************************************** "
    apt-get update
-   apt-get -q -y --force-yes  install software-properties-common
+   apt-get -q -y install software-properties-common
    apt-add-repository ppa:ansible/ansible
-   apt-get -q -y --force-yes update
-   apt-get -q -y --force-yes install ansible  python-pycurl python-mysqldb python-passlib
+   apt-get -q -y update
+   apt-get -q -y install ansible  python-pycurl python-mysqldb python-passlib
 fi
 
 ########################
