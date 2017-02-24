@@ -1,3 +1,5 @@
+---
+
 - name: Install rupa/z
   command: 'wget {{ item.remote }} -O {{ item.path }}'
   with_items:

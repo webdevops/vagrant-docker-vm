@@ -1,3 +1,5 @@
+---
+
 - name: Deploy user files
   synchronize:
     rsync_path: "sudo rsync"

@@ -1,3 +1,5 @@
+---
+
 - name: Deploy samba configuration
   synchronize:
     rsync_path: "sudo rsync"

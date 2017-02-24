@@ -1,3 +1,5 @@
+---
+
 - name: Fetch zshrc
   command: 'wget {{ item.remote }} -O {{ item.path }}'
   with_items:

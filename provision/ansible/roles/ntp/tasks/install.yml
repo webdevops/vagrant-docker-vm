@@ -1,3 +1,5 @@
+---
+
 - name: Remove old ntp packages
   apt:
     pkg:   '{{ item }}'

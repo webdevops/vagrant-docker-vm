@@ -1,3 +1,5 @@
+---
+
 - name: Enable automatic vmware module update
   command: 'echo "answer AUTO_KMODS_ENABLED yes" | sudo tee -a /etc/vmware-tools/locations'
   ignore_errors: True

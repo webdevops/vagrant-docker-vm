@@ -1,3 +1,5 @@
+---
+
 - name: Fix permissions
   include: fix-permissions.yml
   tags:

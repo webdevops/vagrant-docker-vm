@@ -1,3 +1,5 @@
+---
+
 - name: Hardening SSH
   lineinfile:
     destfile: /etc/ssh/sshd_config

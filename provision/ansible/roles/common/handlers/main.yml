@@ -1,3 +1,5 @@
+---
+
 - name: Apply sysctl settings
   command: 'sysctl -p --ignore'
 

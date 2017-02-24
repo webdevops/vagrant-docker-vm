@@ -1,3 +1,5 @@
+---
+
 - name: Update system
   include: upgrade.yml
   tags:

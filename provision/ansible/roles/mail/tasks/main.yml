@@ -1,3 +1,5 @@
+---
+
 - name: Install postfix
   include: postfix/install.yml
   tags:

@@ -1,3 +1,5 @@
+---
+
 - name: Stop services
   command: 'service {{ item }} stop'
   with_items:

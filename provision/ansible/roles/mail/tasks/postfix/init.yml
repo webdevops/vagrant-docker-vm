@@ -1,3 +1,5 @@
+---
+
 - name: Restart postfix
   command: '{{ item }}'
   with_items:

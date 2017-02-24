@@ -1,3 +1,5 @@
+---
+
 - name: Generate ssh key
   user:
     name: vagrant

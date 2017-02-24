@@ -1,3 +1,5 @@
+---
+
 # FIXME: wait for upstream SNI support
 #- name: Fetch clitools (latest)
 #  get_url:

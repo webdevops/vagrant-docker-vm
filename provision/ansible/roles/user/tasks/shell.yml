@@ -1,3 +1,5 @@
+---
+
 - name: Set shell
   command: 'chsh -s "{{ PROFILE.shell }}" vagrant'
   when: PROFILE.shell is defined

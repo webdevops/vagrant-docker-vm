@@ -1,3 +1,5 @@
+---
+
 - name: Deploy home customization
   synchronize:
     rsync_path: "sudo rsync"

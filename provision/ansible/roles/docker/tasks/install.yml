@@ -1,3 +1,5 @@
+---
+
 - name: Install docker utils
   apt:
     pkg:   '{{ item }}'
@@ -5,8 +7,6 @@
   with_items:
     - curl
     - aufs-tools
-
-
 
 - name: Install docker
   apt:

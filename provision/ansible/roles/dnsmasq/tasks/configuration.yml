@@ -1,3 +1,5 @@
+---
+
 - name: Deploy dnsmasq configuration (docker)
   template:
     src:   roles/dnsmasq/templates/docker.j2

@@ -1,3 +1,5 @@
+---
+
 - name: Install dnsmasq
   apt:
     pkg:   '{{ item }}'

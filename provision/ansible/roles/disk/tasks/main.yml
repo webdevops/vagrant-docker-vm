@@ -1,3 +1,5 @@
+---
+
 - name: Create data disk
   include: disk-create.yml
   when: ansible_devices.sdb.partitions.sdb1 is not defined

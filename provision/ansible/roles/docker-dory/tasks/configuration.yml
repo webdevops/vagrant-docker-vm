@@ -1,4 +1,5 @@
 ---
+
 - name: Deploy docker.service (template)
   template:
     src:   templates/dory.yml.j2

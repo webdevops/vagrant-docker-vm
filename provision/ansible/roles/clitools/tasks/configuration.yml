@@ -1,3 +1,5 @@
+---
+
 - name: Setup automatic startup maintenance (clitools)
   lineinfile:
     destfile: /etc/rc.local

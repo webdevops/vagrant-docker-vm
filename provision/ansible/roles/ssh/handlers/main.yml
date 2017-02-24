@@ -1,2 +1,4 @@
+---
+
 - name: Restart ssh
   command: service ssh restart

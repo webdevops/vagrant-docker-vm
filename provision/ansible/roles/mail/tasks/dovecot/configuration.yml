@@ -1,3 +1,5 @@
+---
+
 - name: Deploy dovecot configuration
   synchronize:
     rsync_path: "sudo rsync"

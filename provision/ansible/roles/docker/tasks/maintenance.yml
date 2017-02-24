@@ -1,3 +1,5 @@
+---
+
 - name: Cleanup old orphaned docker images
   shell: 'docker system prune -f'
   when: DOCKER.cleanup.system is defined and DOCKER.cleanup..system

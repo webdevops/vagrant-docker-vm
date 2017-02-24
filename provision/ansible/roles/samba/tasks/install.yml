@@ -1,3 +1,5 @@
+---
+
 - name: Install samba
   apt:
     pkg:   '{{ item }}'

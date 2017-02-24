@@ -1,3 +1,5 @@
+---
+
 - name: Enable partner repositories
   lineinfile:
     dest:   /etc/apt/sources.list

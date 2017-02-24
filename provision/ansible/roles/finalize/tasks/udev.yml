@@ -1,3 +1,5 @@
+---
+
 - name: Remove 70-persistent-net.rules
   file:
     path:  /etc/udev/rules.d/70-persistent-net.rules

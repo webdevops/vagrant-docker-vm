@@ -1,3 +1,5 @@
+---
+
 - name: Setup ssh key (from github, authorized keys)
   include: github-ssh-key.yml
   when: PROFILE.githubUser is defined and PROFILE.githubUser != ''

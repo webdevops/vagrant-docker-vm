@@ -1,3 +1,5 @@
+---
+
 - name: Deploy firewall (template)
   template:
     src:   roles/firewall/templates/firewall-vm
