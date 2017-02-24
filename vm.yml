@@ -167,11 +167,8 @@ DOCKER:
 
   # Cleanup tasks on provisioning
   cleanup:
-    # Clean orphaned images
-    images: 1
-
-    # Cleanu ophaned volumes
-    volumes: 1
+    # Clean orphaned images and volumes
+    system: 1
 
     # Cleanup /var/lib/docker/tmp/
     tmp: 1
