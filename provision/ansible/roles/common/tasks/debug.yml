@@ -1,3 +1,5 @@
+---
+
 - name: Create /tmp/debug/ directory
   file:
     dest:  /tmp/debug/

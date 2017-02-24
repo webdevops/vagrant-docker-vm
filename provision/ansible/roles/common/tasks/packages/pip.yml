@@ -1,0 +1,7 @@
+---
+
+- name: Install custom pip packages
+  pip:
+    name:   '{{ item }}'
+  with_items: "{{ PROVISION.pip }}"
+  ignore_errors: True

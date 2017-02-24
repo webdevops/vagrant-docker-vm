@@ -1,11 +1,6 @@
 - name: Cleanup old orphaned docker images
-  raw: 'docker images -qf "dangling=true" | xargs --no-run-if-empty docker rmi'
-  when: DOCKER.cleanup.images is defined and DOCKER.cleanup.images
-  ignore_errors: yes
-
-- name: Cleanup old orphaned docker volumes
-  raw: 'docker volume ls -qf "dangling=true" | xargs --no-run-if-empty docker volume rm'
-  when: DOCKER.cleanup.volumes is defined and DOCKER.cleanup.volumes
+  shell: 'docker system prune -f'
+  when: DOCKER.cleanup.system is defined and DOCKER.cleanup..system
   ignore_errors: yes
 
 - name: Cleanup old temp builds

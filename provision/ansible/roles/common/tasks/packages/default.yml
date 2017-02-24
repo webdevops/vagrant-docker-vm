@@ -1,3 +1,5 @@
+---
+
 - name: Install default provisioning packages
   apt:
     pkg:   '{{ item }}'
@@ -5,6 +7,19 @@
   with_items:
     - parted
     - curl
+
+- name: Install python pip
+  apt:
+    pkg:   'python-pip'
+    state: present
+
+- name: Install ruby
+  apt:
+    pkg:   '{{ item }}'
+    state: present
+  with_items:
+    - ruby
+    - ruby-dev
 
 - name: Install default tool packages
   apt:
@@ -29,6 +44,8 @@
     - unzip
     - bzip2
     - p7zip-full
+    - unrar
+    - unace
 
 - name: Install default development packages
   apt:
@@ -54,4 +71,3 @@
     state: present
   with_items:
     - incron
-    - python-pip

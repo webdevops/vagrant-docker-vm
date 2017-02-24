@@ -9,4 +9,4 @@
 - name: Update ruby gems
   command: 'gem update'
   ignore_errors: True
-  when: PROVISION.packages == "full"
+  when: PROVISION.gem is defined and PROVISION.gem|length > 0​

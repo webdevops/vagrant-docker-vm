@@ -1,3 +1,5 @@
+---
+
 - name: Setup default locale settings configuration
   lineinfile:
     dest:   /etc/default/locale
