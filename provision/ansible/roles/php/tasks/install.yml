@@ -15,4 +15,5 @@
     - php7.0-xsl
     - php7.0-ldap
     - php7.0-imap
+    - php7.0-mbstring
     - php-pear
