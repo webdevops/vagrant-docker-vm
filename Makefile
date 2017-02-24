@@ -11,7 +11,7 @@ documentation:
 parallels-shrink:
 	vagrant up --provider="parallels"
 	echo " * Cleanup docker images"
-	vagrant ssh -- 'ct docker:clean &> /dev/null'
+	vagrant ssh -- 'docker system prune -f &> /dev/null'
 	echo " * Cleanup root partition"
 	vagrant ssh -- 'sudo touch /zero; sudo chmod 666 /zero; cat /dev/zero > /zero 2> /dev/null; sync; sleep 1; sudo rm /zero'
 	echo " * Cleanup data partition"
@@ -23,7 +23,7 @@ parallels-shrink:
 vmware-shrink:
 	vagrant up
 	echo " * Cleanup docker images"
-	vagrant ssh -- 'ct docker:clean &> /dev/null'
+	vagrant ssh -- 'docker system prune -f &> /dev/null'
 	echo " * Cleanup root partition"
 	vagrant ssh -- 'sudo touch /zero; sudo chmod 666 /zero; cat /dev/zero > /zero 2> /dev/null; sync; sleep 1; sudo rm /zero'
 	echo " * Cleanup data partition"
@@ -36,7 +36,7 @@ vmware-shrink:
 vbox-shrink:
 	vagrant up
 	echo " * Cleanup docker images"
-	vagrant ssh -- 'ct docker:clean &> /dev/null'
+	vagrant ssh -- 'docker system prune -f &> /dev/null'
 	echo " * Cleanup root partition"
 	vagrant ssh -- 'sudo touch /zero; sudo chmod 666 /zero; cat /dev/zero > /zero 2> /dev/null; sync; sleep 1; sudo rm /zero'
 	echo " * Cleanup data partition"
