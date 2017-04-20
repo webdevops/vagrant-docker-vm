@@ -20,6 +20,10 @@
     mode:  0777
     state: file
 
+- name: Run self update for clitools
+  command: '/usr/local/bin/ct self-update'
+  ignore_errors: True
+
 - name: Install clitools additional packages
   action: apt pkg='{{ item }}' state=latest
   with_items:
