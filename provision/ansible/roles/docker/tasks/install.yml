@@ -1,16 +1,60 @@
 ---
 
-- name: Install docker utils
+- name: Install docker requirements
   apt:
     pkg:   '{{ item }}'
     state: present
   with_items:
     - curl
     - aufs-tools
+    - apt-transport-https
 
-- name: Install docker
+- name: Uninstall old Docker versions
+  apt:
+    name: "{{ item }}"
+    state: absent
+  with_items:
+    - docker
+    - docker-engine
+    - docker.io
+
+- name: Add Docker repository key
+  apt_key:
+    id: "9DC858229FC7DD38854AE2D88D81803C0EBFCD88"
+    keyserver: "https://download.docker.com/linux/ubuntu/gpg"
+    state: present
+  register: add_repository_key
+  ignore_errors: true
+
+- name: Alternative | Add Docker repository key
+  shell: "curl -sSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -"
+  when: add_repository_key|failed
+
+- name: Add Docker repository
+  apt_repository:
+    repo: "deb [arch=amd64] https://download.docker.com/linux/{{ ansible_lsb.id|lower }} {{ ansible_lsb.codename|lower }} stable"
+    update_cache: yes
+    state: present
+
+- name: Install Docker CE
   apt:
     pkg:   '{{ item }}'
     state: latest
   with_items:
-    - docker-engine
+    - docker-ce
+
+- name: Deploy docker.service (template)
+  template:
+    src:   templates/docker.service.j2
+    dest:  /etc/systemd/system/docker.service
+    owner: vagrant
+    group: root
+    mode:  0775
+
+- name: Restart Docker
+  command: '{{ item }}'
+  with_items:
+    - systemctl daemon-reload
+    - systemctl enable docker
+    - systemctl restart docker
+
