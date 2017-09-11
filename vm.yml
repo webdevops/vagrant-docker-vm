@@ -34,7 +34,7 @@ VM:
   # Images:
   # -> box-cutter/ubuntu1604
   #
-  image: 'boxcutter/ubuntu1604'
+  image: 'box-cutter/ubuntu1604'
 
   # Enable GUI mode (show screen of VM)
   gui: false
