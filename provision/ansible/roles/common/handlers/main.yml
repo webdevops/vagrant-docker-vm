@@ -5,3 +5,8 @@
 
 - name: Update grub
   command: 'update-grub'
+
+- name: Restart services for timezone
+  command: 'service {{ item }} restart'
+  with_items:
+    - cron
