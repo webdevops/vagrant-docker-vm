@@ -40,8 +40,13 @@ path = "#{File.dirname(__FILE__)}"
 
 # Get machine configuration
 configuration = {}
-if File.exist?(path + '/vm.yml')
-	configuration = YAML::load(File.read(path + '/vm.yml')) || {}
+# Load main configuration file, whichever exists first
+for cfg_target in [ 'vm.yml', 'vm_defaults.yml' ] do
+    config_file = path + '/' + cfg_target
+    if File.exist?(config_file)
+        configuration = YAML::load(File.read(config_file)) || {}
+        break
+    end
 end
 
 ## Defaults
