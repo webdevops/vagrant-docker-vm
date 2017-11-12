@@ -25,3 +25,9 @@
   include: locale.yml
   tags:
     - bootstrap
+
+- name: Setup timezone settings
+  include: timezone.yml
+  when: VM.timezone is defined
+  tags:
+    - bootstrap

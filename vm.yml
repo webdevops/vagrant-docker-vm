@@ -57,6 +57,9 @@ VM:
   #   video memory (currently vbox only)
   vram:   100
 
+  # TimeZone (check tselect(1) for possible values)
+  #timezone: 'Etc/UTC'
+
   # ---------------------------------------------
   # Data image (additonal partition) settings
   #
