@@ -1,0 +1,19 @@
+---
+
+- name: Change timezone
+  copy:
+    content: '{{ VM.timezone }}'
+    dest:    '/etc/timezone'
+    owner:   root
+    group:   root
+    mode:    0644
+    backup:  yes
+
+- name: Update timezone
+  command: '{{ item }}'
+  with_items:
+    # https://bugs.launchpad.net/ubuntu/+source/tzdata/+bug/1554806
+    - rm -f /etc/localtime
+    - dpkg-reconfigure --frontend noninteractive tzdata
+  notify:
+    - Restart services for timezone
