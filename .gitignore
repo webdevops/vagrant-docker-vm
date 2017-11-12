@@ -1,7 +1,7 @@
 /.vagrant/
 /.idea/
-/disks/*
+/disks/**
 /customization/etc/*
 /customization/home/*
-vm.yml
+vm.yml*
 !.gitkeep
