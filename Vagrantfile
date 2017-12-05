@@ -67,21 +67,18 @@ end
 ## --- OS detection ---
 ###############################################################################
 
-module OS
-    def OS.windows?
-        (/cygwin|mswin|mingw|bccwin|wince|emx/ =~ RUBY_PLATFORM) != nil
-    end
+os = OpenStruct.new()
+os.windows = false
+os.osx = false
+os.linux = false
 
-    def OS.mac?
-        (/darwin/ =~ RUBY_PLATFORM) != nil
-    end
-
-    def OS.unix?
-        !OS.windows?
-    end
-
-    def OS.linux?
-        OS.unix? and not OS.mac?
+if Vagrant::Util::Platform.windows? then
+    os.windows = true
+else
+    if (/darwin/ =~ Vagrant::Util::Platform.platform) != nil
+        os.osx = true
+    else
+        os.linux = true
     end
 end
 
@@ -90,9 +87,9 @@ end
 ###############################################################################
 
 if configuration['VM']['cpu'] =~ /auto/
-  if OS.mac?
+  if os.osx
     configuration['VM']['cpu'] = `sysctl -n hw.ncpu`.to_i
-  elsif OS.linux?
+  elsif os.linux
     configuration['VM']['cpu'] = `nproc`.to_i
   else
     configuration['VM']['cpu'] = 2
@@ -100,9 +97,9 @@ if configuration['VM']['cpu'] =~ /auto/
 end
 
 if configuration['VM']['memory'] =~ /auto/
-  if OS.mac?
+  if os.osx
     configuration['VM']['memory'] = `sysctl -n hw.memsize`.to_i / 1024 / 1024 / 4
-  elsif OS.linux?
+  elsif os.linux
     configuration['VM']['memory'] = `grep 'MemTotal' /proc/meminfo | sed -e 's/MemTotal://' -e 's/ kB//'`.to_i / 1024 / 4
   else
     configuration['VM']['memory'] = 2048
@@ -298,7 +295,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
             #################
             # Home (only unix)
             #################
-            if OS.unix?
+            if (os.osx || os.linux)
                 config.vm.synced_folder "#{ENV['HOME']}",
                     "#{ENV['HOME']}",
                     :nfs => { :mount_options => [ "dmode=775", "fmode=774" ] }
