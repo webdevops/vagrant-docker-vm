@@ -5,8 +5,7 @@
   become: yes
   become_user: root
   vars_files:
-    - /vagrant/provision/ansible/default.yml
-    - /vagrant/vm.yml
+    - [ '/vagrant/vm.yml', '/vagrant/vm_defaults.yml' ]
   roles:
     - { role: repositories  }
     - { role: common        }
