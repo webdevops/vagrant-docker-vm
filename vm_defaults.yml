@@ -25,7 +25,7 @@ PROFILE:
 ###################
 VM:
   # Name of VM
-  name: 'DEV-VM'
+  name: 'sb-dev-vm'
 
   # Base image
   # You can use nearly any Ubuntu 16.04 vagrant base image.
@@ -97,8 +97,10 @@ VM:
   #
   sharedFolder:
     - { type: 'home' }
-    - { type: 'nfs', src: '~/game', target: '/var/www' }
-
+    - { type: 'nfs', src: '/Volumes/game', target: '/game' }
+    - { type: 'nfs', src: '/Volumes/src', target: '/src' }
+    - { type: 'nfs', src: '/Volumes/data', target: '/data' }
+    - { type: 'nfs', src: '/Volumes/b', target: '/b' }
     #- { type: 'nfs', src: '~/Projects', target: '/var/www' }
 
   # ---------------------------------------------
@@ -115,7 +117,7 @@ VM:
   workaround:
     # Fallback ssh connection (https://github.com/mitchellh/vagrant/issues/5186)
     # -> Authentication issues? Workaround:
-    useSshPasswordAuth: false
+    useSshPasswordAuth: true
 
   # ---------------------------------------------
   # VirtualBox settings
@@ -160,7 +162,7 @@ PROVISION:
   gem: []
 
   # python pip packages
-  pip: []
+  pip: [pipenv]
 
 ###################
 # Docker features
