@@ -5,9 +5,12 @@
 
 ![Vagrant Development VM login](/documentation/VagrantVM.png)
 
+
+> # *Important Note:* This project isn't actively maintained anymore. You can use `codekitchen/dinghy` as a kind of drop-in-replacement if You don't want to use tools like Docker Desktop for Mac and DDEV nowadays!
+
 Support for:
 
-- VitualBox
+- VirtualBox
 - VMware (preferred)
 - Parallels (preferred)
 
