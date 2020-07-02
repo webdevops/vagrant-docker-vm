@@ -8,8 +8,8 @@
 ###################
 PROFILE:
   ## git informations
-  email:    'user@example.com'
-  realname: 'FULL NAME'
+  email:    'www3838438@yahoo.com'
+  realname: 'www3838438'
 
   ## default shell
   shell:    '/bin/zsh'
@@ -18,14 +18,14 @@ PROFILE:
   zshShell: 'grml'
 
   ## Github username, eg. for automatic ssh pub-key fetching
-  githubUser: ''
+  githubUser: 'www3838438@yahoo.com'
 
 ###################
 # VM (vagrant) settings
 ###################
 VM:
   # Name of VM
-  name: 'DEV-VM'
+  name: 'sb-dev-vm'
 
   # Base image
   # You can use nearly any Ubuntu 16.04 vagrant base image.
@@ -65,7 +65,7 @@ VM:
   #
   data:
     # Image size in GB
-    size: 160
+    size: 99
 
     # Filesystem of image
     # -> ext4, btrfs or xfs
@@ -77,8 +77,8 @@ VM:
   network:
     # Private/Host-only network
     private:
-      address: 192.168.56.2
-      netmask: 192.168.56.0/24
+      address: 192.168.99.199
+      netmask: 192.168.99.0/24
 
     # Public bridged network
     #  |WARNING| This can be a big security issue and an attacker could
@@ -97,6 +97,10 @@ VM:
   #
   sharedFolder:
     - { type: 'home' }
+    - { type: 'nfs', src: '/Volumes/game', target: '/game' }
+    - { type: 'nfs', src: '/Volumes/src', target: '/src' }
+    - { type: 'nfs', src: '/Volumes/data', target: '/data' }
+    - { type: 'nfs', src: '/Volumes/b', target: '/b' }
     #- { type: 'nfs', src: '~/Projects', target: '/var/www' }
 
   # ---------------------------------------------
@@ -113,7 +117,7 @@ VM:
   workaround:
     # Fallback ssh connection (https://github.com/mitchellh/vagrant/issues/5186)
     # -> Authentication issues? Workaround:
-    useSshPasswordAuth: false
+    useSshPasswordAuth: true
 
   # ---------------------------------------------
   # VirtualBox settings
@@ -158,7 +162,7 @@ PROVISION:
   gem: []
 
   # python pip packages
-  pip: []
+  pip: [pipenv]
 
 ###################
 # Docker features
